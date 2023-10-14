@@ -1,0 +1,48 @@
+
+.logButton
+{
+    -fx-background-color :  linear-gradient(to top, #09203f 3%, #537895 26%,#ffffff 100%);
+    -fx-background-radius :  20 ;
+}
+.logButton:hover
+{
+    -fx-background-color : linear-gradient(to top, #09203f 17%, #537895 48%,#ffffff 100%) ;
+    -fx-background-radius :  30 ;
+}
+.logButton:pressed
+{
+    -fx-background-color : linear-gradient(to top, #09203f 36%, #537895 68%,#ffffff 100%) ;
+    -fx-background-radius :  30 ;
+}
+
+
+.mainBg
+{
+    -fx-background-color: linear-gradient(to top, #142d4c 0%, #dcdddf 60%, #ffffff 100%) ;
+}
+
+
+.navi
+{
+    -fx-background-color: linear-gradient(to bottom, rgb(20, 36, 50) 11.8%, rgb(124, 143, 161) 83.8%);
+    -fx-background-radius :  40 40 40 0;
+    
+}
+
+
+.NavButton
+{
+    -fx-background-color :  #dddddd;
+    -fx-background-radius :  20 ;
+}
+
+.NavButton:hover
+{
+    -fx-background-color :  linear-gradient( to right, #6e88a1 0%, #a7b3c0 20%,#dddddd 100%);
+    -fx-background-radius :  50 ;
+}
+.NavButton:pressed
+{
+    -fx-background-color :  linear-gradient( to right, #6e88a1 0%, #a7b3c0 50%,#dddddd 100%);
+    -fx-background-radius :  50 ;
+}

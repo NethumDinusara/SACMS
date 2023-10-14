@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sacms.SACMSController">
+   <children>
+      <VBox alignment="CENTER" prefHeight="500.0" prefWidth="546.0" styleClass="mainBg" stylesheets="@../../../mainStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <ImageView fitHeight="192.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../images/Screenshot_2023-10-13_002933-removebg-preview.png" />
+               </image>
+            </ImageView>
+         </children>
+      </VBox>
+      <Button alignment="BOTTOM_CENTER" layoutX="566.0" layoutY="217.0" mnemonicParsing="false" onAction="#LoadMember" prefHeight="138.0" prefWidth="138.0" styleClass="logButton" stylesheets="@../../../mainStyle.css" text="Member" textFill="WHITE">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="19.0" />
+         </font>
+      </Button>
+      <Label alignment="CENTER" layoutX="608.0" layoutY="67.0" prefHeight="97.0" prefWidth="234.0" text="User Login">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="40.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="51.0" fitWidth="48.0" layoutX="611.0" layoutY="262.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/icons-member.png" />
+         </image>
+      </ImageView>
+      <Button alignment="BOTTOM_CENTER" layoutX="725.0" layoutY="217.0" mnemonicParsing="false" onAction="#LoadAdvisor" prefHeight="138.0" prefWidth="138.0" styleClass="logButton" stylesheets="@../../../mainStyle.css" text="Advisor" textFill="WHITE">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="19.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="51.0" fitWidth="48.0" layoutX="770.0" layoutY="262.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/icons-Advisor.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="567.0" layoutY="395.0" opacity="0.64" prefHeight="22.0" prefWidth="112.0" text="New to SACMS ?">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="13.0" />
+         </font>
+      </Label>
+      <Button alignment="CENTER_RIGHT" layoutX="565.0" layoutY="418.0" mnemonicParsing="false" opacity="0.64" prefHeight="42.0" prefWidth="138.0" styleClass="logButton" stylesheets="@../../../mainStyle.css" text="Register" textFill="WHITE">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="19.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="31.0" fitWidth="33.0" layoutX="577.0" layoutY="424.0" opacity="0.64" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/icons-register.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
