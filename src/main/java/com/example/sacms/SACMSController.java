@@ -18,18 +18,18 @@ public class SACMSController {
     //Go to driver details
     public void LoadMember(ActionEvent actionEvent)throws Exception{
         Stage MainStage =(Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Member.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MemberLogin.fxml")));
         MainStage.setScene(new Scene(root));
-        MainStage.setTitle("Member");
+        MainStage.setTitle("Member Login");
     }
 
     @FXML
     //Go to driver details
     public void LoadAdvisor(ActionEvent actionEvent)throws Exception{
         Stage MainStage =(Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Advisor.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AdvisorLogin.fxml")));
         MainStage.setScene(new Scene(root));
-        MainStage.setTitle("Advisor");
+        MainStage.setTitle("Advisor Login");
     }
 
 }
