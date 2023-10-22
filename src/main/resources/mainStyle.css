@@ -46,3 +46,23 @@
     -fx-background-color :  linear-gradient( to right, #6e88a1 0%, #a7b3c0 50%,#dddddd 100%);
     -fx-background-radius :  50 ;
 }
+
+
+.textField{
+    -fx-border-width : 0px 0px 1px 0px;
+    -fx-background-color :  transparent;
+    -fx-border-color : rgba(0, 0, 0, 0.603);
+    -fx-text-fill :white;
+
+}
+
+.pane{
+    -fx-background-radius :  40 40 40 40;
+    -fx-background-color : linear-gradient(to top, #091b34 0%, #6388a5 100%);
+}
+
+.ClubList{
+    -fx-border-color: transparent;
+    -fx-border-width : none;
+
+}

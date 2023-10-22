@@ -21,4 +21,11 @@ public class MemberLoginController {
         MainStage.setTitle("Member");
     }
 
+    @FXML
+    public void goBack(ActionEvent actionEvent)throws Exception {
+        Stage MainStage =(Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainSACMS.fxml")));
+        MainStage.setScene(new Scene(root));
+        MainStage.setTitle("SACMS");
+    }
 }

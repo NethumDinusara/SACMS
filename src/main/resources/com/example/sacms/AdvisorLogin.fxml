@@ -7,49 +7,46 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="550.0" prefWidth="900.0" styleClass="mainBg" stylesheets="@../../../mainStyle.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sacms.AdvisorLoginController">
     <children>
-        <Pane layoutX="269.0" layoutY="82.0">
+        <Pane layoutX="269.0" layoutY="82.0" />
+        <Pane layoutX="205.0" layoutY="82.0" prefHeight="385.0" prefWidth="490.0" styleClass="pane" stylesheets="@../../../mainStyle.css">
             <children>
-                <HBox prefHeight="72.0" prefWidth="361.0">
-                    <children>
-                        <Pane>
-                            <children>
-                                <ImageView fitHeight="72.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
-                                    <image>
-                                        <Image url="@../../../images/icons8-consultation-96.png" />
-                                    </image>
-                                </ImageView>
-                                <Label alignment="TOP_RIGHT" layoutX="72.0" layoutY="14.0" text="Advisor Login">
-                                    <font>
-                                        <Font name="Arial Rounded MT Bold" size="37.0" />
-                                    </font>
-                                </Label>
-                            </children>
-                        </Pane>
-                    </children>
-                </HBox>
+                <TextField layoutX="81.0" layoutY="49.0" prefHeight="54.0" prefWidth="329.0" promptText="Username" style="-fx-background-radius: 30px; -fx-border-radius: 30px;">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="20.0" />
+                    </font>
+                </TextField>
+                <PasswordField layoutX="81.0" layoutY="117.0" prefHeight="54.0" prefWidth="330.0" promptText="password" style="-fx-background-radius: 30px; -fx-border-radius: 30px;">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="20.0" />
+                    </font>
+                </PasswordField>
+                <Button layoutX="80.0" layoutY="318.0" mnemonicParsing="false" onAction="#AdvisorMain" opacity="0.5" prefHeight="54.0" prefWidth="330.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px;" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Login">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="20.0" />
+                    </font>
+                </Button>
+            <Button layoutX="80.0" layoutY="253.0" mnemonicParsing="false" onAction="#goBack" prefHeight="54.0" prefWidth="330.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px;" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Back">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="20.0" />
+               </font>
+            </Button>
             </children>
         </Pane>
-        <TextField layoutX="285.0" layoutY="220.0" prefHeight="54.0" prefWidth="329.0" promptText="Username" style="-fx-background-radius: 30px; -fx-border-radius: 30px;">
+        <Pane layoutX="234.0" layoutY="45.0" />
+        <Label alignment="TOP_RIGHT" layoutX="355.0" layoutY="34.0" opacity="0.75" text="Advisor Login">
             <font>
-                <Font name="Arial Rounded MT Bold" size="20.0" />
+                <Font name="Arial Rounded MT Bold" size="37.0" />
             </font>
-        </TextField>
-        <PasswordField layoutX="284.0" layoutY="296.0" prefHeight="54.0" prefWidth="330.0" promptText="password" style="-fx-background-radius: 30px; -fx-border-radius: 30px;">
-            <font>
-                <Font name="Arial Rounded MT Bold" size="20.0" />
-            </font>
-        </PasswordField>
-        <Button layoutX="284.0" layoutY="412.0" mnemonicParsing="false" onAction="#AdvisorMain" prefHeight="54.0" prefWidth="330.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px;" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Login">
-            <font>
-                <Font name="Arial Rounded MT Bold" size="20.0" />
-            </font>
-        </Button>
+        </Label>
+          <ImageView fitHeight="44.0" fitWidth="38.0" layoutX="304.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+              <image>
+                  <Image url="@../../../images/icons8-consultation-96.png" />
+              </image>
+          </ImageView>
     </children>
-
 </AnchorPane>

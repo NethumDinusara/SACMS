@@ -32,4 +32,13 @@ public class SACMSController {
         MainStage.setTitle("Advisor Login");
     }
 
+    @FXML
+    //Go to driver details
+    public void LoadRegistration(ActionEvent actionEvent)throws Exception{
+        Stage MainStage =(Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("registration.fxml")));
+        MainStage.setScene(new Scene(root));
+        MainStage.setTitle("Registration");
+    }
+
 }

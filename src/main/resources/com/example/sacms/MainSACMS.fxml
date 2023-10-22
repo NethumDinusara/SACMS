@@ -10,7 +10,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sacms.SACMSController">
    <children>
-      <VBox alignment="CENTER" prefHeight="500.0" prefWidth="546.0" styleClass="mainBg" stylesheets="@../../../mainStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" prefHeight="556.0" prefWidth="546.0" styleClass="mainBg" stylesheets="@../../../mainStyle.css" AnchorPane.bottomAnchor="-6.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <ImageView fitHeight="192.0" fitWidth="260.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -49,12 +49,12 @@
             <Font name="Arial Rounded MT Bold" size="13.0" />
          </font>
       </Label>
-      <Button alignment="CENTER_RIGHT" layoutX="565.0" layoutY="418.0" mnemonicParsing="false" opacity="0.64" prefHeight="42.0" prefWidth="138.0" styleClass="logButton" stylesheets="@../../../mainStyle.css" text="Register" textFill="WHITE">
+      <Button alignment="CENTER_RIGHT" layoutX="565.0" layoutY="418.0" mnemonicParsing="false" onAction="#LoadRegistration" prefHeight="42.0" prefWidth="138.0" styleClass="logButton" stylesheets="@../../../mainStyle.css" text="Register" textFill="WHITE">
          <font>
             <Font name="Arial Rounded MT Bold" size="19.0" />
          </font>
       </Button>
-      <ImageView fitHeight="31.0" fitWidth="33.0" layoutX="577.0" layoutY="424.0" opacity="0.64" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="31.0" fitWidth="33.0" layoutX="577.0" layoutY="424.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../images/icons-register.png" />
          </image>

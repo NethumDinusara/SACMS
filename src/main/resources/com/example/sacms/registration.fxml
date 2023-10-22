@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="554.0" prefWidth="900.0" styleClass="mainBg" stylesheets="@../../../mainStyle.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sacms.RegistrationController">
+    <children>
+      <Pane layoutX="70.0" layoutY="53.0" prefHeight="458.0" prefWidth="758.0" styleClass="pane" stylesheets="@../../../mainStyle.css">
+         <children>
+              <TextField fx:id="firstName" layoutX="72.0" layoutY="33.0" prefHeight="36.0" prefWidth="250.0" promptText="First Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                  <font>
+                      <Font name="Arial Rounded MT Bold" size="14.0" />
+                  </font>
+              </TextField>
+            <DatePicker fx:id="DOB" blendMode="LIGHTEN" layoutX="72.0" layoutY="102.0" prefHeight="36.0" prefWidth="250.0" promptText="Enter date of birth" style="-fx-border-width: 0; -fx-background-color: none;" />
+              <Button layoutX="379.0" layoutY="384.0" mnemonicParsing="false" onAction="#MemberMain" opacity="0.5" prefHeight="36.0" prefWidth="157.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px;" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Register">
+                  <font>
+                      <Font name="Arial Rounded MT Bold" size="20.0" />
+                  </font>
+              </Button>
+            <RadioButton fx:id="GenderM" layoutX="72.0" layoutY="225.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="76.0" text="Male" textFill="#aeaeae">
+               <toggleGroup>
+                  <ToggleGroup fx:id="gender" />
+               </toggleGroup>
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="17.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="GenderF" layoutX="225.0" layoutY="225.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="97.0" text="Female" textFill="#aeaeae" toggleGroup="$gender">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="17.0" />
+               </font>
+            </RadioButton>
+            <TextField fx:id="LastName" layoutX="369.0" layoutY="33.0" prefHeight="36.0" prefWidth="250.0" promptText="Last Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="Grade" layoutX="72.0" layoutY="159.0" prefHeight="36.0" prefWidth="250.0" promptText="Grade" styleClass="textField" stylesheets="@../../../mainStyle.css">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="UserName" layoutX="72.0" layoutY="310.0" prefHeight="36.0" prefWidth="250.0" promptText="User Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="Password" layoutX="72.0" layoutY="362.0" prefHeight="36.0" prefWidth="250.0" promptText="Password" styleClass="textField" stylesheets="@../../../mainStyle.css">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="Email" layoutX="380.0" layoutY="310.0" prefHeight="36.0" prefWidth="250.0" promptText="Email" styleClass="textField" stylesheets="@../../../mainStyle.css">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </TextField>
+            <Line endX="571.0" layoutX="186.0" layoutY="300.0" startX="-184.0" strokeWidth="3.0">
+               <stroke>
+                  <LinearGradient endX="1.0" endY="1.0">
+                     <stops>
+                        <Stop>
+                           <color>
+                              <Color />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.006729475100942127">
+                           <color>
+                              <Color />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.006729475100942127">
+                           <color>
+                              <Color />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.1628532974427994">
+                           <color>
+                              <Color red="0.03529411926865578" green="0.10588235408067703" blue="0.20392157137393951" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.6473755047106321">
+                           <color>
+                              <Color red="0.38823530077934265" green="0.5333333611488342" blue="0.6470588445663452" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.768506056527591">
+                           <color>
+                              <Color red="0.38823530077934265" green="0.5333333611488342" blue="0.6470588445663452" />
+                           </color>
+                        </Stop>
+                        <Stop offset="0.975609756097561">
+                           <color>
+                              <Color red="1.0" green="1.0" blue="1.0" />
+                           </color>
+                        </Stop>
+                        <Stop offset="1.0">
+                           <color>
+                              <Color red="1.0" green="1.0" blue="1.0" />
+                           </color>
+                        </Stop>
+                     </stops>
+                  </LinearGradient>
+               </stroke>
+            </Line>
+            <AnchorPane blendMode="MULTIPLY" layoutX="361.0" layoutY="102.0" prefHeight="169.0" prefWidth="375.0" style="-fx-border-width: 1.5; -fx-border-color: gray; -fx-border-radius: 15px;">
+               <children>
+                  <Label contentDisplay="RIGHT" layoutX="10.0" prefHeight="28.0" prefWidth="286.0" text=" Select your clubs: " AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                     </font>
+                     <graphic>
+                        <Label prefHeight="16.0" prefWidth="149.0" text="*Use &quot;CTRL + click&quot; to select" textFill="RED">
+                           <font>
+                              <Font name="System Bold" size="11.0" />
+                           </font>
+                        </Label>
+                     </graphic>
+                  </Label>
+                  <ListView fx:id="listView" layoutX="46.0" layoutY="28.0" orientation="HORIZONTAL" prefHeight="60.0" prefWidth="365.0" styleClass="ClubList" stylesheets="@../../../mainStyle.css" AnchorPane.bottomAnchor="81.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0" />
+                  <Label fx:id="selection" alignment="CENTER" contentDisplay="CENTER" layoutY="114.0" prefHeight="60.0" prefWidth="434.0" text="Clubs" textAlignment="JUSTIFY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="17.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <Button layoutX="565.0" layoutY="384.0" mnemonicParsing="false" onAction="#goBack" prefHeight="38.0" prefWidth="157.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px;" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Back">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="20.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+              <Label alignment="TOP_RIGHT" layoutX="309.0" layoutY="15.0" opacity="0.75" text="Member Registration">
+                  <font>
+                      <Font name="Arial Rounded MT Bold" size="31.0" />
+                  </font>
+              </Label>
+              <ImageView fitHeight="38.0" fitWidth="45.0" layoutX="275.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                  <image>
+                      <Image url="@../../../images/icons8-member-96.png" />
+                  </image>
+              </ImageView>
+    </children>
+</AnchorPane>
