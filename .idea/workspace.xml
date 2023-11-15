@@ -4,18 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e9966e8-8faa-46b3-b0c5-de77800c1479" name="Changes" comment="2nd version(updates):adding a login page to the member and to the advisor.">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/sacms/RegistrationController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/sacms/registration.fxml" afterDir="false" />
+    <list default="true" id="2e9966e8-8faa-46b3-b0c5-de77800c1479" name="Changes" comment="first version">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sacms/AdvisorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sacms/AdvisorController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sacms/AdvisorLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sacms/AdvisorLoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sacms/MemberLoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sacms/MemberLoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sacms/SACMSController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sacms/SACMSController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sacms/AdvisorLogin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/sacms/AdvisorLogin.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sacms/MainSACMS.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/sacms/MainSACMS.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sacms/MemberLogin.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/sacms/MemberLogin.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/images/Screenshot_2023-10-13_002933-removebg-preview.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/Screenshot_2023-10-13_002933-removebg-preview.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mainStyle.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mainStyle.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sacms/Advisor.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/sacms/Advisor.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,16 +53,19 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "ignore.virus.scanning.warn.message": "true",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.0"
   }
-}</component>
+}]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -85,15 +83,7 @@
       <option name="project" value="LOCAL" />
       <updated>1697293667006</updated>
     </task>
-    <task id="LOCAL-00002" summary="2nd version(updates):adding a login page to the member and to the advisor.">
-      <option name="closed" value="true" />
-      <created>1697571212289</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1697571212289</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -110,7 +100,11 @@
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="first version" />
-    <MESSAGE value="2nd version(updates):adding a login page to the member and to the advisor." />
-    <option name="LAST_COMMIT_MESSAGE" value="2nd version(updates):adding a login page to the member and to the advisor." />
+    <option name="LAST_COMMIT_MESSAGE" value="first version" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/CACMS$SACMS.ic" NAME="SACMS Coverage Results" MODIFIED="1697389811940" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.example.sacms.*</FILTER>
+    </SUITE>
   </component>
 </project>

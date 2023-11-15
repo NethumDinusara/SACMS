@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 import java.util.Objects;
 
 public class AdvisorLoginController {
+
+
     @FXML
     //Go to driver details
     public void AdvisorMain(ActionEvent actionEvent)throws Exception{

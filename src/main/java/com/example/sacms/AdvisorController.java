@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.util.Objects;
@@ -20,4 +21,15 @@ public class AdvisorController {
         MainStage.setTitle("SACMS");
     }
 
+    public void createClub(ActionEvent actionEvent) {
+    }
+
+    public void initialize(MouseEvent mouseEvent) {
+    }
+
+    public void updateClub(ActionEvent actionEvent) {
+    }
+
+    public void removeClub(ActionEvent actionEvent) {
+    }
 }
