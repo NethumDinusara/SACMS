@@ -27,7 +27,7 @@
                       <Font name="Arial Rounded MT Bold" size="20.0" />
                   </font>
               </Button>
-            <TextField fx:id="LastName" layoutX="369.0" layoutY="99.0" prefHeight="36.0" prefWidth="250.0" promptText="Last Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
+            <TextField fx:id="LastName" layoutX="411.0" layoutY="99.0" prefHeight="36.0" prefWidth="250.0" promptText="Last Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
                <font>
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font>
@@ -37,17 +37,17 @@
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font>
             </TextField>
-            <TextField fx:id="UserName" layoutX="72.0" layoutY="310.0" prefHeight="36.0" prefWidth="250.0" promptText="User Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
+            <TextField fx:id="UserName" layoutX="72.0" layoutY="310.0" prefHeight="36.0" prefWidth="250.0" promptText="User Name eg - TID085,TID003" styleClass="textField" stylesheets="@../../../mainStyle.css">
                <font>
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font>
             </TextField>
-            <TextField fx:id="Password" layoutX="72.0" layoutY="362.0" prefHeight="36.0" prefWidth="250.0" promptText="Password" styleClass="textField" stylesheets="@../../../mainStyle.css">
+            <TextField fx:id="Password" layoutX="72.0" layoutY="366.0" prefHeight="36.0" prefWidth="250.0" promptText="Password" styleClass="textField" stylesheets="@../../../mainStyle.css">
                <font>
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font>
             </TextField>
-            <TextField fx:id="Email" layoutX="380.0" layoutY="310.0" prefHeight="36.0" prefWidth="250.0" promptText="Email" styleClass="textField" stylesheets="@../../../mainStyle.css">
+            <TextField fx:id="Email" layoutX="418.0" layoutY="310.0" prefHeight="36.0" prefWidth="250.0" promptText="Email" styleClass="textField" stylesheets="@../../../mainStyle.css">
                <font>
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font>
@@ -105,11 +105,16 @@
                   <Font name="Arial Rounded MT Bold" size="20.0" />
                </font>
             </Button>
-            <TextField fx:id="TeacherID" layoutX="369.0" layoutY="193.0" prefHeight="36.0" prefWidth="250.0" promptText="Teacher ID" styleClass="textField" stylesheets="@../../../mainStyle.css">
+            <TextField fx:id="TeacherID" layoutX="411.0" layoutY="193.0" prefHeight="36.0" prefWidth="250.0" promptText="Teacher ID Number eg - 85,3" styleClass="textField" stylesheets="@../../../mainStyle.css">
                <font>
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font>
             </TextField>
+            <Label layoutX="82.0" layoutY="346.0" opacity="0.79" prefHeight="17.0" prefWidth="223.0" text="Use teacher ID with &quot;TID&quot; as the User Name " textFill="#ec7676">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="10.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
               <Label alignment="TOP_RIGHT" layoutX="309.0" layoutY="15.0" opacity="0.75" text="Advisor Registration">

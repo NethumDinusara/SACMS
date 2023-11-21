@@ -4,6 +4,7 @@ package com.example.sacms;
 import java.sql.Date;
 import java.sql.SQLRecoverableException;
 
+//main user class (super class)
 public class User {
     private String firstName;
     private String lastName;
@@ -73,7 +74,7 @@ public class User {
 }
 
 
-
+//member class (subclass)
 class Member extends User {
     private Date dateOfBirth;
     private String gender;
@@ -124,6 +125,8 @@ class Member extends User {
 }
 
 
+
+//Advisor class (subclass)
 class Advisor extends User{
     private String teacherId;
 

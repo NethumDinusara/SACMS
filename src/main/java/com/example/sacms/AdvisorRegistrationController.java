@@ -34,12 +34,28 @@ public class AdvisorRegistrationController {
     @FXML
     private TextField TeacherID;
 
+    private final Database database = new Database();
+
     public void AdvisorMain(ActionEvent actionEvent)throws Exception {
         if (validateFields()){
-            Stage MainStage =(Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Advisor.fxml")));
-            MainStage.setScene(new Scene(root));
-            MainStage.setTitle("Member");
+
+            Advisor advisor = new Advisor(
+                    firstName.getText(),
+                    LastName.getText(),
+                    Number.getText(),
+                    UserName.getText(),
+                    Email.getText(),
+                    Password.getText(),
+                    TeacherID.getText()
+            );
+            if (database.registerUser(advisor, "advisor")) {
+                Stage MainStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AdvisorLogin.fxml")));
+                MainStage.setScene(new Scene(root));
+                MainStage.setTitle("Advisor");
+            }else {
+                showAlert("Registration failed. Please try again.");
+            }
         }
 
     }
@@ -58,16 +74,25 @@ public class AdvisorRegistrationController {
         if (TeacherID.getText().isEmpty()){
             showAlert("Teacher ID is required.");
             return false;
+        }else if (database.isUserIdExists(TeacherID.getText(),"advisor")) {
+            showAlert("Your student ID already exists. Please check");
+            return false;
         }
 
         if (Number.getText().isEmpty()) {
             showAlert("Phone number is required.");
+            return false;
+        }else if(Number.getText().length()!=10 || !Number.getText().matches("\\d+")){
+            showAlert("Phone number should be a 10-digit number");
             return false;
         }
 
 
         if (UserName.getText().isEmpty()) {
             showAlert("Username is required.");
+            return false;
+        } else if (!UserName.getText().matches("TID\\d*")) {
+            showAlert("Invalid Username format.");
             return false;
         }
 
@@ -83,9 +108,6 @@ public class AdvisorRegistrationController {
             showAlert("Invalid email format.");
             return false;
         }
-
-
-
         return true;
     }
 

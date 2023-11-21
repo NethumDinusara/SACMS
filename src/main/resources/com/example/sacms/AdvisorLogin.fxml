@@ -15,12 +15,12 @@
         <Pane layoutX="269.0" layoutY="82.0" />
         <Pane layoutX="205.0" layoutY="82.0" prefHeight="385.0" prefWidth="490.0" styleClass="pane" stylesheets="@../../../mainStyle.css">
             <children>
-                <TextField layoutX="81.0" layoutY="49.0" prefHeight="54.0" prefWidth="329.0" promptText="Username" style="-fx-background-radius: 30px; -fx-border-radius: 30px;">
+                <TextField fx:id="usernameField" layoutX="81.0" layoutY="49.0" prefHeight="54.0" prefWidth="329.0" promptText="Username" style="-fx-background-radius: 30px; -fx-border-radius: 30px;">
                     <font>
                         <Font name="Arial Rounded MT Bold" size="20.0" />
                     </font>
                 </TextField>
-                <PasswordField layoutX="81.0" layoutY="117.0" prefHeight="54.0" prefWidth="330.0" promptText="password" style="-fx-background-radius: 30px; -fx-border-radius: 30px;">
+                <PasswordField fx:id="passwordField" layoutX="81.0" layoutY="117.0" prefHeight="54.0" prefWidth="330.0" promptText="password" style="-fx-background-radius: 30px; -fx-border-radius: 30px;">
                     <font>
                         <Font name="Arial Rounded MT Bold" size="20.0" />
                     </font>

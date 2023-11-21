@@ -24,7 +24,7 @@
             <Font name="Arial Rounded MT Bold" size="19.0" />
          </font>
       </Button>
-      <Label alignment="CENTER" layoutX="608.0" layoutY="67.0" prefHeight="97.0" prefWidth="234.0" text="User Login">
+      <Label alignment="CENTER" layoutX="608.0" layoutY="67.0" prefHeight="97.0" prefWidth="234.0" text="User Login" textFill="#383838">
          <font>
             <Font name="Arial Rounded MT Bold" size="40.0" />
          </font>
@@ -49,14 +49,24 @@
             <Font name="Arial Rounded MT Bold" size="13.0" />
          </font>
       </Label>
-      <Button alignment="CENTER_RIGHT" layoutX="565.0" layoutY="418.0" mnemonicParsing="false" onAction="#LoadRegistration" prefHeight="42.0" prefWidth="138.0" styleClass="logButton" stylesheets="@../../../mainStyle.css" text="Register" textFill="WHITE">
+      <Button alignment="CENTER_RIGHT" layoutX="565.0" layoutY="418.0" mnemonicParsing="false" onAction="#LoadMemberRegistration" prefHeight="42.0" prefWidth="138.0" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Register">
          <font>
-            <Font name="Arial Rounded MT Bold" size="19.0" />
+            <Font name="Arial Rounded MT Bold" size="17.0" />
          </font>
       </Button>
-      <ImageView fitHeight="31.0" fitWidth="33.0" layoutX="577.0" layoutY="424.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="31.0" fitWidth="25.0" layoutX="583.0" layoutY="427.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../../images/icons-register.png" />
+         </image>
+      </ImageView>
+      <Button alignment="CENTER_RIGHT" layoutX="725.0" layoutY="418.0" mnemonicParsing="false" onAction="#LoadAdvisorRegistration" prefHeight="42.0" prefWidth="138.0" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Register">
+         <font>
+            <Font name="Arial Rounded MT Bold" size="17.0" />
+         </font>
+      </Button>
+      <ImageView fitHeight="25.0" fitWidth="25.0" layoutX="745.0" layoutY="427.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../../images/icons-Advisor.png" />
          </image>
       </ImageView>
    </children>

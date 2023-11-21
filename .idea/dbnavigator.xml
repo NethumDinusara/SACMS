@@ -2,7 +2,7 @@
 <project version="4">
   <component name="DBNavigator.Project.DataEditorManager">
     <record-view-column-sorting-type value="BY_INDEX" />
-    <value-preview-text-wrapping value="true" />
+    <value-preview-text-wrapping value="false" />
     <value-preview-pinned value="false" />
   </component>
   <component name="DBNavigator.Project.DatabaseBrowserManager">
@@ -12,17 +12,31 @@
     <loaded-nodes />
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
-    <connection id="1c99a857-3cef-4d38-b4e7-50c30cbdc31e">
-      <console name="MySQL Connection" type="STANDARD" schema="" session="Main" />
+    <connection id="61f57329-dec2-4825-89af-710ba9277094">
+      <console name="Connection" type="STANDARD" schema="sacms" session="Main" />
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files>
-      <object connection-id="1c99a857-3cef-4d38-b4e7-50c30cbdc31e" object-ref="consoles/MySQL Connection" />
-    </open-files>
+    <open-files />
+  </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="61f57329-dec2-4825-89af-710ba9277094" dataset="sacms.club" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="61f57329-dec2-4825-89af-710ba9277094" dataset="sacms.advisor" active-filter-id="EMPTY_FILTER" />
+    <filter-actions connection-id="61f57329-dec2-4825-89af-710ba9277094" dataset="sacms.member" active-filter-id="EMPTY_FILTER" />
+  </component>
+  <component name="DBNavigator.Project.ExecutionManager">
+    <retain-sticky-names value="false" />
+  </component>
+  <component name="DBNavigator.Project.MethodExecutionManager">
+    <method-browser />
+    <execution-history>
+      <group-entries value="true" />
+      <execution-inputs />
+    </execution-history>
+    <argument-values-cache />
   </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
@@ -30,13 +44,13 @@
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>
-      <connection id="1c99a857-3cef-4d38-b4e7-50c30cbdc31e" active="true" signed="true">
+      <connection id="61f57329-dec2-4825-89af-710ba9277094" active="true" signed="true">
         <database>
-          <name value="MySQL Connection" />
+          <name value="Connection" />
           <description value="" />
           <database-type value="MYSQL" />
           <config-type value="BASIC" />
-          <database-version value="9999.0" />
+          <database-version value="5.5" />
           <driver-source value="BUNDLED" />
           <driver-library value="" />
           <driver value="" />
@@ -46,9 +60,9 @@
           <database value="sacms" />
           <tns-folder value="" />
           <tns-profile value="" />
-          <type value="USER_PASSWORD" />
+          <type value="USER" />
           <user value="root" />
-          <deprecated-pwd value="WUVT" />
+          <deprecated-pwd value="" />
         </database>
         <properties>
           <auto-commit value="false" />

@@ -6,12 +6,12 @@
 }
 .logButton:hover
 {
-    -fx-background-color : linear-gradient(to top, #09203f 17%, #537895 48%,#ffffff 100%) ;
-    -fx-background-radius :  30 ;
+    -fx-background-color : linear-gradient(to top, #09203f 13%, #537895 36%,#ffffff 100%) ;
+    -fx-background-radius :  25 ;
 }
 .logButton:pressed
 {
-    -fx-background-color : linear-gradient(to top, #09203f 36%, #537895 68%,#ffffff 100%) ;
+    -fx-background-color : linear-gradient(to top, #09203f 13%, #537895 36%,#ffffff 100%) ;
     -fx-background-radius :  30 ;
 }
 
@@ -29,6 +29,12 @@
     
 }
 
+.navi1
+{
+    -fx-background-color: linear-gradient(to bottom, rgb(20, 36, 50) 11.8%, rgb(124, 143, 161) 85%);
+    -fx-background-radius :  40 0 40 40;
+
+}
 
 .NavButton
 {
@@ -40,11 +46,13 @@
 {
     -fx-background-color :  linear-gradient( to right, #6e88a1 0%, #a7b3c0 20%,#dddddd 100%);
     -fx-background-radius :  50 ;
+    
 }
 .NavButton:pressed
 {
     -fx-background-color :  linear-gradient( to right, #6e88a1 0%, #a7b3c0 50%,#dddddd 100%);
     -fx-background-radius :  50 ;
+    
 }
 
 
