@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="554.0" prefWidth="900.0" styleClass="mainBg" stylesheets="@../../../mainStyle.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sacms.RegistrationController">
+<AnchorPane prefHeight="554.0" prefWidth="900.0" styleClass="mainBg" stylesheets="@../../../mainStyle.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sacms.MemberRegistrationController">
     <children>
       <Pane layoutX="70.0" layoutY="53.0" prefHeight="458.0" prefWidth="758.0" styleClass="pane" stylesheets="@../../../mainStyle.css">
          <children>
@@ -26,13 +26,13 @@
                       <Font name="Arial Rounded MT Bold" size="14.0" />
                   </font>
               </TextField>
-            <DatePicker fx:id="DOB" blendMode="LIGHTEN" layoutX="72.0" layoutY="102.0" prefHeight="36.0" prefWidth="250.0" promptText="Enter date of birth" style="-fx-border-width: 0; -fx-background-color: none;" />
+            <DatePicker fx:id="DOB" blendMode="LIGHTEN" layoutX="72.0" layoutY="92.0" prefHeight="36.0" prefWidth="250.0" promptText="Enter date of birth" style="-fx-border-width: 0; -fx-background-color: none;" />
               <Button layoutX="379.0" layoutY="384.0" mnemonicParsing="false" onAction="#MemberMain" opacity="0.5" prefHeight="36.0" prefWidth="157.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px;" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Register">
                   <font>
                       <Font name="Arial Rounded MT Bold" size="20.0" />
                   </font>
               </Button>
-            <RadioButton fx:id="GenderM" layoutX="72.0" layoutY="225.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="76.0" text="Male" textFill="#aeaeae">
+            <RadioButton fx:id="GenderM" layoutX="72.0" layoutY="193.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="76.0" text="Male" textFill="#aeaeae">
                <toggleGroup>
                   <ToggleGroup fx:id="gender" />
                </toggleGroup>
@@ -40,7 +40,7 @@
                   <Font name="Arial Rounded MT Bold" size="17.0" />
                </font>
             </RadioButton>
-            <RadioButton fx:id="GenderF" layoutX="225.0" layoutY="225.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="97.0" text="Female" textFill="#aeaeae" toggleGroup="$gender">
+            <RadioButton fx:id="GenderF" layoutX="197.0" layoutY="193.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="97.0" text="Female" textFill="#aeaeae" toggleGroup="$gender">
                <font>
                   <Font name="Arial Rounded MT Bold" size="17.0" />
                </font>
@@ -50,7 +50,7 @@
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font>
             </TextField>
-            <TextField fx:id="Grade" layoutX="72.0" layoutY="159.0" prefHeight="36.0" prefWidth="250.0" promptText="Grade" styleClass="textField" stylesheets="@../../../mainStyle.css">
+            <TextField fx:id="Grade" layoutX="72.0" layoutY="151.0" prefHeight="36.0" prefWidth="250.0" promptText="Grade" styleClass="textField" stylesheets="@../../../mainStyle.css">
                <font>
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font>
@@ -145,6 +145,11 @@
                   <Font name="Arial Rounded MT Bold" size="20.0" />
                </font>
             </Button>
+            <TextField fx:id="Number" layoutX="72.0" layoutY="235.0" prefHeight="36.0" prefWidth="250.0" promptText="Phone Number" styleClass="textField" stylesheets="@../../../mainStyle.css">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </TextField>
          </children>
       </Pane>
               <Label alignment="TOP_RIGHT" layoutX="309.0" layoutY="15.0" opacity="0.75" text="Member Registration">
