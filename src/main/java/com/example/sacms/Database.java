@@ -119,4 +119,39 @@ public class Database {
         }
         return false;
     }
+
+    //Get user data to the member profile view
+
+    public Member getMemberData(String username) {
+        String query = "SELECT * FROM member WHERE username = ?";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, username);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    // Extract data from the result set
+                    String firstName = resultSet.getString("FirstName");
+                    String lastName = resultSet.getString("LastName");
+                    String phoneNumber = resultSet.getString("PhoneNumber");
+                    String email = resultSet.getString("Email");
+                    Date dateOfBirth = resultSet.getDate("DateOfBirth");
+                    String gender = resultSet.getString("Gender");
+                    String grade = resultSet.getString("Grade");
+                    String studentId = resultSet.getString("StudentID");
+
+                    // Create a Member object with the retrieved data
+                    Member member = new Member(firstName, lastName, phoneNumber, username, email, null, dateOfBirth, grade, gender, studentId);
+                    return member;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting member data");
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
 }
+

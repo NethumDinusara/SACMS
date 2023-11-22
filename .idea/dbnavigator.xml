@@ -23,6 +23,7 @@
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="61f57329-dec2-4825-89af-710ba9277094" dataset="sacms.clubmember" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="61f57329-dec2-4825-89af-710ba9277094" dataset="sacms.club" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="61f57329-dec2-4825-89af-710ba9277094" dataset="sacms.advisor" active-filter-id="EMPTY_FILTER" />
     <filter-actions connection-id="61f57329-dec2-4825-89af-710ba9277094" dataset="sacms.member" active-filter-id="EMPTY_FILTER" />

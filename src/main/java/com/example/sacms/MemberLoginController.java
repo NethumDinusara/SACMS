@@ -33,11 +33,29 @@ public class MemberLoginController {
             return;
         }
 
-        if (database.validateUserLogin(username,password, "member")) {
-            Stage MainStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Member.fxml")));
-            MainStage.setScene(new Scene(root));
-            MainStage.setTitle("Member");
+        if (database.validateUserLogin(username, password, "member")) {
+            // Get the member data
+            Member member = database.getMemberData(username);
+
+            if (member != null) {
+                // Load the Member.fxml file
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("Member.fxml"));
+                Parent root = loader.load();
+
+                // Get the controller instance
+                MemberController memberController = loader.getController();
+
+                // Set the username and member data in the MemberController
+                memberController.setUsername(username);
+                memberController.setMemberData(member);
+
+                // Set the scene
+                Stage MainStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                MainStage.setScene(new Scene(root));
+                MainStage.setTitle("Member");
+            } else {
+                showAlert("Failed to retrieve member data");
+            }
         } else {
             showAlert("Invalid username or password");
         }
