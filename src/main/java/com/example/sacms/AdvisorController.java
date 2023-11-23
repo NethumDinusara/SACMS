@@ -58,6 +58,14 @@ public class AdvisorController {
         MainStage.setTitle("SACMS");
     }
 
+    public void onAttendance(ActionEvent actionEvent)throws Exception {
+
+        Stage MainStage =(Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AdvisorClub.fxml")));
+        MainStage.setScene(new Scene(root));
+        MainStage.setTitle("SACMS");
+
+    }
     public void createClub(ActionEvent actionEvent) {
     }
 
