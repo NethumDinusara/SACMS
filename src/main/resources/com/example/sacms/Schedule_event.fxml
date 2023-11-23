@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="Schedule" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="906.0" style="-fx-background-color: #0000;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sacms.AdvisorSchedule">
+    <children>
+        <AnchorPane layoutX="6.0" layoutY="116.0" minHeight="0.0" minWidth="0.0" prefHeight="422.0" prefWidth="290.0" styleClass="pane" stylesheets="@../../../mainStyle.css">
+            <children>
+                <TextField fx:id="clubName" alignment="CENTER" layoutX="11.0" layoutY="94.0" prefHeight="36.0" prefWidth="267.0" promptText="Club Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                    </font>
+                </TextField>
+                <Label alignment="TOP_RIGHT" layoutX="102.0" layoutY="32.0" opacity="0.75" text="Events" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="31.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="eventName" alignment="CENTER" layoutX="11.0" layoutY="148.0" prefHeight="36.0" prefWidth="267.0" promptText="Enter Event Name " styleClass="textField" stylesheets="@../../../mainStyle.css">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                    </font>
+                </TextField>
+                <TextField fx:id="advisorName" alignment="CENTER" layoutX="10.0" layoutY="203.0" prefHeight="36.0" prefWidth="267.0" promptText="Advisor Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                    </font>
+                </TextField>
+                <Button fx:id="eventCreateID" layoutX="70.0" layoutY="346.0" mnemonicParsing="false" onAction="#createEvent" opacity="0.5" prefHeight="16.0" prefWidth="150.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px;" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Create Event">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Button>
+                <TextField fx:id="eventVenue" alignment="CENTER" layoutX="11.0" layoutY="257.0" prefHeight="36.0" prefWidth="267.0" promptText="Venue" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                    </font>
+                </TextField>
+                <Label fx:id="label1" layoutX="82.0" layoutY="131.0" prefHeight="18.0" prefWidth="114.0" textFill="RED">
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                </Label>
+                <Label fx:id="clubNameError" layoutX="187.0" layoutY="131.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
+                <Label fx:id="eventNameError" layoutX="187.0" layoutY="184.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
+                <Label fx:id="advNameError" layoutX="187.0" layoutY="239.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
+                <Label fx:id="venueError" layoutX="187.0" layoutY="293.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="301.0" layoutY="116.0" minHeight="0.0" minWidth="0.0" prefHeight="422.0" prefWidth="296.0" styleClass="pane" stylesheets="@../../../mainStyle.css">
+            <children>
+                <TextField fx:id="meetingTopic" alignment="CENTER" layoutX="14.0" layoutY="95.0" prefHeight="36.0" prefWidth="267.0" promptText="Meeting Topic" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                    </font>
+                </TextField>
+                <Label alignment="TOP_RIGHT" layoutX="85.0" layoutY="31.0" opacity="0.75" text="Meetings" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="31.0" />
+                    </font>
+                </Label>
+                <TextField fx:id="nameClub" alignment="CENTER" layoutX="14.0" layoutY="149.0" prefHeight="36.0" prefWidth="267.0" promptText="Club Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                    </font>
+                </TextField>
+                <TextField fx:id="meetDuration" alignment="CENTER" layoutX="14.0" layoutY="257.0" prefHeight="36.0" prefWidth="267.0" promptText="Meeting Duration" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                    </font>
+                </TextField>
+                <Button layoutX="73.0" layoutY="345.0" mnemonicParsing="false" onAction="#meetingCreate" opacity="0.5" prefHeight="16.0" prefWidth="150.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px;" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Create Meeting">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Button>
+                <TextField fx:id="meetingAdvisor" alignment="CENTER" layoutX="14.0" layoutY="204.0" prefHeight="36.0" prefWidth="267.0" promptText="Meeting Advisor" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                    </font>
+                </TextField>
+                <Label fx:id="meetingTopicError" layoutX="186.0" layoutY="131.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
+                <Label fx:id="meetingClubNameError" layoutX="186.0" layoutY="185.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
+                <Label fx:id="meetingAdvisorError" layoutX="186.0" layoutY="240.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
+                <Label fx:id="meetingDurationError" layoutX="186.0" layoutY="293.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
+            </children>
+        </AnchorPane>
+        <AnchorPane layoutX="602.0" layoutY="116.0" minHeight="0.0" minWidth="0.0" prefHeight="422.0" prefWidth="296.0" styleClass="pane" stylesheets="@../../../mainStyle.css">
+            <children>
+                <TextField fx:id="createMeeting" alignment="CENTER" layoutX="14.0" layoutY="99.0" prefHeight="36.0" prefWidth="267.0" promptText="Activity Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                    </font>
+                </TextField>
+                <Label alignment="TOP_RIGHT" layoutX="78.0" layoutY="31.0" opacity="0.75" text="Activities" textFill="WHITE">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="31.0" />
+                    </font>
+                </Label>
+                <Button layoutX="73.0" layoutY="344.0" mnemonicParsing="false" onAction="#createActivity" opacity="0.5" prefHeight="16.0" prefWidth="150.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px;" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Create Activity">
+                    <font>
+                        <Font size="17.0" />
+                    </font>
+                </Button>
+                <TextField fx:id="activityDescription" alignment="CENTER" layoutX="14.0" layoutY="254.0" prefHeight="69.0" prefWidth="267.0" promptText="Enter Activity Description" />
+                <TextField fx:id="activityDate" alignment="CENTER" layoutX="14.0" layoutY="150.0" prefHeight="36.0" prefWidth="267.0" promptText="Date" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                    </font>
+                </TextField>
+                <TextField fx:id="activityMenu" alignment="CENTER" layoutX="14.0" layoutY="203.0" prefHeight="36.0" prefWidth="267.0" promptText="Venue" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                    <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                    </font>
+                </TextField>
+            </children>
+        </AnchorPane>
+        <Line endX="603.9999389648438" endY="53.19999694824219" layoutX="299.0" layoutY="43.0" startX="-352.3070373535156" startY="53.19999694824219" stroke="#10325e" strokeWidth="3.0" />
+        <Text layoutX="232.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Schedule Event" textAlignment="CENTER" wrappingWidth="434.13658142089844">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="48.0" />
+            </font>
+        </Text>
+        <Button layoutX="6.0" layoutY="49.0" mnemonicParsing="false" onAction="#onBackBottonClick" prefHeight="44.0" prefWidth="114.0" style="-fx-background-color: white;" textFill="WHITE" />
+        <Button layoutX="-16.0" layoutY="49.0" mnemonicParsing="false" onAction="#goBack" prefHeight="44.0" prefWidth="136.0" style="-fx-background-color: white; -fx-background-radius: 50px;" text="Back">
+            <font>
+                <Font name="Arial Rounded MT Bold" size="15.0" />
+            </font>
+            <graphic>
+                <ImageView fitHeight="31.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../../images/icons-logout.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+    </children>
+</AnchorPane>
