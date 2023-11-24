@@ -153,5 +153,38 @@ public class Database {
         return null;
     }
 
+
+
+    // Get advisor details to the advisor controllers.
+    public Advisor getAdvisorData(String username) {
+        String query = "SELECT * FROM advisor WHERE username = ?";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, username);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+
+                    // Extract data from the result set
+                    String firstName = resultSet.getString("FirstName");
+                    String lastName = resultSet.getString("LastName");
+                    String teacherId = resultSet.getString("teacherID");
+
+                    // Creating object to store data
+
+                    Advisor advisor = new Advisor(firstName,lastName,null,username,null,null,teacherId);
+                    return advisor;
+                }
+
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting advisor data");
+            System.out.println(e.getMessage());
+        }
+        return null;
+
+    }
+
 }
 

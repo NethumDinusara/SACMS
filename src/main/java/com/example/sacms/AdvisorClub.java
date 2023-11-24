@@ -18,22 +18,19 @@ public class AdvisorClub {
     @FXML
     public static Label advisorName;
 
+    private final Database database = new Database();
 
 
-/*    public static void state(){
-        if (AdvisorAttendance.state.equals("1")){
-            advisorName.setText("Wellalage");
-        }
-        else if(AdvisorAttendance.state.equals("2")){
-            advisorName.setText("Rodrigo");
-        } else if (AdvisorAttendance.state.equals("3")) {
-            advisorName.setText("Gomes");
-        }
-        else{
-            advisorName.setText("Wanniarachchi");
-        }
-    }*/
+    private String username;
 
+
+
+    public void initialize() {
+        Advisor advisor = database.getAdvisorData(username);
+        if (advisor != null) {
+            setAdvisorData(advisor);
+        }
+    }
 
     public void onManageClubs(ActionEvent event) throws IOException {
 
@@ -48,18 +45,6 @@ public class AdvisorClub {
         currentStage.close();
     }
 
-    public void onAttendance(ActionEvent event) throws IOException {
-
-        FXMLLoader fxmlLoader = new FXMLLoader(SACMS.class.getResource("AdAttendance.fxml"));
-        Stage stage = new Stage();
-        Scene scene = new Scene(fxmlLoader.load(), 900, 550);
-        stage.setTitle("Attendance");
-        stage.setScene(scene);
-        stage.show();
-
-        Stage currentStage = (Stage) advisorClubANC.getScene().getWindow();
-        currentStage.close();
-    }
 
     public void onSearchButtonClick(ActionEvent event) throws IOException {
 
@@ -72,8 +57,10 @@ public class AdvisorClub {
 
         Stage currentStage = (Stage) advisorClubANC.getScene().getWindow();
         currentStage.close();
+    }
 
-
+    public void setAdvisorData(Advisor advisor) {
+        advisorName.setText(advisor.getFirstName() + " " + advisor.getLastName());
     }
 
 

@@ -58,6 +58,7 @@ public class MemberController{
             yourClubs.setVisible(false);
             Events.setVisible(false);
 
+
             // Set member data when switching to the profile view
             Member member = database.getMemberData(username);
             if (member != null) {

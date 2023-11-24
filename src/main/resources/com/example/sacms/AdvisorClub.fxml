@@ -47,7 +47,7 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Button layoutX="11.0" layoutY="193.0" mnemonicParsing="false" onAction="#onAttendance" prefHeight="47.0" prefWidth="177.0" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Attendance">
+                        <Button layoutX="11.0" layoutY="193.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="177.0" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Attendance">
                             <font>
                                 <Font name="Arial Rounded MT Bold" size="15.0" />
                             </font>
@@ -125,7 +125,10 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Text>
-            <Label fx:id="advisorName" layoutX="161.0" layoutY="18.0" prefHeight="25.0" prefWidth="198.0" style="-fx-background-color: white; -fx-border-radius: 20;" />
+            <Label fx:id="advisorName" layoutX="161.0" layoutY="18.0" prefHeight="25.0" prefWidth="259.0" style="-fx-background-color: white; -fx-border-radius: 20;" text="cfbfbsbs">
+               <font>
+                  <Font name="Yu Gothic Medium" size="19.5" />
+               </font></Label>
             <Text fill="WHITE" layoutX="25.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clubs :" wrappingWidth="71.99999999999989">
                <font>
                   <Font name="System Bold" size="18.0" />
