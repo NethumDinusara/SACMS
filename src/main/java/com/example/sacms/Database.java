@@ -107,7 +107,7 @@ public class Database {
         }
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setString(1, UserID);  // Fix: Use the provided UserID parameter
+            preparedStatement.setString(1, UserID);  //Use the provided UserID parameter
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
@@ -155,6 +155,7 @@ public class Database {
         return null;
     }
 
+    //get member data and club data from the database
     public List<Club> getMemberClubs(String username) {
         List<Club> clubs = new ArrayList<>();
         String query = "SELECT c.ClubName, a.FirstName AS AdvisorFirstName, a.LastName AS AdvisorLastName, a.PhoneNumber AS AdvisorPhoneNumber, cm.JoinDate " +
@@ -191,6 +192,7 @@ public class Database {
         return clubs;
     }
 
+    //getting not join club data from the clubmember table
     public List<String> getAvailableClubs(String username) {
         List<String> availableClubs = new ArrayList<>();
         String query = "SELECT ClubName FROM club WHERE ClubID NOT IN (SELECT ClubID FROM clubmember WHERE Username = ?)";
@@ -213,6 +215,7 @@ public class Database {
         return availableClubs;
     }
 
+    //method for the join clubs
     public void joinClub(String username, String clubName) {
         String query = "INSERT INTO clubmember (ClubID, Username, JoinDate) " +
                 "VALUES ((SELECT ClubID FROM club WHERE ClubName = ?), ?, CURDATE())";
@@ -230,6 +233,8 @@ public class Database {
         }
     }
 
+
+    //method for the quit from a club
     public void quitClub(String username, String clubName) {
         String query = "DELETE FROM clubmember WHERE ClubID = (SELECT ClubID FROM club WHERE ClubName = ?) AND Username = ?";
 
@@ -245,8 +250,5 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
-
-
-
 }
 

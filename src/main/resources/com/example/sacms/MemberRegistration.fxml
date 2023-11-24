@@ -119,7 +119,7 @@
                   <Font name="Arial Rounded MT Bold" size="14.0" />
                </font>
             </TextField>
-            <Label layoutX="82.0" layoutY="346.0" opacity="0.79" prefHeight="17.0" prefWidth="207.0" text="Use teacher ID with &quot;M&quot; as the User Name " textFill="#ec7676">
+            <Label layoutX="82.0" layoutY="346.0" opacity="0.79" prefHeight="17.0" prefWidth="216.0" text="Use member ID with &quot;M&quot; as the User Name " textFill="#ec7676">
                <font>
                   <Font name="Arial Rounded MT Bold" size="10.0" />
                </font>

@@ -75,8 +75,6 @@ public class MemberController{
     @FXML
     private TableColumn<Club, Button> quitButtonColumn;
 
-    @FXML
-    private Button joinClub;
 
 
     private final Database database = new Database();
@@ -191,18 +189,6 @@ public class MemberController{
         if (selectedClub != null) {
             // Join the selected club
             database.joinClub(username, selectedClub);
-            // Refresh the clubs data
-            loadClubsData();
-        }
-    }
-
-    @FXML
-    public void quitClub(ActionEvent actionEvent) {
-        // Get the selected club from the table
-        Club selectedClub = clubsTable.getSelectionModel().getSelectedItem();
-        if (selectedClub != null) {
-            // Quit the selected club
-            database.quitClub(username, selectedClub.getClubName());
             // Refresh the clubs data
             loadClubsData();
         }
