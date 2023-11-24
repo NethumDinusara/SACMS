@@ -1,5 +1,9 @@
 package com.example.sacms;
 
+import javafx.scene.control.Button;
+
+import java.sql.Date;
+
 public class Club {
 
     private String clubName;
@@ -10,11 +14,43 @@ public class Club {
 
     private String presidentName;
 
-    public Club (String clubDescription, String clubName, String advisorName, String presidentName){
+    private String advisorPhoneNumber;
+
+    private Date joinDate;
+
+    private Button quitButton;
+
+    public String getAdvisorPhoneNumber() {
+        return advisorPhoneNumber;
+    }
+
+    public void setAdvisorPhoneNumber(String advisorPhoneNumber) {
+        this.advisorPhoneNumber = advisorPhoneNumber;
+    }
+
+    public Date getJoinDate() {
+        return joinDate;
+    }
+
+    public void setJoinDate(Date joinDate) {
+        this.joinDate = joinDate;
+    }
+
+    public Button getQuitButton() {
+        return quitButton;
+    }
+
+    public void setQuitButton(Button quitButton) {
+        this.quitButton = quitButton;
+    }
+
+
+    public Club (String clubName, String clubDescription, String advisorName, String presidentName){
         this.clubName = clubName;
         this.clubDescription = clubDescription;
         this.advisorName = advisorName;
         this.presidentName = presidentName;
+
     }
 
     public String getClubName() {

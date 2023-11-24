@@ -121,11 +121,11 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane fx:id="yourProfile" layoutX="193.0" layoutY="159.0" prefHeight="550.4" prefWidth="701.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="yourProfile" layoutX="193.0" layoutY="159.0" prefHeight="550.4" prefWidth="701.6" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label fx:id="userFName" layoutX="147.0" layoutY="276.0" prefHeight="78.0" prefWidth="258.0" text="Name">
+                        <Label fx:id="userFName" layoutX="147.0" layoutY="257.0" prefHeight="78.0" prefWidth="273.0" text="First Name">
                            <font>
-                              <Font name="Arial Rounded MT Bold" size="45.0" />
+                              <Font name="Arial Rounded MT Bold" size="50.0" />
                            </font>
                         </Label>
                         <Pane layoutX="114.0" layoutY="36.0" prefHeight="170.0" prefWidth="588.0" styleClass="navi1" stylesheets="@../../../mainStyle.css" AnchorPane.leftAnchor="114.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -152,9 +152,9 @@
                               <Font name="Arial Rounded MT Bold" size="15.0" />
                            </font>
                         </Label>
-                        <Label fx:id="userLName" layoutX="178.0" layoutY="326.0" prefHeight="78.0" prefWidth="258.0" text="Name">
+                        <Label fx:id="userLName" layoutX="190.0" layoutY="315.0" prefHeight="78.0" prefWidth="262.0" text="Last Name">
                            <font>
-                              <Font name="Arial Rounded MT Bold" size="45.0" />
+                              <Font name="Arial Rounded MT Bold" size="50.0" />
                            </font>
                         </Label>
                         <Label fx:id="email" alignment="TOP_LEFT" layoutX="439.0" layoutY="497.0" prefHeight="30.0" prefWidth="180.0" text="email" textFill="#6b6b6b">
@@ -164,32 +164,38 @@
                         </Label>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="yourClubs" layoutX="10.0" layoutY="10.0" prefHeight="560.8" prefWidth="712.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="yourClubs" layoutX="10.0" layoutY="10.0" prefHeight="560.8" prefWidth="712.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <TableView layoutX="84.0" layoutY="77.0" prefHeight="203.0" prefWidth="480.0" stylesheets="@../../../mainStyle.css">
+                        <TableView fx:id="clubsTable" layoutX="49.0" layoutY="75.0" prefHeight="226.0" prefWidth="604.0" style="-fx-border-color: #091b34; -fx-border-width: 2; -fx-background-radius: 20; -fx-border-radius: 20;" stylesheets="@../../../mainStyle.css">
                           <columns>
-                            <TableColumn fx:id="clubName" prefWidth="104.79993438720703" text="Club Name" />
-                            <TableColumn fx:id="Advisor" prefWidth="101.60003662109375" text="Advisor" />
-                              <TableColumn fx:id="AContactN" prefWidth="152.79998779296875" text="Advisor Contact Number" />
-                              <TableColumn fx:id="joinDate" editable="false" prefWidth="118.39999389648438" text="Join Date" />
+                            <TableColumn fx:id="clubNameColumn" prefWidth="104.79993438720703" text="Club Name" />
+                            <TableColumn fx:id="advisorColumn" prefWidth="133.5999755859375" text="Advisor" />
+                              <TableColumn fx:id="advisorContactNumberColumn" prefWidth="150.4000244140625" text="Advisor Contact Number" />
+                              <TableColumn fx:id="joinDateColumn" editable="false" prefWidth="120.79989624023438" text="Join Date" />
+                              <TableColumn fx:id="quitButtonColumn" prefWidth="90.40008544921875" text="Quit" />
                           </columns>
                         </TableView>
-                        <Label layoutX="49.0" layoutY="32.0" text="Your Clubs and Infomation">
+                        <Label layoutX="33.0" layoutY="34.0" text="Your Clubs and Infomation">
                            <font>
                               <Font name="Arial Rounded MT Bold" size="25.0" />
                            </font>
                         </Label>
-                        <Label layoutX="49.0" layoutY="307.0" text="Join to a new club">
+                        <Label layoutX="33.0" layoutY="317.0" text="Join to a new club">
                            <font>
-                              <Font name="Arial Rounded MT Bold" size="21.0" />
+                              <Font name="Arial Rounded MT Bold" size="25.0" />
                            </font>
                         </Label>
-                        <ListView layoutX="70.0" layoutY="350.0" prefHeight="184.0" prefWidth="242.0" style="border: 20;" />
-                        <Button layoutX="369.0" layoutY="424.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="88.0" styleClass="logButton" stylesheets="@../../../mainStyle.css" text="JOIN">
+                        <ListView fx:id="clubsList" layoutX="70.0" layoutY="350.0" prefHeight="184.0" prefWidth="242.0" style="-fx-background-color: transparent; -fx-background-radius: 20; -fx-border-radius: 20;" />
+                        <Button fx:id="joinClub" alignment="CENTER_RIGHT" layoutX="369.0" layoutY="424.0" mnemonicParsing="false" onAction="#joinClub" prefHeight="44.0" prefWidth="114.0" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="JOIN">
                            <font>
                               <Font name="Arial Rounded MT Bold" size="15.0" />
                            </font>
                         </Button>
+                        <ImageView fitHeight="44.0" fitWidth="51.0" layoutX="378.0" layoutY="426.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../../images/plus.png" />
+                           </image>
+                        </ImageView>
                      </children>
                   </AnchorPane>
                   <AnchorPane fx:id="Events" layoutX="10.0" layoutY="10.0" prefHeight="571.2" prefWidth="722.4" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">

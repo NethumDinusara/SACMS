@@ -81,6 +81,7 @@ class Member extends User {
     private String grade;
     private String studentId;
 
+
     // Parameterized constructor
     public Member(String firstName, String lastName, String phoneNumber, String username, String email, String password, Date dateOfBirth, String grade, String gender, String studentId) {
         super(firstName, lastName, phoneNumber, username, email, password);

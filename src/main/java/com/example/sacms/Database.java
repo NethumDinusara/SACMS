@@ -1,6 +1,8 @@
 package com.example.sacms;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Database {
     final String connectionUrl;
@@ -152,6 +154,99 @@ public class Database {
         }
         return null;
     }
+
+    public List<Club> getMemberClubs(String username) {
+        List<Club> clubs = new ArrayList<>();
+        String query = "SELECT c.ClubName, a.FirstName AS AdvisorFirstName, a.LastName AS AdvisorLastName, a.PhoneNumber AS AdvisorPhoneNumber, cm.JoinDate " +
+                "FROM club c " +
+                "JOIN clubmember cm ON c.ClubID = cm.ClubID " +
+                "JOIN advisor a ON c.AdvisorID = a.Username " +
+                "WHERE cm.Username = ?";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, username);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    String clubName = resultSet.getString("ClubName");
+                    String advisorFirstName = resultSet.getString("AdvisorFirstName");
+                    String advisorLastName = resultSet.getString("AdvisorLastName");
+                    String advisorPhoneNumber = resultSet.getString("AdvisorPhoneNumber");
+                    Date joinDate = resultSet.getDate("JoinDate");
+
+                    String advisorName = advisorFirstName + " " + advisorLastName;
+
+                    Club club = new Club(clubName, "", advisorName, "");
+                    club.setAdvisorPhoneNumber(advisorPhoneNumber);
+                    club.setJoinDate(joinDate);
+                    clubs.add(club);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting member clubs");
+            System.out.println(e.getMessage());
+        }
+        return clubs;
+    }
+
+    public List<String> getAvailableClubs(String username) {
+        List<String> availableClubs = new ArrayList<>();
+        String query = "SELECT ClubName FROM club WHERE ClubID NOT IN (SELECT ClubID FROM clubmember WHERE Username = ?)";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, username);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    String clubName = resultSet.getString("ClubName");
+                    availableClubs.add(clubName);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting available clubs");
+            System.out.println(e.getMessage());
+        }
+        return availableClubs;
+    }
+
+    public void joinClub(String username, String clubName) {
+        String query = "INSERT INTO clubmember (ClubID, Username, JoinDate) " +
+                "VALUES ((SELECT ClubID FROM club WHERE ClubName = ?), ?, CURDATE())";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, clubName);
+            preparedStatement.setString(2, username);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error joining club");
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void quitClub(String username, String clubName) {
+        String query = "DELETE FROM clubmember WHERE ClubID = (SELECT ClubID FROM club WHERE ClubName = ?) AND Username = ?";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, clubName);
+            preparedStatement.setString(2, username);
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error quitting club");
+            System.out.println(e.getMessage());
+        }
+    }
+
+
 
 }
 

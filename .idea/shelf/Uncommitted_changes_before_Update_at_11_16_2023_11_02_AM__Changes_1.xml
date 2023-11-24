@@ -1,9 +1,0 @@
-<changelist name="Uncommitted_changes_before_Update_at_11_16_2023_11_02_AM_[Changes]1" date="1700112910228" recycled="true" deleted="true">
-  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_16_2023_11_02_AM_[Changes]1/shelved.patch" />
-  <option name="DESCRIPTION" value="Uncommitted changes before Update at 11/16/2023 11:02 AM [Changes]" />
-  <binary>
-    <option name="BEFORE_PATH" />
-    <option name="AFTER_PATH" value="lib/mysql-connector-j-8.2.0.jar" />
-    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_11_16_2023_11_02_AM_[Changes]1/mysql-connector-j-8.2.0.jar" />
-  </binary>
-</changelist>
