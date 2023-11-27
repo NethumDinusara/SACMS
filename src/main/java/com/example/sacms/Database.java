@@ -179,7 +179,7 @@ public class Database {
 
                     String advisorName = advisorFirstName + " " + advisorLastName;
 
-                    Club club = new Club(clubName, "", advisorName, "");
+                    Club club = new Club(clubName, "", advisorName);
                     club.setAdvisorPhoneNumber(advisorPhoneNumber);
                     club.setJoinDate(joinDate);
                     clubs.add(club);
@@ -250,5 +250,35 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
+
+   //get club data for the club table in the advisor controller
+   // Get club data for the advisor
+   public List<Club> getClubDataForAdvisor() {
+       List<Club> clubs = new ArrayList<>();
+       String query = "SELECT c.ClubName, c.ClubDescription, a.Username AS AdvisorID " +
+               "FROM club c " +
+               "JOIN advisor a ON c.AdvisorID = a.Username";
+
+       try (Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery()) {
+
+           while (resultSet.next()) {
+               String clubName = resultSet.getString("ClubName");
+               String clubDescription = resultSet.getString("ClubDescription");
+               String advisorID = resultSet.getString("AdvisorID");
+
+               Club club = new Club(clubName, clubDescription, advisorID);
+               clubs.add(club);
+           }
+
+       } catch (SQLException e) {
+           System.out.println("Error getting club data for advisor");
+           System.out.println(e.getMessage());
+       }
+
+       return clubs;
+   }
+
 }
 
