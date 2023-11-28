@@ -20,7 +20,10 @@
     <last-used-providers />
   </component>
   <component name="DBNavigator.Project.DatabaseFileManager">
-    <open-files />
+    <open-files>
+      <object connection-id="61f57329-dec2-4825-89af-710ba9277094" object-ref="schemas/sacms/tables/advisor" />
+      <object connection-id="61f57329-dec2-4825-89af-710ba9277094" object-ref="schemas/sacms/tables/club" />
+    </open-files>
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="61f57329-dec2-4825-89af-710ba9277094" dataset="sacms.clubmember" active-filter-id="EMPTY_FILTER" />
