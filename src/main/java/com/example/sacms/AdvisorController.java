@@ -91,6 +91,9 @@ public class AdvisorController {
     @FXML
     private TextField eventIdTextField;
 
+    @FXML
+    private Label eventNameTF;
+
 
     private final Database database = new Database();
     private String username;
@@ -152,6 +155,8 @@ public class AdvisorController {
                     manageClub.setVisible(false);
                     clubAttendance.setVisible(false);
                     attendanceTracking.setVisible(true);
+
+                    eventNameTF.setText(database.getAdvisorName(eventID,username));
                     found = true;
                     break;
                 }

@@ -212,12 +212,36 @@ public class Database {
                     events.add(event);
 
                     getAdvisorEventIDs(username);
+
+
                 }
             }
         }
 
         return events;
     }
+
+    public String getAdvisorName(int eventID, String username) {
+        String query = "SELECT EventName FROM event WHERE Username = ? AND EventID = ?";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, username);
+            preparedStatement.setInt(2, eventID);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getString("EventName");
+                }
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return null; // Return null if the event ID isn't found for that username
+    }
+
 
     // Get all the event ids to a one list
     public List<Integer> getAdvisorEventIDs(String username) throws SQLException {
