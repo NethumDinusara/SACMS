@@ -1,5 +1,7 @@
 package com.example.sacms;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -8,8 +10,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
+import java.sql.SQLException;
+import java.util.List;
 
 import java.util.Objects;
 
@@ -48,8 +55,26 @@ public class MemberController{
     @FXML
     private Label phoneNumber;
 
+    @FXML
+    public TableView<event> eventTableID;
+    @FXML
+    public TableColumn<event, String> clubNameCol;
+    @FXML
+    public TableColumn<event, String> eventNameCol;
+    @FXML
+    public TableColumn<event, String> advisorNameCol;
+    @FXML
+    public TableColumn<event, String> eventVenueCol;
+    @FXML
+    public TableColumn<event, String> eventDateCol;
+    @FXML
+    public TableColumn<event, String> eventTimeCol;
+
+
     private final Database database = new Database();
     private String username;
+
+
 
 
     public void SwitchForm(ActionEvent event){
@@ -71,6 +96,8 @@ public class MemberController{
             yourProfile.setVisible(false);
             yourClubs.setVisible(false);
             Events.setVisible(true);
+
+
         }
     }
 

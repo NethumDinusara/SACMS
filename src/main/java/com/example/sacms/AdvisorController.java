@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -49,6 +50,9 @@ public class AdvisorController {
 
     private Club selectedClubRecord;
 
+    @FXML
+    public Button advScheduleEvent;
+
 
     @FXML
     public void goBack(ActionEvent actionEvent)throws Exception {
@@ -57,6 +61,15 @@ public class AdvisorController {
         MainStage.setScene(new Scene(root));
         MainStage.setTitle("SACMS");
     }
+
+    @FXML
+    public void onScheduleBottonClick(ActionEvent actionEvent)throws Exception {
+        Stage MainStage =(Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Schedule_event.fxml")));
+        MainStage.setScene(new Scene(root));
+        MainStage.setTitle("Advisor");
+    }
+
 
     public void createClub(ActionEvent actionEvent) {
     }

@@ -10,11 +10,11 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="Schedule" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="906.0" style="-fx-background-color: #0000;" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sacms.AdvisorSchedule">
+<AnchorPane fx:id="Schedule" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="555.0" prefWidth="906.0" style="-fx-background-color: #0000;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sacms.AdvisorSchedule">
     <children>
         <AnchorPane layoutX="6.0" layoutY="116.0" minHeight="0.0" minWidth="0.0" prefHeight="422.0" prefWidth="290.0" styleClass="pane" stylesheets="@../../../mainStyle.css">
             <children>
-                <TextField fx:id="clubName" alignment="CENTER" layoutX="11.0" layoutY="94.0" prefHeight="36.0" prefWidth="267.0" promptText="Club Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                <TextField fx:id="clubName" alignment="CENTER" layoutX="11.0" layoutY="86.0" prefHeight="36.0" prefWidth="267.0" promptText="Club Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
                     <font>
                         <Font name="Arial Rounded MT Bold" size="14.0" />
                     </font>
@@ -24,22 +24,22 @@
                         <Font name="Arial Rounded MT Bold" size="31.0" />
                     </font>
                 </Label>
-                <TextField fx:id="eventName" alignment="CENTER" layoutX="11.0" layoutY="148.0" prefHeight="36.0" prefWidth="267.0" promptText="Enter Event Name " styleClass="textField" stylesheets="@../../../mainStyle.css">
+                <TextField fx:id="eventName" alignment="CENTER" layoutX="11.0" layoutY="140.0" prefHeight="36.0" prefWidth="267.0" promptText="Enter Event Name " styleClass="textField" stylesheets="@../../../mainStyle.css">
                     <font>
                         <Font name="Arial Rounded MT Bold" size="14.0" />
                     </font>
                 </TextField>
-                <TextField fx:id="advisorName" alignment="CENTER" layoutX="10.0" layoutY="203.0" prefHeight="36.0" prefWidth="267.0" promptText="Advisor Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                <TextField fx:id="advisorName" alignment="CENTER" layoutX="11.0" layoutY="193.0" prefHeight="36.0" prefWidth="267.0" promptText="Advisor Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
                     <font>
                         <Font name="Arial Rounded MT Bold" size="14.0" />
                     </font>
                 </TextField>
-                <Button fx:id="eventCreateID" layoutX="70.0" layoutY="346.0" mnemonicParsing="false" onAction="#createEvent" opacity="0.5" prefHeight="16.0" prefWidth="150.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px;" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Create Event">
+                <Button fx:id="eventCreateID" layoutX="70.0" layoutY="370.0" mnemonicParsing="false" onAction="#createEvent" opacity="0.5" prefHeight="16.0" prefWidth="150.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px;" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Create Event">
                     <font>
                         <Font size="17.0" />
                     </font>
                 </Button>
-                <TextField fx:id="eventVenue" alignment="CENTER" layoutX="11.0" layoutY="257.0" prefHeight="36.0" prefWidth="267.0" promptText="Venue" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                <TextField fx:id="eventVenue" alignment="CENTER" layoutX="11.0" layoutY="248.0" prefHeight="36.0" prefWidth="267.0" promptText="Venue" styleClass="textField" stylesheets="@../../../mainStyle.css">
                     <font>
                         <Font name="Arial Rounded MT Bold" size="14.0" />
                     </font>
@@ -49,15 +49,27 @@
                         <Font name="System Bold" size="12.0" />
                     </font>
                 </Label>
-                <Label fx:id="clubNameError" layoutX="187.0" layoutY="131.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
-                <Label fx:id="eventNameError" layoutX="187.0" layoutY="184.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
-                <Label fx:id="advNameError" layoutX="187.0" layoutY="239.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
-                <Label fx:id="venueError" layoutX="187.0" layoutY="293.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
+                <Label fx:id="clubNameError" layoutX="187.0" layoutY="122.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
+                <Label fx:id="eventNameError" layoutX="187.0" layoutY="176.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
+                <Label fx:id="advNameError" layoutX="187.0" layoutY="229.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
+                <Label fx:id="venueError" layoutX="187.0" layoutY="284.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
+            <Label fx:id="eDateError" layoutX="7.0" layoutY="338.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
+            <TextField fx:id="eventDate" alignment="CENTER" layoutX="7.0" layoutY="302.0" prefHeight="36.0" prefWidth="150.0" promptText="Date (DD-MM-YY)" styleClass="textField" stylesheets="@../../../mainStyle.css">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="eventTime" alignment="CENTER" layoutX="163.0" layoutY="302.0" prefHeight="36.0" prefWidth="126.0" promptText="Time" styleClass="textField" stylesheets="@../../../mainStyle.css">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </TextField>
+            <Label fx:id="eventTimeError" layoutX="187.0" layoutY="338.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="RED" />
             </children>
         </AnchorPane>
         <AnchorPane layoutX="301.0" layoutY="116.0" minHeight="0.0" minWidth="0.0" prefHeight="422.0" prefWidth="296.0" styleClass="pane" stylesheets="@../../../mainStyle.css">
             <children>
-                <TextField fx:id="meetingTopic" alignment="CENTER" layoutX="14.0" layoutY="95.0" prefHeight="36.0" prefWidth="267.0" promptText="Meeting Topic" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                <TextField fx:id="meetingTopic" alignment="CENTER" layoutX="11.0" layoutY="90.0" prefHeight="36.0" prefWidth="267.0" promptText="Meeting Topic" styleClass="textField" stylesheets="@../../../mainStyle.css">
                     <font>
                         <Font name="Arial Rounded MT Bold" size="14.0" />
                     </font>
@@ -67,35 +79,41 @@
                         <Font name="Arial Rounded MT Bold" size="31.0" />
                     </font>
                 </Label>
-                <TextField fx:id="nameClub" alignment="CENTER" layoutX="14.0" layoutY="149.0" prefHeight="36.0" prefWidth="267.0" promptText="Club Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                <TextField fx:id="nameClub" alignment="CENTER" layoutX="11.0" layoutY="144.0" prefHeight="36.0" prefWidth="267.0" promptText="Club Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
                     <font>
                         <Font name="Arial Rounded MT Bold" size="14.0" />
                     </font>
                 </TextField>
-                <TextField fx:id="meetDuration" alignment="CENTER" layoutX="14.0" layoutY="257.0" prefHeight="36.0" prefWidth="267.0" promptText="Meeting Duration" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                <TextField fx:id="meetDuration" alignment="CENTER" layoutX="14.0" layoutY="307.0" prefHeight="36.0" prefWidth="267.0" promptText="Time" styleClass="textField" stylesheets="@../../../mainStyle.css">
                     <font>
                         <Font name="Arial Rounded MT Bold" size="14.0" />
                     </font>
                 </TextField>
-                <Button layoutX="73.0" layoutY="345.0" mnemonicParsing="false" onAction="#meetingCreate" opacity="0.5" prefHeight="16.0" prefWidth="150.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px;" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Create Meeting">
+                <Button layoutX="73.0" layoutY="370.0" mnemonicParsing="false" onAction="#meetingCreate" opacity="0.5" prefHeight="16.0" prefWidth="150.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px;" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Create Meeting">
                     <font>
                         <Font size="17.0" />
                     </font>
                 </Button>
-                <TextField fx:id="meetingAdvisor" alignment="CENTER" layoutX="14.0" layoutY="204.0" prefHeight="36.0" prefWidth="267.0" promptText="Meeting Advisor" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                <TextField fx:id="meetingAdvisor" alignment="CENTER" layoutX="11.0" layoutY="199.0" prefHeight="36.0" prefWidth="267.0" promptText="Meeting Advisor" styleClass="textField" stylesheets="@../../../mainStyle.css">
                     <font>
                         <Font name="Arial Rounded MT Bold" size="14.0" />
                     </font>
                 </TextField>
-                <Label fx:id="meetingTopicError" layoutX="186.0" layoutY="131.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
-                <Label fx:id="meetingClubNameError" layoutX="186.0" layoutY="185.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
-                <Label fx:id="meetingAdvisorError" layoutX="186.0" layoutY="240.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
-                <Label fx:id="meetingDurationError" layoutX="186.0" layoutY="293.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
+                <Label fx:id="meetingClubNameError" layoutX="193.0" layoutY="180.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
+                <Label fx:id="meetingAdvisorError" layoutX="193.0" layoutY="235.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
+                <Label fx:id="meetingTopicError" layoutX="193.0" layoutY="126.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
+            <TextField fx:id="meetingDate" alignment="CENTER" layoutX="14.0" layoutY="253.0" prefHeight="36.0" prefWidth="267.0" promptText="Date (DD-MM-YY)" styleClass="textField" stylesheets="@../../../mainStyle.css">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </TextField>
+            <Label fx:id="meetingDateError" layoutX="186.0" layoutY="289.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
+                <Label fx:id="meetingDurationError" layoutX="186.0" layoutY="343.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
             </children>
         </AnchorPane>
         <AnchorPane layoutX="602.0" layoutY="116.0" minHeight="0.0" minWidth="0.0" prefHeight="422.0" prefWidth="296.0" styleClass="pane" stylesheets="@../../../mainStyle.css">
             <children>
-                <TextField fx:id="createMeeting" alignment="CENTER" layoutX="14.0" layoutY="99.0" prefHeight="36.0" prefWidth="267.0" promptText="Activity Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                <TextField fx:id="activityName" alignment="CENTER" layoutX="13.0" layoutY="86.0" prefHeight="36.0" prefWidth="267.0" promptText="Activity Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
                     <font>
                         <Font name="Arial Rounded MT Bold" size="14.0" />
                     </font>
@@ -105,22 +123,32 @@
                         <Font name="Arial Rounded MT Bold" size="31.0" />
                     </font>
                 </Label>
-                <Button layoutX="73.0" layoutY="344.0" mnemonicParsing="false" onAction="#createActivity" opacity="0.5" prefHeight="16.0" prefWidth="150.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px;" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Create Activity">
+                <Button layoutX="72.0" layoutY="370.0" mnemonicParsing="false" onAction="#createActivity" opacity="0.5" prefHeight="36.0" prefWidth="150.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px;" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Create Activity">
                     <font>
                         <Font size="17.0" />
                     </font>
                 </Button>
-                <TextField fx:id="activityDescription" alignment="CENTER" layoutX="14.0" layoutY="254.0" prefHeight="69.0" prefWidth="267.0" promptText="Enter Activity Description" />
-                <TextField fx:id="activityDate" alignment="CENTER" layoutX="14.0" layoutY="150.0" prefHeight="36.0" prefWidth="267.0" promptText="Date" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                <TextField fx:id="activityDescription" alignment="CENTER" layoutX="13.0" layoutY="290.0" prefHeight="69.0" prefWidth="267.0" promptText="Enter Activity Description" />
+                <TextField fx:id="activityDate" alignment="CENTER" layoutX="13.0" layoutY="137.0" prefHeight="36.0" prefWidth="267.0" promptText="Date (DD-MM-YY)" styleClass="textField" stylesheets="@../../../mainStyle.css">
                     <font>
                         <Font name="Arial Rounded MT Bold" size="14.0" />
                     </font>
                 </TextField>
-                <TextField fx:id="activityMenu" alignment="CENTER" layoutX="14.0" layoutY="203.0" prefHeight="36.0" prefWidth="267.0" promptText="Venue" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                <TextField fx:id="activityVenue" alignment="CENTER" layoutX="14.0" layoutY="182.0" prefHeight="36.0" prefWidth="267.0" promptText="Venue" styleClass="textField" stylesheets="@../../../mainStyle.css">
                     <font>
                         <Font name="Arial Rounded MT Bold" size="14.0" />
                     </font>
                 </TextField>
+            <Label fx:id="activityNameError" layoutX="186.0" layoutY="122.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
+            <Label fx:id="activityDateError" layoutX="193.0" layoutY="173.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
+            <Label fx:id="activityVenueError" layoutX="193.0" layoutY="218.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
+            <TextField fx:id="clubNameAct" alignment="CENTER" layoutX="14.0" layoutY="227.0" prefHeight="36.0" prefWidth="267.0" promptText="Club Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="14.0" />
+               </font>
+            </TextField>
+            <Label fx:id="clubNameActError" layoutX="193.0" layoutY="263.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
+            <Label fx:id="actDescriptionError" layoutX="177.0" layoutY="341.0" prefHeight="18.0" prefWidth="102.0" textAlignment="CENTER" textFill="#ec0000" />
             </children>
         </AnchorPane>
         <Line endX="603.9999389648438" endY="53.19999694824219" layoutX="299.0" layoutY="43.0" startX="-352.3070373535156" startY="53.19999694824219" stroke="#10325e" strokeWidth="3.0" />

@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sacms.MemberController">
+<AnchorPane prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sacms.MemberController">
    <children>
       <VBox layoutY="87.0" prefHeight="486.0" prefWidth="198.0" styleClass="navi" stylesheets="@../../../mainStyle.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0">
          <children>
@@ -121,7 +121,7 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane fx:id="yourProfile" layoutX="193.0" layoutY="159.0" prefHeight="550.4" prefWidth="701.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="yourProfile" layoutX="193.0" layoutY="159.0" prefHeight="550.4" prefWidth="701.6" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label fx:id="userFName" layoutX="147.0" layoutY="276.0" prefHeight="78.0" prefWidth="258.0" text="Name">
                            <font>
@@ -192,13 +192,23 @@
                         </Button>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="Events" layoutX="10.0" layoutY="10.0" prefHeight="571.2" prefWidth="722.4" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="Events" layoutX="10.0" layoutY="10.0" prefHeight="571.2" prefWidth="722.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label layoutX="263.0" layoutY="111.0" text="Events">
+                        <Label layoutX="278.0" layoutY="14.0" text="Events">
                            <font>
-                              <Font size="51.0" />
+                              <Font name="Arial Rounded MT Bold" size="51.0" />
                            </font>
                         </Label>
+                        <TableView fx:id="eventTableID" layoutX="41.0" layoutY="124.0" prefHeight="328.0" prefWidth="628.0">
+                          <columns>
+                            <TableColumn fx:id="clubNameCol" prefWidth="110.39995574951172" text="Club Name" />
+                            <TableColumn fx:id="eventNameCol" prefWidth="97.60003662109375" text="Event Name" />
+                              <TableColumn fx:id="advisorNameCol" prefWidth="99.99993896484375" text="Advisor Name" />
+                              <TableColumn fx:id="eventVenueCol" prefWidth="102.4000244140625" text="Event Venue" />
+                              <TableColumn fx:id="eventDateCol" prefWidth="107.99984741210938" text="Event Date" />
+                              <TableColumn fx:id="eventTimeCol" prefWidth="105.60009765625" text="Event Time" />
+                          </columns>
+                        </TableView>
                      </children>
                   </AnchorPane>
                </children>
