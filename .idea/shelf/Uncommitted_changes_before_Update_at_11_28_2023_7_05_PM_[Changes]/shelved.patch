@@ -1,0 +1,307 @@
+Index: src/main/java/com/example/sacms/Database.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.sacms;\r\n\r\nimport java.sql.*;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\n\r\npublic class Database {\r\n    final String connectionUrl;\r\n\r\n    public Database() {\r\n        connectionUrl = \"jdbc:mysql://localhost/sacms\";\r\n    }\r\n    public Connection getConnection() {\r\n        try {\r\n            return DriverManager.getConnection(connectionUrl, \"root\", \"\");\r\n        } catch (SQLException sqlException) {\r\n            System.out.println(\"Could not get SQL Connection\");\r\n            System.out.println(sqlException.getMessage());\r\n            return null;\r\n        }\r\n    }\r\n\r\n    // Login method for both members and advisors\r\n    public boolean validateUserLogin(String username, String password, String userType) {\r\n        String query = \"\";\r\n        if (\"member\".equals(userType)) {\r\n            query = \"SELECT * FROM member WHERE username = ? AND password = ?\";\r\n        } else if (\"advisor\".equals(userType)) {\r\n            query = \"SELECT * FROM advisor WHERE username = ? AND password = ?\";\r\n        }\r\n\r\n        try (Connection connection = getConnection();\r\n             PreparedStatement preparedStatement = connection.prepareStatement(query)) {\r\n            preparedStatement.setString(1, username);\r\n            preparedStatement.setString(2, password);\r\n\r\n            try (ResultSet resultSet = preparedStatement.executeQuery()) {\r\n                return resultSet.next();\r\n            }\r\n        } catch (SQLException e) {\r\n            System.out.println(\"Error validating login\");\r\n            System.out.println(e.getMessage());\r\n            return false;\r\n        }\r\n    }\r\n\r\n\r\n    // Registration method for both members and advisors\r\n    public boolean registerUser(User user,String userType){\r\n        String query = \"\";\r\n        if (\"member\".equals(userType)){\r\n            query = \"INSERT INTO member (`Username`, `FirstName`, `LastName`, `PhoneNumber`, `Email`, `Password`, `DateOfBirth`, `Gender`, `Grade`,`StudentID`)\" +\r\n                    \"VALUES (?,?,?,?,?,?,?,?,?,?)\";\r\n        } else if (\"advisor\".equals(userType)) {\r\n            query = \"INSERT INTO advisor (`Username`, `FirstName`, `LastName`, `PhoneNumber`, `Email`, `Password`, `TeacherID`)\" +\r\n                    \"VALUES (?,?,?,?,?,?,?)\";\r\n        }\r\n\r\n        try (Connection connection = getConnection();\r\n             PreparedStatement preparedStatement = connection.prepareStatement(query)){\r\n\r\n            //Set common fields\r\n            preparedStatement.setString(1,user.getUsername());\r\n            preparedStatement.setString(2,user.getFirstName());\r\n            preparedStatement.setString(3,user.getLastName());\r\n            preparedStatement.setString(4,user.getPhoneNumber());\r\n            preparedStatement.setString(5,user.getEmail());\r\n            preparedStatement.setString(6,user.getPassword());\r\n\r\n            //Set User-specific fields\r\n            if(\"member\".equals(userType)){\r\n\r\n                Member member = (Member) user;\r\n                preparedStatement.setDate(7,member.getDateOfBirth());\r\n                preparedStatement.setString(8,member.getGender());\r\n                preparedStatement.setString(9, member.getGrade());\r\n                preparedStatement.setString(10, member.getStudentId());\r\n\r\n            } else if (\"advisor\".equals(userType)) {\r\n\r\n                Advisor advisor = (Advisor) user;\r\n                preparedStatement.setString(7,advisor.getTeacherId());\r\n\r\n            }\r\n\r\n            // Execute the query\r\n            int rowsAffected = preparedStatement.executeUpdate();\r\n\r\n            // Return true if registration is successful (rowsAffected > 0)\r\n            return rowsAffected > 0;\r\n\r\n        }catch (SQLException e){\r\n            System.out.println(\"Error registering user\");\r\n            System.out.println(e.getMessage());\r\n            return false;\r\n        }\r\n\r\n    }\r\n\r\n    //checking the already exists students\r\n    public boolean isUserIdExists(String UserID,String UserType) {\r\n        String query = \"\";\r\n        if (\"member\".equals(UserType)){\r\n            query = \"SELECT COUNT(*) FROM member WHERE StudentID = ?\";\r\n        } else if (\"advisor\".equals(UserType)) {\r\n            query = \"SELECT COUNT(*) FROM advisor WHERE TeacherID = ?\";\r\n        }\r\n        try (Connection connection = getConnection();\r\n             PreparedStatement preparedStatement = connection.prepareStatement(query)) {\r\n            preparedStatement.setString(1, UserID);  //Use the provided UserID parameter\r\n\r\n            try (ResultSet resultSet = preparedStatement.executeQuery()) {\r\n                if (resultSet.next()) {\r\n                    int count = resultSet.getInt(1);\r\n                    return count > 0; // If count is greater than 0, user ID exists\r\n                }\r\n            }\r\n        } catch (SQLException e) {\r\n            System.out.println(\"Error checking if user ID exists\");\r\n            System.out.println(e.getMessage());\r\n        }\r\n        return false;\r\n    }\r\n\r\n    //Get user data to the member profile view\r\n\r\n    public Member getMemberData(String username) {\r\n        String query = \"SELECT * FROM member WHERE username = ?\";\r\n\r\n        try (Connection connection = getConnection();\r\n             PreparedStatement preparedStatement = connection.prepareStatement(query)) {\r\n            preparedStatement.setString(1, username);\r\n\r\n            try (ResultSet resultSet = preparedStatement.executeQuery()) {\r\n                if (resultSet.next()) {\r\n                    // Extract data from the result set\r\n                    String firstName = resultSet.getString(\"FirstName\");\r\n                    String lastName = resultSet.getString(\"LastName\");\r\n                    String phoneNumber = resultSet.getString(\"PhoneNumber\");\r\n                    String email = resultSet.getString(\"Email\");\r\n                    Date dateOfBirth = resultSet.getDate(\"DateOfBirth\");\r\n                    String gender = resultSet.getString(\"Gender\");\r\n                    String grade = resultSet.getString(\"Grade\");\r\n                    String studentId = resultSet.getString(\"StudentID\");\r\n\r\n                    // Create a Member object with the retrieved data\r\n                    Member member = new Member(firstName, lastName, phoneNumber, username, email, null, dateOfBirth, grade, gender, studentId);\r\n                    return member;\r\n                }\r\n            }\r\n        } catch (SQLException e) {\r\n            System.out.println(\"Error getting member data\");\r\n            System.out.println(e.getMessage());\r\n        }\r\n        return null;\r\n    }\r\n\r\n    //get member data and club data from the database\r\n    public List<Club> getMemberClubs(String username) {\r\n        List<Club> clubs = new ArrayList<>();\r\n        String query = \"SELECT c.ClubName, a.FirstName AS AdvisorFirstName, a.LastName AS AdvisorLastName, a.PhoneNumber AS AdvisorPhoneNumber, cm.JoinDate \" +\r\n                \"FROM club c \" +\r\n                \"JOIN clubmember cm ON c.ClubID = cm.ClubID \" +\r\n                \"JOIN advisor a ON c.AdvisorID = a.Username \" +\r\n                \"WHERE cm.Username = ?\";\r\n\r\n        try (Connection connection = getConnection();\r\n             PreparedStatement preparedStatement = connection.prepareStatement(query)) {\r\n\r\n            preparedStatement.setString(1, username);\r\n\r\n            try (ResultSet resultSet = preparedStatement.executeQuery()) {\r\n                while (resultSet.next()) {\r\n                    String clubName = resultSet.getString(\"ClubName\");\r\n                    String advisorFirstName = resultSet.getString(\"AdvisorFirstName\");\r\n                    String advisorLastName = resultSet.getString(\"AdvisorLastName\");\r\n                    String advisorPhoneNumber = resultSet.getString(\"AdvisorPhoneNumber\");\r\n                    Date joinDate = resultSet.getDate(\"JoinDate\");\r\n\r\n                    String advisorName = advisorFirstName + \" \" + advisorLastName;\r\n\r\n                    Club club = new Club(clubName, \"\", advisorName);\r\n                    club.setAdvisorPhoneNumber(advisorPhoneNumber);\r\n                    club.setJoinDate(joinDate);\r\n                    clubs.add(club);\r\n                }\r\n            }\r\n        } catch (SQLException e) {\r\n            System.out.println(\"Error getting member clubs\");\r\n            System.out.println(e.getMessage());\r\n        }\r\n        return clubs;\r\n    }\r\n\r\n    //getting not join club data from the clubmember table\r\n    public List<String> getAvailableClubs(String username) {\r\n        List<String> availableClubs = new ArrayList<>();\r\n        String query = \"SELECT ClubName FROM club WHERE ClubID NOT IN (SELECT ClubID FROM clubmember WHERE Username = ?)\";\r\n\r\n        try (Connection connection = getConnection();\r\n             PreparedStatement preparedStatement = connection.prepareStatement(query)) {\r\n\r\n            preparedStatement.setString(1, username);\r\n\r\n            try (ResultSet resultSet = preparedStatement.executeQuery()) {\r\n                while (resultSet.next()) {\r\n                    String clubName = resultSet.getString(\"ClubName\");\r\n                    availableClubs.add(clubName);\r\n                }\r\n            }\r\n        } catch (SQLException e) {\r\n            System.out.println(\"Error getting available clubs\");\r\n            System.out.println(e.getMessage());\r\n        }\r\n        return availableClubs;\r\n    }\r\n\r\n    //method for the join clubs\r\n    public void joinClub(String username, String clubName) {\r\n        String query = \"INSERT INTO clubmember (ClubID, Username, JoinDate) \" +\r\n                \"VALUES ((SELECT ClubID FROM club WHERE ClubName = ?), ?, CURDATE())\";\r\n\r\n        try (Connection connection = getConnection();\r\n             PreparedStatement preparedStatement = connection.prepareStatement(query)) {\r\n\r\n            preparedStatement.setString(1, clubName);\r\n            preparedStatement.setString(2, username);\r\n\r\n            preparedStatement.executeUpdate();\r\n        } catch (SQLException e) {\r\n            System.out.println(\"Error joining club\");\r\n            System.out.println(e.getMessage());\r\n        }\r\n    }\r\n\r\n\r\n    //method for the quit from a club\r\n    public void quitClub(String username, String clubName) {\r\n        String query = \"DELETE FROM clubmember WHERE ClubID = (SELECT ClubID FROM club WHERE ClubName = ?) AND Username = ?\";\r\n\r\n        try (Connection connection = getConnection();\r\n             PreparedStatement preparedStatement = connection.prepareStatement(query)) {\r\n\r\n            preparedStatement.setString(1, clubName);\r\n            preparedStatement.setString(2, username);\r\n\r\n            preparedStatement.executeUpdate();\r\n        } catch (SQLException e) {\r\n            System.out.println(\"Error quitting club\");\r\n            System.out.println(e.getMessage());\r\n        }\r\n    }\r\n\r\n   //get club data for the club table in the advisor controller\r\n   // Get club data for the advisor\r\n   public List<Club> getClubDataForAdvisor() {\r\n       List<Club> clubs = new ArrayList<>();\r\n       String query = \"SELECT c.ClubName, c.ClubDescription, a.Username AS AdvisorID \" +\r\n               \"FROM club c \" +\r\n               \"JOIN advisor a ON c.AdvisorID = a.Username\";\r\n\r\n       try (Connection connection = getConnection();\r\n            PreparedStatement preparedStatement = connection.prepareStatement(query);\r\n            ResultSet resultSet = preparedStatement.executeQuery()) {\r\n\r\n           while (resultSet.next()) {\r\n               String clubName = resultSet.getString(\"ClubName\");\r\n               String clubDescription = resultSet.getString(\"ClubDescription\");\r\n               String advisorID = resultSet.getString(\"AdvisorID\");\r\n\r\n               Club club = new Club.ManageClub(clubName, clubDescription, \"\", advisorID);\r\n               clubs.add(club);\r\n           }\r\n\r\n       } catch (SQLException e) {\r\n           System.out.println(\"Error getting club data for advisor\");\r\n           System.out.println(e.getMessage());\r\n       }\r\n\r\n       return clubs;\r\n   }\r\n\r\n\r\n    public boolean createClub(Club club) {\r\n        String query = \"INSERT INTO club (ClubName, ClubDescription, AdvisorID) VALUES (?, ?, ?)\";\r\n\r\n        try (Connection connection = getConnection();\r\n             PreparedStatement preparedStatement = connection.prepareStatement(query)) {\r\n\r\n            preparedStatement.setString(1, club.getClubName());\r\n            preparedStatement.setString(2, club.getClubDescription());\r\n\r\n            if (club instanceof Club.ManageClub) {\r\n                Club.ManageClub manageClub = (Club.ManageClub) club;\r\n\r\n                // Check if the advisorID is not null or empty\r\n                if (manageClub.getAdvisorID() != null && !manageClub.getAdvisorID().isEmpty()) {\r\n                    // Check if the club already exists in the database\r\n                    if (clubExists(connection, club)) {\r\n                        System.out.println(\"Club already exists\");\r\n                        return false;\r\n                    }\r\n\r\n                    // Check if the advisor exists in the advisor table\r\n                    if (!advisorExists(connection, manageClub.getAdvisorID())) {\r\n                        // Insert the advisor if not exists\r\n                        insertAdvisor(connection, manageClub.getAdvisorID());\r\n                    }\r\n\r\n                    preparedStatement.setString(3, manageClub.getAdvisorID());\r\n                } else {\r\n                    preparedStatement.setNull(3, Types.VARCHAR); // or set an appropriate default value\r\n                }\r\n            } else {\r\n                preparedStatement.setNull(3, Types.VARCHAR); // or set an appropriate default value\r\n            }\r\n\r\n            // Start a transaction\r\n            connection.setAutoCommit(false);\r\n\r\n            try {\r\n                // Insert the club\r\n                int rowsAffected = preparedStatement.executeUpdate();\r\n\r\n                if (rowsAffected > 0) {\r\n                    // Commit the transaction if the insertion is successful\r\n                    connection.commit();\r\n                    return true;\r\n                } else {\r\n                    // Rollback the transaction if the insertion fails\r\n                    connection.rollback();\r\n                    return false;\r\n                }\r\n            } catch (SQLException e) {\r\n                // Rollback the transaction in case of an exception\r\n                connection.rollback();\r\n                System.out.println(\"Error creating club\");\r\n                e.printStackTrace();\r\n                return false;\r\n            } finally {\r\n                // Restore the default auto-commit behavior\r\n                connection.setAutoCommit(true);\r\n            }\r\n\r\n        } catch (SQLException e) {\r\n            System.out.println(\"Error creating club\");\r\n            e.printStackTrace();\r\n            return false;\r\n        }\r\n    }\r\n\r\n    // Helper method to check if a club already exists\r\n    private boolean clubExists(Connection connection, Club club) throws SQLException {\r\n        String query = \"SELECT 1 FROM club WHERE ClubName = ? AND ClubDescription = ? AND AdvisorID = ?\";\r\n        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {\r\n            preparedStatement.setString(1, club.getClubName());\r\n            preparedStatement.setString(2, club.getClubDescription());\r\n            preparedStatement.setString(3, club.getAdvisorName()); // Assuming AdvisorName is used as AdvisorID\r\n            try (ResultSet resultSet = preparedStatement.executeQuery()) {\r\n                return resultSet.next();\r\n            }\r\n        }\r\n    }\r\n\r\n\r\n    // Helper method to check if an advisor already exists\r\n    private boolean advisorExists(Connection connection, String advisorID) throws SQLException {\r\n        String query = \"SELECT 1 FROM advisor WHERE Username = ?\";\r\n        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {\r\n            preparedStatement.setString(1, advisorID);\r\n            try (ResultSet resultSet = preparedStatement.executeQuery()) {\r\n                return resultSet.next();\r\n            }\r\n        }\r\n    }\r\n\r\n    // Helper method to insert an advisor if not exists\r\n    private void insertAdvisor(Connection connection, String advisorID) throws SQLException {\r\n        String query = \"INSERT INTO advisor (Username) VALUES (?)\";\r\n        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {\r\n            preparedStatement.setString(1, advisorID);\r\n            preparedStatement.executeUpdate();\r\n        }\r\n    }\r\n\r\n\r\n\r\n    // Update an existing club\r\n    public boolean updateClub(Club club) {\r\n        String query = \"UPDATE club SET ClubName = ?, ClubDescription = ?, AdvisorID = ? WHERE ClubID = ?\";\r\n\r\n        try (Connection connection = getConnection();\r\n             PreparedStatement preparedStatement = connection.prepareStatement(query)) {\r\n\r\n            preparedStatement.setString(1, club.getClubName());\r\n            preparedStatement.setString(2, club.getClubDescription());\r\n            //preparedStatement.setString(3, club.getAdvisorID());\r\n            preparedStatement.setInt(4, club.getClubID());\r\n\r\n\r\n\r\n            int rowsAffected = preparedStatement.executeUpdate();\r\n            return rowsAffected > 0;\r\n\r\n        } catch (SQLException e) {\r\n            System.out.println(\"Error updating club\");\r\n            System.out.println(e.getMessage());\r\n            return false;\r\n        }\r\n    }\r\n\r\n    // Remove an existing club\r\n    public boolean removeClub(Club club) {\r\n        String query = \"DELETE FROM club WHERE ClubID = ?\";\r\n\r\n        try (Connection connection = getConnection();\r\n             PreparedStatement preparedStatement = connection.prepareStatement(query)) {\r\n\r\n            preparedStatement.setInt(1, club.getClubID());\r\n\r\n            int rowsAffected = preparedStatement.executeUpdate();\r\n            return rowsAffected > 0;\r\n\r\n        } catch (SQLException e) {\r\n            System.out.println(\"Error removing club\");\r\n            System.out.println(e.getMessage());\r\n            return false;\r\n        }\r\n    }\r\n\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/sacms/Database.java b/src/main/java/com/example/sacms/Database.java
+--- a/src/main/java/com/example/sacms/Database.java	(revision b57dfe5d388654d32c89dd8abac7be1f15bec23e)
++++ b/src/main/java/com/example/sacms/Database.java	(date 1701177644921)
+@@ -10,6 +10,7 @@
+     public Database() {
+         connectionUrl = "jdbc:mysql://localhost/sacms";
+     }
++
+     public Connection getConnection() {
+         try {
+             return DriverManager.getConnection(connectionUrl, "root", "");
+@@ -46,9 +47,9 @@
+ 
+ 
+     // Registration method for both members and advisors
+-    public boolean registerUser(User user,String userType){
++    public boolean registerUser(User user, String userType) {
+         String query = "";
+-        if ("member".equals(userType)){
++        if ("member".equals(userType)) {
+             query = "INSERT INTO member (`Username`, `FirstName`, `LastName`, `PhoneNumber`, `Email`, `Password`, `DateOfBirth`, `Gender`, `Grade`,`StudentID`)" +
+                     "VALUES (?,?,?,?,?,?,?,?,?,?)";
+         } else if ("advisor".equals(userType)) {
+@@ -57,29 +58,29 @@
+         }
+ 
+         try (Connection connection = getConnection();
+-             PreparedStatement preparedStatement = connection.prepareStatement(query)){
++             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+ 
+             //Set common fields
+-            preparedStatement.setString(1,user.getUsername());
+-            preparedStatement.setString(2,user.getFirstName());
+-            preparedStatement.setString(3,user.getLastName());
+-            preparedStatement.setString(4,user.getPhoneNumber());
+-            preparedStatement.setString(5,user.getEmail());
+-            preparedStatement.setString(6,user.getPassword());
++            preparedStatement.setString(1, user.getUsername());
++            preparedStatement.setString(2, user.getFirstName());
++            preparedStatement.setString(3, user.getLastName());
++            preparedStatement.setString(4, user.getPhoneNumber());
++            preparedStatement.setString(5, user.getEmail());
++            preparedStatement.setString(6, user.getPassword());
+ 
+             //Set User-specific fields
+-            if("member".equals(userType)){
++            if ("member".equals(userType)) {
+ 
+                 Member member = (Member) user;
+-                preparedStatement.setDate(7,member.getDateOfBirth());
+-                preparedStatement.setString(8,member.getGender());
++                preparedStatement.setDate(7, member.getDateOfBirth());
++                preparedStatement.setString(8, member.getGender());
+                 preparedStatement.setString(9, member.getGrade());
+                 preparedStatement.setString(10, member.getStudentId());
+ 
+             } else if ("advisor".equals(userType)) {
+ 
+                 Advisor advisor = (Advisor) user;
+-                preparedStatement.setString(7,advisor.getTeacherId());
++                preparedStatement.setString(7, advisor.getTeacherId());
+ 
+             }
+ 
+@@ -89,7 +90,7 @@
+             // Return true if registration is successful (rowsAffected > 0)
+             return rowsAffected > 0;
+ 
+-        }catch (SQLException e){
++        } catch (SQLException e) {
+             System.out.println("Error registering user");
+             System.out.println(e.getMessage());
+             return false;
+@@ -98,9 +99,9 @@
+     }
+ 
+     //checking the already exists students
+-    public boolean isUserIdExists(String UserID,String UserType) {
++    public boolean isUserIdExists(String UserID, String UserType) {
+         String query = "";
+-        if ("member".equals(UserType)){
++        if ("member".equals(UserType)) {
+             query = "SELECT COUNT(*) FROM member WHERE StudentID = ?";
+         } else if ("advisor".equals(UserType)) {
+             query = "SELECT COUNT(*) FROM advisor WHERE TeacherID = ?";
+@@ -251,34 +252,34 @@
+         }
+     }
+ 
+-   //get club data for the club table in the advisor controller
+-   // Get club data for the advisor
+-   public List<Club> getClubDataForAdvisor() {
+-       List<Club> clubs = new ArrayList<>();
+-       String query = "SELECT c.ClubName, c.ClubDescription, a.Username AS AdvisorID " +
+-               "FROM club c " +
+-               "JOIN advisor a ON c.AdvisorID = a.Username";
++    //get club data for the club table in the advisor controller
++    // Get club data for the advisor
++    public List<Club> getClubDataForAdvisor() {
++        List<Club> clubs = new ArrayList<>();
++        String query = "SELECT c.ClubName, c.ClubDescription, a.Username AS AdvisorID " +
++                "FROM club c " +
++                "JOIN advisor a ON c.AdvisorID = a.Username";
+ 
+-       try (Connection connection = getConnection();
+-            PreparedStatement preparedStatement = connection.prepareStatement(query);
+-            ResultSet resultSet = preparedStatement.executeQuery()) {
++        try (Connection connection = getConnection();
++             PreparedStatement preparedStatement = connection.prepareStatement(query);
++             ResultSet resultSet = preparedStatement.executeQuery()) {
+ 
+-           while (resultSet.next()) {
+-               String clubName = resultSet.getString("ClubName");
+-               String clubDescription = resultSet.getString("ClubDescription");
+-               String advisorID = resultSet.getString("AdvisorID");
++            while (resultSet.next()) {
++                String clubName = resultSet.getString("ClubName");
++                String clubDescription = resultSet.getString("ClubDescription");
++                String advisorID = resultSet.getString("AdvisorID");
+ 
+-               Club club = new Club.ManageClub(clubName, clubDescription, "", advisorID);
+-               clubs.add(club);
+-           }
++                Club club = new Club.ManageClub(clubName, clubDescription, "", advisorID);
++                clubs.add(club);
++            }
+ 
+-       } catch (SQLException e) {
+-           System.out.println("Error getting club data for advisor");
+-           System.out.println(e.getMessage());
+-       }
++        } catch (SQLException e) {
++            System.out.println("Error getting club data for advisor");
++            System.out.println(e.getMessage());
++        }
+ 
+-       return clubs;
+-   }
++        return clubs;
++    }
+ 
+ 
+     public boolean createClub(Club club) {
+@@ -384,7 +385,6 @@
+     }
+ 
+ 
+-
+     // Update an existing club
+     public boolean updateClub(Club club) {
+         String query = "UPDATE club SET ClubName = ?, ClubDescription = ?, AdvisorID = ? WHERE ClubID = ?";
+@@ -398,7 +398,6 @@
+             preparedStatement.setInt(4, club.getClubID());
+ 
+ 
+-
+             int rowsAffected = preparedStatement.executeUpdate();
+             return rowsAffected > 0;
+ 
+@@ -410,23 +409,25 @@
+     }
+ 
+     // Remove an existing club
+-    public boolean removeClub(Club club) {
+-        String query = "DELETE FROM club WHERE ClubID = ?";
++    public boolean deleteClub (String clubName){
++            String query = "DELETE FROM club WHERE ClubName = ?";
+ 
+-        try (Connection connection = getConnection();
+-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
++            try (Connection connection = getConnection();
++                 PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+ 
+-            preparedStatement.setInt(1, club.getClubID());
++                preparedStatement.setString(1, clubName);
+ 
+-            int rowsAffected = preparedStatement.executeUpdate();
+-            return rowsAffected > 0;
++                int rowsAffected = preparedStatement.executeUpdate();
++
++                return rowsAffected > 0;
+ 
+-        } catch (SQLException e) {
+-            System.out.println("Error removing club");
+-            System.out.println(e.getMessage());
+-            return false;
+-        }
+-    }
++            } catch (SQLException e) {
++                System.out.println("Error deleting club");
++                e.printStackTrace();
++                return false;
++            }
++        }
+ 
++
+ }
+ 
+Index: src/main/java/com/example/sacms/AdvisorController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.sacms;\r\n\r\nimport javafx.application.Platform;\r\nimport javafx.collections.FXCollections;\r\nimport javafx.collections.ObservableList;\r\nimport javafx.event.ActionEvent;\r\nimport javafx.fxml.FXML;\r\nimport javafx.fxml.FXMLLoader;\r\nimport javafx.scene.Node;\r\nimport javafx.scene.Parent;\r\nimport javafx.scene.Scene;\r\nimport javafx.scene.control.Alert;\r\nimport javafx.scene.control.TableColumn;\r\nimport javafx.scene.control.TableView;\r\nimport javafx.scene.control.TextField;\r\nimport javafx.scene.control.cell.PropertyValueFactory;\r\nimport javafx.stage.Stage;\r\n\r\nimport java.util.List;\r\nimport java.util.Objects;\r\n\r\npublic class AdvisorController {\r\n\r\n    //Table\r\n    @FXML\r\n    private TableColumn<Club, String> advisorNameColumn;\r\n\r\n    @FXML\r\n    private TableColumn<Club, String> clubDescriptionColumn;\r\n\r\n    @FXML\r\n    private TableColumn<Club, String> clubNameColumn;\r\n\r\n    @FXML\r\n    private TableView<Club> clubTable;\r\n\r\n    //Text input\r\n    @FXML\r\n    private TextField clubNameInput;\r\n\r\n    @FXML\r\n    private TextField clubDescriptionInput;\r\n\r\n    @FXML\r\n    private TextField advisorIDInput;\r\n\r\n    private Club selectedClubRecord;\r\n\r\n\r\n    private final Database database = new Database();\r\n    private String username;\r\n\r\n\r\n    @FXML\r\n    private void initialize() {\r\n        // Initialize the TableView columns\r\n        clubNameColumn.setCellValueFactory(new PropertyValueFactory<>(\"clubName\"));\r\n        clubDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>(\"clubDescription\"));\r\n        advisorNameColumn.setCellValueFactory(new PropertyValueFactory<>(\"advisorName\"));\r\n\r\n        // Load and set data to the TableView\r\n        loadClubData();\r\n    }\r\n\r\n    private void loadClubData() {\r\n        System.out.println(\"Loading club data...\");\r\n\r\n        // Retrieve club data from the database\r\n        List<Club> clubs = database.getClubDataForAdvisor();\r\n\r\n        // Create an ObservableList from the retrieved data\r\n        ObservableList<Club> clubList = FXCollections.observableArrayList(clubs);\r\n\r\n        // Clear existing items before setting the new ones\r\n        clubTable.getItems().clear();\r\n\r\n        // Set the items of the TableView\r\n        clubTable.setItems(clubList);\r\n\r\n        System.out.println(\"Club data loaded successfully.\");\r\n    }\r\n\r\n\r\n\r\n\r\n    @FXML\r\n    public void goBack(ActionEvent actionEvent)throws Exception {\r\n        Stage MainStage =(Stage) ((Node)actionEvent.getSource()).getScene().getWindow();\r\n        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource(\"MainSACMS.fxml\")));\r\n        MainStage.setScene(new Scene(root));\r\n        MainStage.setTitle(\"SACMS\");\r\n    }\r\n\r\n    @FXML\r\n    public void createClub(ActionEvent actionEvent) {\r\n        // Get data from input fields\r\n        String clubName = clubNameInput.getText();\r\n        String clubDescription = clubDescriptionInput.getText();\r\n        String advisorID = advisorIDInput.getText();\r\n\r\n        // Validate input\r\n        if (clubName.isEmpty() || clubDescription.isEmpty() || advisorID.isEmpty()) {\r\n            showAlert(\"Please fill in all fields.\");\r\n            return;\r\n        }\r\n\r\n        // Create an instance of ManageClub\r\n        Club.ManageClub newClub = new Club.ManageClub(clubName, clubDescription,\"\",advisorID);\r\n\r\n        // Add the club to the database\r\n        if (database.createClub(newClub)) {\r\n            showAlert(\"Club created successfully.\");\r\n            clearInputFields();\r\n            // Load data after a successful creation if needed\r\n            loadClubData();\r\n        } else {\r\n            showAlert(\"Error creating club. Please try again.\");\r\n        }\r\n    }\r\n\r\n\r\n    // Helper method to show an alert\r\n    private void showAlert(String message) {\r\n        Alert alert = new Alert(Alert.AlertType.INFORMATION);\r\n        alert.setTitle(\"Club Management\");\r\n        alert.setHeaderText(null);\r\n        alert.setContentText(message);\r\n        alert.showAndWait();\r\n    }\r\n\r\n\r\n    @FXML\r\n    public void updateClub(ActionEvent actionEvent) {\r\n        if (selectedClubRecord == null) {\r\n            // No club selected, show an error message or handle accordingly\r\n            System.out.println(\"Please select a club to update.\");\r\n            return;\r\n        }\r\n\r\n        // Get updated values from input fields\r\n        String updatedClubName = clubNameInput.getText();\r\n        String updatedClubDescription = clubDescriptionInput.getText();\r\n        String updatedAdvisorName = advisorIDInput.getText();\r\n\r\n        // Validation (You might want to add more sophisticated validation)\r\n        if (updatedClubName.isEmpty() || updatedClubDescription.isEmpty() || updatedAdvisorName.isEmpty()) {\r\n            // Show an error message or handle validation failure\r\n            System.out.println(\"Please fill in all fields.\");\r\n            return;\r\n        }\r\n\r\n        // Update the selected club's properties\r\n        selectedClubRecord.setClubName(updatedClubName);\r\n        selectedClubRecord.setClubDescription(updatedClubDescription);\r\n        selectedClubRecord.setAdvisorName(updatedAdvisorName);\r\n\r\n        // Update the club in the database\r\n        boolean success = database.updateClub(selectedClubRecord);\r\n\r\n        if (success) {\r\n            // Refresh the club data in the TableView\r\n            loadClubData();\r\n        } else {\r\n            // Show an error message or handle the failure\r\n            System.out.println(\"Error updating club.\");\r\n        }\r\n\r\n        // Clear input fields and reset selectedClubRecord\r\n        clearInputFields();\r\n        selectedClubRecord = null;\r\n    }\r\n\r\n    @FXML\r\n    public void removeClub(ActionEvent actionEvent) {\r\n        if (selectedClubRecord == null) {\r\n            // No club selected, show an error message or handle accordingly\r\n            System.out.println(\"Please select a club to remove.\");\r\n            return;\r\n        }\r\n\r\n        // Remove the selected club from the database\r\n        boolean success = database.removeClub(selectedClubRecord);\r\n\r\n        if (success) {\r\n            // Refresh the club data in the TableView\r\n            loadClubData();\r\n        } else {\r\n            // Show an error message or handle the failure\r\n            System.out.println(\"Error removing club.\");\r\n        }\r\n\r\n        // Clear input fields and reset selectedClubRecord\r\n        clearInputFields();\r\n        selectedClubRecord = null;\r\n    }\r\n\r\n    private void clearInputFields() {\r\n        clubNameInput.clear();\r\n        clubDescriptionInput.clear();\r\n        advisorIDInput.clear();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/com/example/sacms/AdvisorController.java b/src/main/java/com/example/sacms/AdvisorController.java
+--- a/src/main/java/com/example/sacms/AdvisorController.java	(revision b57dfe5d388654d32c89dd8abac7be1f15bec23e)
++++ b/src/main/java/com/example/sacms/AdvisorController.java	(date 1701178539417)
+@@ -14,6 +14,7 @@
+ import javafx.scene.control.TableView;
+ import javafx.scene.control.TextField;
+ import javafx.scene.control.cell.PropertyValueFactory;
++import javafx.scene.input.MouseEvent;
+ import javafx.stage.Stage;
+ 
+ import java.util.List;
+@@ -63,7 +64,7 @@
+     }
+ 
+     private void loadClubData() {
+-        System.out.println("Loading club data...");
++
+ 
+         // Retrieve club data from the database
+         List<Club> clubs = database.getClubDataForAdvisor();
+@@ -77,7 +78,7 @@
+         // Set the items of the TableView
+         clubTable.setItems(clubList);
+ 
+-        System.out.println("Club data loaded successfully.");
++
+     }
+ 
+ 
+@@ -179,7 +180,7 @@
+         }
+ 
+         // Remove the selected club from the database
+-        boolean success = database.removeClub(selectedClubRecord);
++        boolean success = database.deleteClub(selectedClubRecord.getClubName());
+ 
+         if (success) {
+             // Refresh the club data in the TableView
+@@ -194,6 +195,8 @@
+         selectedClubRecord = null;
+     }
+ 
++
++
+     private void clearInputFields() {
+         clubNameInput.clear();
+         clubDescriptionInput.clear();
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"2e9966e8-8faa-46b3-b0c5-de77800c1479\" name=\"Changes\" comment=\"Create club\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"FileTemplateManagerImpl\">\r\n    <option name=\"RECENT_TEMPLATES\">\r\n      <list>\r\n        <option value=\"FxmlFile\" />\r\n        <option value=\"Class\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"GitHubPullRequestSearchHistory\">{\r\n  &quot;lastFilter&quot;: {\r\n    &quot;state&quot;: &quot;OPEN&quot;,\r\n    &quot;assignee&quot;: &quot;Nethum002&quot;\r\n  }\r\n}</component>\r\n  <component name=\"GithubPullRequestsUISettings\">\r\n    <option name=\"selectedUrlAndAccountId\">\r\n      <UrlAndAccount>\r\n        <option name=\"accountId\" value=\"06516bf6-2ebe-4551-b182-3ee7b7f868e3\" />\r\n        <option name=\"url\" value=\"https://github.com/Nethum002/CACMS.git\" />\r\n      </UrlAndAccount>\r\n    </option>\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"ProjectColorInfo\">{\r\n  &quot;associatedIndex&quot;: 8\r\n}</component>\r\n  <component name=\"ProjectId\" id=\"2WfG1PeCp7vfpF2Lb49MUALv90H\" />\r\n  <component name=\"ProjectLevelVcsManager\" settingsEditedManually=\"true\">\r\n    <ConfirmationsSetting value=\"2\" id=\"Add\" />\r\n  </component>\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"ASKED_ADD_EXTERNAL_FILES\": \"true\",\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\r\n    \"git-widget-placeholder\": \"master\",\r\n    \"ignore.virus.scanning.warn.message\": \"true\",\r\n    \"last_opened_file_path\": \"C:/Users/HP/OneDrive/Documents/IIT/YEAR 2/2nd Year/Semester 1/Object Oriented Development/CACMS/lib/mysql-connector-j-8.2.0.jar\",\r\n    \"project.structure.last.edited\": \"Modules\",\r\n    \"project.structure.proportion\": \"0.15\",\r\n    \"project.structure.side.proportion\": \"0.0\"\r\n  }\r\n}]]></component>\r\n  <component name=\"RecentsManager\">\r\n    <key name=\"CreateClassDialog.RecentsKey\">\r\n      <recent name=\"com.example.sacms\" />\r\n    </key>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"2e9966e8-8faa-46b3-b0c5-de77800c1479\" name=\"Changes\" comment=\"\" />\r\n      <created>1697116008706</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1697116008706</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"first version\">\r\n      <option name=\"closed\" value=\"true\" />\r\n      <created>1697293667006</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1697293667006</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"club creation gui only\">\r\n      <created>1700039977518</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1700039977518</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"a few changes to club creation gui\">\r\n      <created>1700063993912</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1700063993912</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00004\" summary=\"Connected to Database&#10;Club initialize\">\r\n      <created>1701109250583</created>\r\n      <option name=\"number\" value=\"00004\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00004\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1701109250583</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00005\" summary=\"Create club\">\r\n      <created>1701170086630</created>\r\n      <option name=\"number\" value=\"00005\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00005\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1701170086630</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"6\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <option name=\"ADD_EXTERNAL_FILES_SILENTLY\" value=\"true\" />\r\n    <MESSAGE value=\"first version\" />\r\n    <MESSAGE value=\"club creation gui only\" />\r\n    <MESSAGE value=\"a few changes to club creation gui\" />\r\n    <MESSAGE value=\"Connected to Database&#10;Club initialize\" />\r\n    <MESSAGE value=\"Create club\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"Create club\" />\r\n  </component>\r\n  <component name=\"com.intellij.coverage.CoverageDataManagerImpl\">\r\n    <SUITE FILE_PATH=\"coverage/CACMS$SACMS.ic\" NAME=\"SACMS Coverage Results\" MODIFIED=\"1697389811940\" SOURCE_PROVIDER=\"com.intellij.coverage.DefaultCoverageFileProvider\" RUNNER=\"idea\" COVERAGE_BY_TEST_ENABLED=\"false\" COVERAGE_TRACING_ENABLED=\"false\">\r\n      <FILTER>com.example.sacms.*</FILTER>\r\n    </SUITE>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision b57dfe5d388654d32c89dd8abac7be1f15bec23e)
++++ b/.idea/workspace.xml	(date 1701177645325)
+@@ -4,8 +4,10 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="2e9966e8-8faa-46b3-b0c5-de77800c1479" name="Changes" comment="Create club">
++    <list default="true" id="2e9966e8-8faa-46b3-b0c5-de77800c1479" name="Changes" comment="load clubs added to table view">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sacms/AdvisorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sacms/AdvisorController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sacms/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sacms/Database.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -115,7 +117,14 @@
+       <option name="project" value="LOCAL" />
+       <updated>1701170086630</updated>
+     </task>
+-    <option name="localTasksCounter" value="6" />
++    <task id="LOCAL-00006" summary="load clubs added to table view">
++      <created>1701171914542</created>
++      <option name="number" value="00006" />
++      <option name="presentableId" value="LOCAL-00006" />
++      <option name="project" value="LOCAL" />
++      <updated>1701171914542</updated>
++    </task>
++    <option name="localTasksCounter" value="7" />
+     <servers />
+   </component>
+   <component name="Vcs.Log.Tabs.Properties">
+@@ -136,7 +145,8 @@
+     <MESSAGE value="a few changes to club creation gui" />
+     <MESSAGE value="Connected to Database&#10;Club initialize" />
+     <MESSAGE value="Create club" />
+-    <option name="LAST_COMMIT_MESSAGE" value="Create club" />
++    <MESSAGE value="load clubs added to table view" />
++    <option name="LAST_COMMIT_MESSAGE" value="load clubs added to table view" />
+   </component>
+   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+     <SUITE FILE_PATH="coverage/CACMS$SACMS.ic" NAME="SACMS Coverage Results" MODIFIED="1697389811940" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
