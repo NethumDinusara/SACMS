@@ -14,6 +14,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.util.List;
@@ -79,6 +81,29 @@ public class AdvisorController {
 
         System.out.println("Club data loaded successfully.");
     }
+
+    @FXML
+    private void onRowClicked(MouseEvent event) {
+        if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 1) {
+            Club clickedClub = clubTable.getSelectionModel().getSelectedItem();
+            if (clickedClub != null) {
+                // Update the selectedClubRecord when a row is clicked
+                selectedClubRecord = clickedClub;
+                // Populate the input fields with selected club's data
+                populateInputFields(selectedClubRecord);
+            }
+        }
+    }
+    // Helper method to populate input fields with club data
+    private void populateInputFields(Club club) {
+        if (club != null) {
+            clubNameInput.setText(club.getClubName());
+            clubDescriptionInput.setText(club.getClubDescription());
+            advisorIDInput.setText(club.getAdvisorName()); // Assuming AdvisorName is used as AdvisorID
+        }
+    }
+
+
 
 
 
@@ -160,15 +185,17 @@ public class AdvisorController {
         if (success) {
             // Refresh the club data in the TableView
             loadClubData();
+            showAlert("Club updated successfully.");
         } else {
             // Show an error message or handle the failure
-            System.out.println("Error updating club.");
+            showAlert("Error updating club. Please try again.");
         }
 
         // Clear input fields and reset selectedClubRecord
         clearInputFields();
         selectedClubRecord = null;
     }
+
 
     @FXML
     public void removeClub(ActionEvent actionEvent) {
@@ -179,7 +206,7 @@ public class AdvisorController {
         }
 
         // Remove the selected club from the database
-        boolean success = database.removeClub(selectedClubRecord);
+        boolean success = database.deleteClub(selectedClubRecord.getClubName());
 
         if (success) {
             // Refresh the club data in the TableView
@@ -193,6 +220,7 @@ public class AdvisorController {
         clearInputFields();
         selectedClubRecord = null;
     }
+
 
     private void clearInputFields() {
         clubNameInput.clear();

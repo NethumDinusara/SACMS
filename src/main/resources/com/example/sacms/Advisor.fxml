@@ -145,7 +145,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TableView fx:id="clubTable" layoutX="7.0" layoutY="59.0" prefHeight="347.0" prefWidth="267.0">
+                  <TableView fx:id="clubTable" onMouseClicked="#onRowClicked" layoutX="7.0" layoutY="59.0" prefHeight="347.0" prefWidth="267.0">
                       <TableColumn fx:id="clubNameColumn" prefWidth="75.9998779296875" text="Club Name">
                           <cellValueFactory>
                               <PropertyValueFactory property="clubName" />

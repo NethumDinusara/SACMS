@@ -383,50 +383,91 @@ public class Database {
         }
     }
 
-
-
     // Update an existing club
+
     public boolean updateClub(Club club) {
-        String query = "UPDATE club SET ClubName = ?, ClubDescription = ?, AdvisorID = ? WHERE ClubID = ?";
+        String query = "UPDATE club SET ClubDescription = ?, AdvisorID = ? WHERE ClubName = ?";
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setString(1, club.getClubName());
-            preparedStatement.setString(2, club.getClubDescription());
-            //preparedStatement.setString(3, club.getAdvisorID());
-            preparedStatement.setInt(4, club.getClubID());
+            preparedStatement.setString(1, club.getClubDescription());
 
+            if (club instanceof Club.ManageClub) {
+                Club.ManageClub manageClub = (Club.ManageClub) club;
 
+                // Check if the advisorID is not null or empty
+                if (manageClub.getAdvisorID() != null && !manageClub.getAdvisorID().isEmpty()) {
+                    // Check if the advisor exists in the advisor table
+                    if (!advisorExists(connection, manageClub.getAdvisorID())) {
+                        // Insert the advisor if not exists
+                        insertAdvisor(connection, manageClub.getAdvisorID());
+                    }
 
-            int rowsAffected = preparedStatement.executeUpdate();
-            return rowsAffected > 0;
+                    preparedStatement.setString(2, manageClub.getAdvisorID());
+                } else {
+                    preparedStatement.setNull(2, Types.VARCHAR); // or set an appropriate default value
+                }
+            } else {
+                preparedStatement.setNull(2, Types.VARCHAR); // or set an appropriate default value
+            }
+
+            preparedStatement.setString(3, club.getClubName());
+
+            // Start a transaction
+            connection.setAutoCommit(false);
+
+            try {
+                // Execute the update
+                int rowsAffected = preparedStatement.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    // Commit the transaction if the update is successful
+                    connection.commit();
+                    return true;
+                } else {
+                    // Rollback the transaction if the update fails
+                    connection.rollback();
+                    return false;
+                }
+            } catch (SQLException e) {
+                // Rollback the transaction in case of an exception
+                connection.rollback();
+                System.out.println("Error updating club");
+                e.printStackTrace();
+                return false;
+            } finally {
+                // Restore the default auto-commit behavior
+                connection.setAutoCommit(true);
+            }
 
         } catch (SQLException e) {
             System.out.println("Error updating club");
-            System.out.println(e.getMessage());
+            e.printStackTrace();
             return false;
         }
     }
 
     // Remove an existing club
-    public boolean removeClub(Club club) {
-        String query = "DELETE FROM club WHERE ClubID = ?";
+    public boolean deleteClub(String clubName) {
+        String query = "DELETE FROM club WHERE ClubName = ?";
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
-            preparedStatement.setInt(1, club.getClubID());
+            preparedStatement.setString(1, clubName);
 
             int rowsAffected = preparedStatement.executeUpdate();
+
             return rowsAffected > 0;
 
         } catch (SQLException e) {
-            System.out.println("Error removing club");
-            System.out.println(e.getMessage());
+            System.out.println("Error deleting club");
+            e.printStackTrace();
             return false;
         }
     }
+
 
 }
 
