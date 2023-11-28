@@ -119,18 +119,23 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="522.0" prefWidth="379.0" styleClass="pane" stylesheets="@../../../mainStyle.css">
                <children>
-                  <TextField fx:id="clubNameInput" alignment="CENTER" layoutX="59.0" layoutY="119.0" prefHeight="36.0" prefWidth="267.0" promptText="Enter New Club Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                  <TextField fx:id="firstName" alignment="CENTER" layoutX="60.0" layoutY="113.0" prefHeight="36.0" prefWidth="267.0" promptText="Enter New Club Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="14.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="clubDescriptionInput" alignment="CENTER" layoutX="44.0" layoutY="192.0" prefHeight="98.0" prefWidth="300.0" promptText="Enter New Club Description" />
+                  <TextField fx:id="nameInput" alignment="CENTER" layoutX="44.0" layoutY="162.0" prefHeight="98.0" prefWidth="300.0" promptText="Enter New Club Description" />
                   <Label alignment="TOP_RIGHT" layoutX="80.0" layoutY="33.0" opacity="0.75" text="MANAGE CLUBS" textFill="WHITE">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="31.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="advisorNameInput" alignment="CENTER" layoutX="59.0" layoutY="327.0" prefHeight="36.0" prefWidth="267.0" promptText="Enter Club Advisor Name " styleClass="textField" stylesheets="@../../../mainStyle.css">
+                  <TextField fx:id="firstName1" alignment="CENTER" layoutX="59.0" layoutY="274.0" prefHeight="36.0" prefWidth="267.0" promptText="Enter Club Advisor Name " styleClass="textField" stylesheets="@../../../mainStyle.css">
+                     <font>
+                        <Font name="Arial Rounded MT Bold" size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="firstName11" alignment="CENTER" layoutX="59.0" layoutY="335.0" prefHeight="36.0" prefWidth="267.0" promptText="Enter Club President Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="14.0" />
                      </font>
@@ -144,11 +149,11 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TableView fx:id="clubTable" layoutX="7.0" layoutY="59.0" prefHeight="347.0" prefWidth="267.0">
+                  <TableView fx:id="clubtable" layoutX="7.0" layoutY="59.0" onMouseClicked="#initialize" prefHeight="347.0" prefWidth="267.0">
                     <columns>
-                      <TableColumn fx:id="clubNameColumn" prefWidth="75.9998779296875" text="Club Name" />
-                      <TableColumn fx:id="advisorNameColumn" prefWidth="89.60009002685547" text="Advisor Name" />
-                        <TableColumn fx:id="clubDescriptionColumn" prefWidth="100.7999267578125" text="Club Description" />
+                      <TableColumn prefWidth="75.9998779296875" text="Club Name" />
+                      <TableColumn prefWidth="89.60009002685547" text="Advisor Name" />
+                        <TableColumn prefWidth="100.7999267578125" text="Presidents Name" />
                     </columns>
                   </TableView>
                   <Button layoutX="62.0" layoutY="423.0" mnemonicParsing="false" onAction="#updateClub" opacity="0.5" prefHeight="30.0" prefWidth="150.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px;" styleClass="pane" stylesheets="@../../../mainStyle.css" text="Update Club Records" textFill="WHITE">

@@ -1,8 +1,5 @@
 package com.example.sacms;
 
-import javafx.application.Platform;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,26 +9,29 @@ import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-import java.util.List;
 import java.util.Objects;
 
 public class AdvisorController {
 
-    //Table
     @FXML
-    private TableColumn<Club, String> advisorNameColumn;
+    private TableView<Club> tableView;
+
+    //Columns
+    @FXML
+    private TableColumn<Club, String> clubNameColumn;
 
     @FXML
     private TableColumn<Club, String> clubDescriptionColumn;
 
     @FXML
-    private TableColumn<Club, String> clubNameColumn;
+    private TableColumn<Club, String> advisorNameColumn;
 
     @FXML
-    private TableView<Club> clubTable;
+    private TableColumn<Club, String> presidentNameColumn;
+
 
     //Text input
     @FXML
@@ -43,38 +43,11 @@ public class AdvisorController {
     @FXML
     private TextField advisorNameInput;
 
-    private Club selectedClubRecord;
-
-
-    private final Database database = new Database();
-    private String username;
-
-
     @FXML
-    private void initialize() {
-        // Run this later to ensure all FXML components are injected
-        Platform.runLater(() -> {
-            // Initialize the TableView columns
-            clubNameColumn.setCellValueFactory(new PropertyValueFactory<>("clubName"));
-            clubDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("clubDescription"));
-            advisorNameColumn.setCellValueFactory(new PropertyValueFactory<>("advisorName"));
-
-            // Load and set data to the TableView
-            loadClubData();
-        });
-    }
+    private TextField presidentNameInput;
 
 
-    private void loadClubData() {
-        // Retrieve club data from the database
-        List<Club> clubs = database.getClubDataForAdvisor();  // You need to implement this method in your Database class
-
-        // Create an ObservableList from the retrieved data
-        ObservableList<Club> clubList = FXCollections.observableArrayList(clubs);
-
-        // Set the items of the TableView
-        clubTable.setItems(clubList);
-    }
+    private Club selectedClubRecord;
 
 
     @FXML
@@ -85,9 +58,10 @@ public class AdvisorController {
         MainStage.setTitle("SACMS");
     }
 
-
-
     public void createClub(ActionEvent actionEvent) {
+    }
+
+    public void initialize(MouseEvent mouseEvent) {
     }
 
     public void updateClub(ActionEvent actionEvent) {

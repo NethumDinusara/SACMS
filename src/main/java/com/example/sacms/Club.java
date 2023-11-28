@@ -1,7 +1,5 @@
 package com.example.sacms;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.scene.control.Button;
 
 import java.sql.Date;
@@ -14,12 +12,13 @@ public class Club {
 
     private String advisorName;
 
+    private String presidentName;
+
     private String advisorPhoneNumber;
 
     private Date joinDate;
 
     private Button quitButton;
-
 
     public String getAdvisorPhoneNumber() {
         return advisorPhoneNumber;
@@ -46,10 +45,11 @@ public class Club {
     }
 
 
-    public Club (String clubName, String clubDescription, String advisorName){
+    public Club (String clubName, String clubDescription, String advisorName, String presidentName){
         this.clubName = clubName;
         this.clubDescription = clubDescription;
         this.advisorName = advisorName;
+        this.presidentName = presidentName;
 
     }
 
@@ -77,16 +77,11 @@ public class Club {
         this.advisorName = advisorName;
     }
 
-    // Getter for TableView
-    public StringProperty clubNameProperty() {
-        return new SimpleStringProperty(clubName);
+    public String getPresidentName() {
+        return presidentName;
     }
 
-    public StringProperty clubDescriptionProperty() {
-        return new SimpleStringProperty(clubDescription);
-    }
-
-    public StringProperty advisorNameProperty() {
-        return new SimpleStringProperty(advisorName);
+    public void setPresidentName(String presidentName) {
+        this.presidentName = presidentName;
     }
 }
