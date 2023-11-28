@@ -179,7 +179,7 @@ public class Database {
 
                     String advisorName = advisorFirstName + " " + advisorLastName;
 
-                    Club club = new Club(clubName, "", advisorName, "");
+                    Club club = new Club(clubName, "", advisorName);
                     club.setAdvisorPhoneNumber(advisorPhoneNumber);
                     club.setJoinDate(joinDate);
                     clubs.add(club);
@@ -250,5 +250,183 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
+
+   //get club data for the club table in the advisor controller
+   // Get club data for the advisor
+   public List<Club> getClubDataForAdvisor() {
+       List<Club> clubs = new ArrayList<>();
+       String query = "SELECT c.ClubName, c.ClubDescription, a.Username AS AdvisorID " +
+               "FROM club c " +
+               "JOIN advisor a ON c.AdvisorID = a.Username";
+
+       try (Connection connection = getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            ResultSet resultSet = preparedStatement.executeQuery()) {
+
+           while (resultSet.next()) {
+               String clubName = resultSet.getString("ClubName");
+               String clubDescription = resultSet.getString("ClubDescription");
+               String advisorID = resultSet.getString("AdvisorID");
+
+               Club club = new Club.ManageClub(clubName, clubDescription, "", advisorID);
+               clubs.add(club);
+           }
+
+       } catch (SQLException e) {
+           System.out.println("Error getting club data for advisor");
+           System.out.println(e.getMessage());
+       }
+
+       return clubs;
+   }
+
+
+    public boolean createClub(Club club) {
+        String query = "INSERT INTO club (ClubName, ClubDescription, AdvisorID) VALUES (?, ?, ?)";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, club.getClubName());
+            preparedStatement.setString(2, club.getClubDescription());
+
+            if (club instanceof Club.ManageClub) {
+                Club.ManageClub manageClub = (Club.ManageClub) club;
+
+                // Check if the advisorID is not null or empty
+                if (manageClub.getAdvisorID() != null && !manageClub.getAdvisorID().isEmpty()) {
+                    // Check if the club already exists in the database
+                    if (clubExists(connection, club)) {
+                        System.out.println("Club already exists");
+                        return false;
+                    }
+
+                    // Check if the advisor exists in the advisor table
+                    if (!advisorExists(connection, manageClub.getAdvisorID())) {
+                        // Insert the advisor if not exists
+                        insertAdvisor(connection, manageClub.getAdvisorID());
+                    }
+
+                    preparedStatement.setString(3, manageClub.getAdvisorID());
+                } else {
+                    preparedStatement.setNull(3, Types.VARCHAR); // or set an appropriate default value
+                }
+            } else {
+                preparedStatement.setNull(3, Types.VARCHAR); // or set an appropriate default value
+            }
+
+            // Start a transaction
+            connection.setAutoCommit(false);
+
+            try {
+                // Insert the club
+                int rowsAffected = preparedStatement.executeUpdate();
+
+                if (rowsAffected > 0) {
+                    // Commit the transaction if the insertion is successful
+                    connection.commit();
+                    return true;
+                } else {
+                    // Rollback the transaction if the insertion fails
+                    connection.rollback();
+                    return false;
+                }
+            } catch (SQLException e) {
+                // Rollback the transaction in case of an exception
+                connection.rollback();
+                System.out.println("Error creating club");
+                e.printStackTrace();
+                return false;
+            } finally {
+                // Restore the default auto-commit behavior
+                connection.setAutoCommit(true);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error creating club");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    // Helper method to check if a club already exists
+    private boolean clubExists(Connection connection, Club club) throws SQLException {
+        String query = "SELECT 1 FROM club WHERE ClubName = ? AND ClubDescription = ? AND AdvisorID = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, club.getClubName());
+            preparedStatement.setString(2, club.getClubDescription());
+            preparedStatement.setString(3, club.getAdvisorName()); // Assuming AdvisorName is used as AdvisorID
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                return resultSet.next();
+            }
+        }
+    }
+
+
+    // Helper method to check if an advisor already exists
+    private boolean advisorExists(Connection connection, String advisorID) throws SQLException {
+        String query = "SELECT 1 FROM advisor WHERE Username = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, advisorID);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                return resultSet.next();
+            }
+        }
+    }
+
+    // Helper method to insert an advisor if not exists
+    private void insertAdvisor(Connection connection, String advisorID) throws SQLException {
+        String query = "INSERT INTO advisor (Username) VALUES (?)";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, advisorID);
+            preparedStatement.executeUpdate();
+        }
+    }
+
+
+
+    // Update an existing club
+    public boolean updateClub(Club club) {
+        String query = "UPDATE club SET ClubName = ?, ClubDescription = ?, AdvisorID = ? WHERE ClubID = ?";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, club.getClubName());
+            preparedStatement.setString(2, club.getClubDescription());
+            //preparedStatement.setString(3, club.getAdvisorID());
+            preparedStatement.setInt(4, club.getClubID());
+
+
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            System.out.println("Error updating club");
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    // Remove an existing club
+    public boolean removeClub(Club club) {
+        String query = "DELETE FROM club WHERE ClubID = ?";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setInt(1, club.getClubID());
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            System.out.println("Error removing club");
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
 }
 
