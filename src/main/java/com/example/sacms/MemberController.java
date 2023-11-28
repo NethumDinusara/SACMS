@@ -14,6 +14,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+
+import java.sql.SQLException;
 import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
@@ -55,6 +57,20 @@ public class MemberController{
     private Label phoneNumber;
 
     @FXML
+    public TableView<event> eventTableID;
+    @FXML
+    public TableColumn<event, String> clubNameCol;
+    @FXML
+    public TableColumn<event, String> eventNameCol;
+    @FXML
+    public TableColumn<event, String> advisorNameCol;
+    @FXML
+    public TableColumn<event, String> eventVenueCol;
+    @FXML
+    public TableColumn<event, String> eventDateCol;
+    @FXML
+    public TableColumn<event, String> eventTimeCol;
+
     private ListView<String> clubsList;
 
     @FXML
@@ -164,6 +180,8 @@ public class MemberController{
             yourProfile.setVisible(false);
             yourClubs.setVisible(false);
             Events.setVisible(true);
+
+
         }
     }
 

@@ -153,6 +153,9 @@ public class AdvisorController {
         }
     }
 
+    @FXML
+    public Button advScheduleEvent;
+
 
 
     public void loadEventsData() throws SQLException {
@@ -233,6 +236,14 @@ public class AdvisorController {
     }
 
     @FXML
+    public void onScheduleBottonClick(ActionEvent actionEvent)throws Exception {
+        Stage MainStage =(Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Schedule_event.fxml")));
+        MainStage.setScene(new Scene(root));
+        MainStage.setTitle("Advisor");
+    }
+
+    
     public void createClub(ActionEvent actionEvent) throws SQLException {
         // Get data from input fields
         String clubName = clubNameInput.getText();

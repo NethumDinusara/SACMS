@@ -155,8 +155,8 @@ public class Database {
         }
         return null;
     }
-
-    //get member data and club data from the database
+  
+  //get member data and club data from the database
     public List<Club> getMemberClubs(String username) {
         List<Club> clubs = new ArrayList<>();
         String query = "SELECT c.ClubName, a.FirstName AS AdvisorFirstName, a.LastName AS AdvisorLastName, a.PhoneNumber AS AdvisorPhoneNumber, cm.JoinDate " +
@@ -165,10 +165,10 @@ public class Database {
                 "JOIN advisor a ON c.AdvisorID = a.Username " +
                 "WHERE cm.Username = ?";
 
-        try (Connection connection = getConnection();
+      try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setString(1, username);
+        
+             preparedStatement.setString(1, username);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
@@ -192,8 +192,8 @@ public class Database {
         }
         return clubs;
     }
-
-    //getting not join club data from the clubmember table
+  
+  //getting not join club data from the clubmember table
     public List<String> getAvailableClubs(String username) {
         List<String> availableClubs = new ArrayList<>();
         String query = "SELECT ClubName FROM club WHERE ClubID NOT IN (SELECT ClubID FROM clubmember WHERE Username = ?)";
@@ -215,17 +215,16 @@ public class Database {
         }
         return availableClubs;
     }
-
-    //method for the join clubs
+  
+  //method for the join clubs
     public void joinClub(String username, String clubName) {
         String query = "INSERT INTO clubmember (ClubID, Username, JoinDate) " +
                 "VALUES ((SELECT ClubID FROM club WHERE ClubName = ?), ?, CURDATE())";
-
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setString(1, clubName);
-            preparedStatement.setString(2, username);
+             
+             preparedStatement.setString(1, clubName);
+             preparedStatement.setString(2, username);
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -233,9 +232,8 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
-
-
-    //method for the quit from a club
+  
+  //method for the quit from a club
     public void quitClub(String username, String clubName) {
         String query = "DELETE FROM clubmember WHERE ClubID = (SELECT ClubID FROM club WHERE ClubName = ?) AND Username = ?";
 
@@ -251,7 +249,7 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
-
+    
    //get club data for the club table in the advisor controller
    // Get club data for the advisor
    public List<Club> getClubDataForAdvisor() {
@@ -280,15 +278,123 @@ public class Database {
 
        return clubs;
    }
+  
+
+
+    // Stores advisor event data in the database
+    public boolean storeAdvisorEventData(event e1) throws SQLException {
+        String query = "INSERT INTO advisorevent (`ClubName`, `eventName`, `advisorName`, `eventVenue`, `eventDate`, `eventTime`)" +
+                "VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+              // Set common fields
+            preparedStatement.setString(1, e1.getcName());
+            preparedStatement.setString(2, e1.geteName());
+            preparedStatement.setString(3, e1.getAdvName());
+            preparedStatement.setString(4, e1.getVenue());
+            preparedStatement.setString(5, e1.geteDate());
+            preparedStatement.setString(6, e1.geteTime());
+
+
+            // Execute the query
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            // Return true if all fields are filled (rowsAffected > 0)
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            System.out.println("Error storing event data");
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    // Stores advisor meeting data in the database
+    public boolean storeAdvisorMeetingData(Meetings m1) throws SQLException{
+        // SQL query to insert data into the advisorevent table
+        String query = "INSERT INTO advisormeeting (`MeetingTopic`, `ClubName`, `MeetingAdvisor`, `MeetingDuration`, `MeetingDate`)" +
+                "VALUES (?, ?, ?, ?, ?)";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+             
+             // Set common fields
+            preparedStatement.setString(1, m1.getMeetingTopic());
+            preparedStatement.setString(2, m1.getMeetingClubName());
+            preparedStatement.setString(3, m1.getMeetingAdvisorName());
+            preparedStatement.setString(4, m1.getMeetingDuration());
+            preparedStatement.setString(5, m1.getMeetingDate());
+
+            // Execute the query
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            // Return true if all fields are filled (rowsAffected > 0)
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            System.out.println("Error Storing Meeting Details");
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    
+
+    // Stores advisor activity data in the database
+    public boolean storeAdvisorActivityData(Activity a1) throws SQLException{
+        String query = "INSERT INTO advisoractivity (`ActivityName`, `Date`, `Venue`, `ClubName`, `ActivityDescription`)" +
+                "VALUES (?, ?, ?, ?, ?)";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+             // Set common fields
+            preparedStatement.setString(1, a1.getActName());
+            preparedStatement.setString(2, a1.getActDate());
+            preparedStatement.setString(3, a1.getActVenue());
+            preparedStatement.setString(4, a1.getActClubName());
+            preparedStatement.setString(5, a1.getActDescription());
+
+            // Execute the query
+            int rowsAffected = preparedStatement.executeUpdate();
+
+            // Return true if all fields are filled (rowsAffected > 0)
+            return rowsAffected > 0;
+
+        } catch (SQLException e) {
+            System.out.println("Error Storing Activity Details");
+            System.out.println(e.getMessage());
+            return false;
+        }
+
+    }  
+  
+  public boolean isClubNameExists(String clubName) {
+        String query = "SELECT COUNT(*) FROM club WHERE ClubName = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, clubName);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    int count = resultSet.getInt(1);
+                    return count > 0; // If count is greater than 0, the club name exists
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error checking if club name exists");
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+}
+
+   
 
 
     public boolean createClub(Club club) {
         String query = "INSERT INTO club (ClubName, ClubDescription, AdvisorID) VALUES (?, ?, ?)";
-
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            preparedStatement.setString(1, club.getClubName());
+            
+          preparedStatement.setString(1, club.getClubName());
             preparedStatement.setString(2, club.getClubDescription());
 
             if (club instanceof Club.ManageClub) {
@@ -349,6 +455,7 @@ public class Database {
             return false;
         }
     }
+       
 
     // Helper method to check if a club already exists
     private boolean clubExists(Connection connection, Club club) throws SQLException {
@@ -597,3 +704,4 @@ public class Database {
 
 
 }
+
