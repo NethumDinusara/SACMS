@@ -53,6 +53,14 @@ public class AdvisorLoginController {
     }
 
     @FXML
+    public void goRegister(ActionEvent actionEvent)throws Exception {
+        Stage MainStage =(Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("AdvisorRegistration.fxml")));
+        MainStage.setScene(new Scene(root));
+        MainStage.setTitle("Advisor Registration");
+    }
+
+    @FXML
     public void goBack(ActionEvent actionEvent)throws Exception {
         Stage MainStage =(Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MainSACMS.fxml")));
