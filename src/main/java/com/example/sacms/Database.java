@@ -482,7 +482,7 @@ public class Database {
     }
 
 
-}
+
 
 
     // Get advisor details to the advisor controllers.

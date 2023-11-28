@@ -54,7 +54,6 @@ public class AdvisorController {
     @FXML
     private AnchorPane advisorANC;
 
-    private Club selectedClubRecord;
 
     @FXML
     private Button btnManageClubs;
@@ -96,7 +95,7 @@ public class AdvisorController {
   
 
     @FXML
-    private void initialize() {
+    private void initialize() throws SQLException {
         // Initialize the TableView columns
         clubNameColumn.setCellValueFactory(new PropertyValueFactory<>("clubName"));
         clubDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("clubDescription"));
@@ -104,6 +103,18 @@ public class AdvisorController {
 
         // Load and set data to the TableView
         loadClubData();
+
+        eventIdColumn.setCellValueFactory(new PropertyValueFactory<>("eventID"));
+        eventNameColumn.setCellValueFactory(new PropertyValueFactory<>("eventName"));
+        clubNameColumn1.setCellValueFactory(new PropertyValueFactory<>("clubName"));
+
+        // Replace this with actual logic to get the username
+
+        Advisor advisor = database.getAdvisorData(username);
+        if(advisor != null){
+            setAdvisorData(advisor);
+            loadEventsData();
+        }
     }
 
     private void loadClubData() {
@@ -142,20 +153,6 @@ public class AdvisorController {
         }
     }
 
-    public void initialize() throws SQLException {
-        // Set up columns
-        eventIdColumn.setCellValueFactory(new PropertyValueFactory<>("eventID"));
-        eventNameColumn.setCellValueFactory(new PropertyValueFactory<>("eventName"));
-        clubNameColumn1.setCellValueFactory(new PropertyValueFactory<>("clubName"));
-
-        // Replace this with actual logic to get the username
-
-        Advisor advisor = database.getAdvisorData(username);
-        if(advisor != null){
-            setAdvisorData(advisor);
-            loadEventsData();
-        }
-    }
 
 
     public void loadEventsData() throws SQLException {
@@ -351,11 +348,5 @@ public class AdvisorController {
         advisorIDInput.clear();
     }
 
-    private void showAlert(String message) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error");
-        alert.setHeaderText(null);
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
+
 }
