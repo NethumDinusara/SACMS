@@ -149,7 +149,13 @@ public class MemberController{
             yourProfile.setVisible(true);
             yourClubs.setVisible(false);
             Events.setVisible(false);
-        } else if (event.getSource() == btnClubs) {
+
+            // Set member data when switching to the profile view
+            Member member = database.getMemberData(username);
+            if (member != null) {
+                setMemberData(member);
+            }
+        } else if (event.getSource() == btnClubs){
             yourProfile.setVisible(false);
             yourClubs.setVisible(true);
             Events.setVisible(false);

@@ -9,13 +9,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
@@ -52,7 +50,50 @@ public class AdvisorController {
 
     private final Database database = new Database();
     private String username;
+  
+    @FXML
+    private AnchorPane advisorANC;
 
+    private Club selectedClubRecord;
+
+    @FXML
+    private Button btnManageClubs;
+
+    @FXML
+    private Button btnAttendance;
+
+    @FXML
+    private Button btnSearch;
+
+    @FXML
+    private SplitPane manageClub;
+
+    @FXML
+    private AnchorPane clubAttendance;
+
+    @FXML
+    private AnchorPane attendanceTracking;
+
+    @FXML
+    private Label advisorName;
+
+    @FXML
+    private TableView<Event> eventsTable;
+
+    @FXML
+    private TableColumn<Event, Integer> eventIdColumn;
+
+    @FXML
+    private TableColumn<Event, String> eventNameColumn;
+    @FXML
+    private TableColumn<Event, String> clubNameColumn1;
+
+    @FXML
+    private TextField eventIdTextField;
+
+    @FXML
+    private Label eventNameTF;
+  
 
     @FXML
     private void initialize() {
@@ -66,7 +107,6 @@ public class AdvisorController {
     }
 
     private void loadClubData() {
-
         // Retrieve club data from the database
         List<Club> clubs = database.getClubDataForAdvisor();
 
@@ -80,8 +120,8 @@ public class AdvisorController {
         clubTable.setItems(clubList);
 
     }
-
-    @FXML
+  
+  @FXML
     private void onRowClicked(MouseEvent event) {
         if (event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 1) {
             Club clickedClub = clubTable.getSelectionModel().getSelectedItem();
@@ -101,6 +141,91 @@ public class AdvisorController {
             advisorIDInput.setText(club.getAdvisorName()); // Assuming AdvisorName is used as AdvisorID
         }
     }
+
+    public void initialize() throws SQLException {
+        // Set up columns
+        eventIdColumn.setCellValueFactory(new PropertyValueFactory<>("eventID"));
+        eventNameColumn.setCellValueFactory(new PropertyValueFactory<>("eventName"));
+        clubNameColumn1.setCellValueFactory(new PropertyValueFactory<>("clubName"));
+
+        // Replace this with actual logic to get the username
+
+        Advisor advisor = database.getAdvisorData(username);
+        if(advisor != null){
+            setAdvisorData(advisor);
+            loadEventsData();
+        }
+    }
+
+
+    public void loadEventsData() throws SQLException {
+        List<Event> events = database.getAdvisorEvents(username);
+        ObservableList<Event> eventData = FXCollections.observableArrayList(events);
+        eventsTable.setItems(eventData);
+
+    }
+
+
+    public void switchingPages(ActionEvent event) throws SQLException {
+
+        if(event.getSource() == btnManageClubs ){
+            manageClub.setVisible(true);
+            clubAttendance.setVisible(false);
+            attendanceTracking.setVisible(false);
+
+
+
+        }else if(event.getSource() == btnAttendance){
+            manageClub.setVisible(false);
+            clubAttendance.setVisible(true);
+            attendanceTracking.setVisible(false);
+
+            loadEventsData();
+
+
+        } else if (event.getSource() == btnSearch) {
+
+            // Set the event id to a text field
+            int eventID = Integer.parseInt(eventIdTextField.getText());
+            // Import event id list from Database class
+            List<Integer> IdList = database.getAdvisorEventIDs(username);
+
+            boolean found = false;
+
+            // Go through the event id list and check the event id is valid or not
+            for (Integer evenIDinList : IdList) {
+                if (evenIDinList.equals(eventID)) {
+                    manageClub.setVisible(false);
+                    clubAttendance.setVisible(false);
+                    attendanceTracking.setVisible(true);
+
+                    eventNameTF.setText(database.getAdvisorName(eventID,username));
+                    found = true;
+                    break;
+                }
+            }
+
+            // If Event id is not in the list it will print this error
+            if (!found) {
+                showAlert("Please Enter An Event In The Table.");
+            }
+
+            // Clear text field after an execution
+            eventIdTextField.setText("");
+        }
+
+    }
+
+    public void setUsername(String username){
+        this.username=username;
+    }
+
+    public void setAdvisorData(Advisor advisor){
+        advisorName.setText(advisor.getFirstName()+" "+advisor.getLastName());
+    }
+
+
+    // Get the event details from the table and pass to the table
 
     @FXML
     public void goBack(ActionEvent actionEvent)throws Exception {
@@ -224,5 +349,13 @@ public class AdvisorController {
         clubNameInput.clear();
         clubDescriptionInput.clear();
         advisorIDInput.clear();
+    }
+
+    private void showAlert(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
