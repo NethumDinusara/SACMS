@@ -6,13 +6,14 @@ import javafx.scene.control.Button;
 
 import java.sql.Date;
 
+
 public class Club {
 
     private String clubName;
 
     private String clubDescription;
 
-    private String advisorName;
+    private static String advisorName;
 
     private String advisorPhoneNumber;
 
@@ -45,8 +46,10 @@ public class Club {
         this.quitButton = quitButton;
     }
 
+    private int clubID;
 
-    public Club (String clubName, String clubDescription, String advisorName){
+
+    public Club(String clubName, String clubDescription, String advisorName) {
         this.clubName = clubName;
         this.clubDescription = clubDescription;
         this.advisorName = advisorName;
@@ -88,5 +91,33 @@ public class Club {
 
     public StringProperty advisorNameProperty() {
         return new SimpleStringProperty(advisorName);
+    }
+
+    public int getClubID() {
+        return clubID;
+    }
+
+    public void setClubID(int clubID) {
+        this.clubID = clubID;
+    }
+
+    public static class ManageClub extends Club {
+
+        private String advisorID;
+
+
+        public ManageClub(String clubName, String clubDescription,String advisorName, String advisorID) {
+            super(clubName, clubDescription, advisorName);
+            this.advisorID = advisorID;
+        }
+
+
+        public String getAdvisorID() {
+            return advisorID;
+        }
+
+        public void setAdvisorID(String advisorID) {
+            this.advisorID = advisorID;
+        }
     }
 }
