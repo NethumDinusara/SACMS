@@ -17,7 +17,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sacms.MemberController">
+<AnchorPane prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sacms.MemberController">
    <children>
       <VBox layoutY="87.0" prefHeight="486.0" prefWidth="198.0" styleClass="navi" stylesheets="@../../../mainStyle.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0">
          <children>
@@ -121,7 +121,7 @@
          <center>
             <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <AnchorPane fx:id="yourProfile" layoutX="193.0" layoutY="159.0" prefHeight="550.4" prefWidth="701.6" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="yourProfile" layoutX="193.0" layoutY="159.0" prefHeight="550.4" prefWidth="701.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label fx:id="userFName" layoutX="147.0" layoutY="257.0" prefHeight="78.0" prefWidth="273.0" text="First Name">
                            <font>
@@ -203,7 +203,7 @@
                         </Label>
                      </children>
                   </AnchorPane>
-                  <AnchorPane fx:id="Events" layoutX="10.0" layoutY="10.0" prefHeight="571.2" prefWidth="722.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <AnchorPane fx:id="Events" layoutX="10.0" layoutY="10.0" prefHeight="571.2" prefWidth="722.4" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                         <Label layoutX="278.0" layoutY="14.0" text="Events">
                            <font>

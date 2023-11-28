@@ -15,32 +15,32 @@
         <Pane layoutX="269.0" layoutY="82.0" />
         <Pane layoutX="205.0" layoutY="82.0" prefHeight="385.0" prefWidth="490.0" styleClass="pane" stylesheets="@../../../mainStyle.css">
             <children>
-                <TextField fx:id="usernameField" layoutX="82.0" layoutY="24.0" prefHeight="54.0" prefWidth="329.0" promptText="Username" style="-fx-background-radius: 30px; -fx-border-radius: 30px;">
+                <TextField fx:id="usernameField" layoutX="83.0" layoutY="47.0" prefHeight="54.0" prefWidth="329.0" promptText="Username" style="-fx-background-radius: 30px; -fx-border-radius: 30px;">
                     <font>
                         <Font name="Arial Rounded MT Bold" size="20.0" />
                     </font>
                 </TextField>
-                <PasswordField fx:id="passwordField" layoutX="82.0" layoutY="88.0" prefHeight="54.0" prefWidth="330.0" promptText="password" style="-fx-background-radius: 30px; -fx-border-radius: 30px;">
+                <PasswordField fx:id="passwordField" layoutX="82.0" layoutY="114.0" prefHeight="54.0" prefWidth="330.0" promptText="password" style="-fx-background-radius: 30px; -fx-border-radius: 30px;">
                     <font>
                         <Font name="Arial Rounded MT Bold" size="20.0" />
                     </font>
                 </PasswordField>
-                <Button layoutX="82.0" layoutY="252.0" mnemonicParsing="false" onAction="#AdvisorMain" opacity="0.3" prefHeight="54.0" prefWidth="330.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px;" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Login">
+                <Button layoutX="80.0" layoutY="237.0" mnemonicParsing="false" onAction="#AdvisorMain" prefHeight="54.0" prefWidth="330.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px;" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Login">
                     <font>
                         <Font name="Arial Rounded MT Bold" size="20.0" />
                     </font>
                 </Button>
-            <Button layoutX="82.0" layoutY="318.0" mnemonicParsing="false" onAction="#goBack" prefHeight="54.0" prefWidth="330.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px;" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Back">
+            <Button layoutX="82.0" layoutY="302.0" mnemonicParsing="false" onAction="#goBack" opacity="0.5" prefHeight="54.0" prefWidth="330.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px;" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Back">
                <font>
                   <Font name="Arial Rounded MT Bold" size="20.0" />
                </font>
             </Button>
-            <Label layoutX="96.0" layoutY="148.0" text="New to SACMS ?" textFill="#941a1a">
+            <Label layoutX="96.0" layoutY="172.0" text="New to SACMS ?" textFill="#941a1a">
                <font>
                   <Font name="Arial Rounded MT Bold" size="12.0" />
                </font>
             </Label>
-            <Button layoutX="193.0" layoutY="144.0" mnemonicParsing="false" onAction="#goRegister" style="-fx-background-color: transparent;" text="Register" textFill="#0c1546">
+            <Button layoutX="193.0" layoutY="168.0" mnemonicParsing="false" onAction="#goRegister" style="-fx-background-color: transparent;" text="Register" textFill="WHITE">
                <font>
                   <Font name="Arial Rounded MT Bold" size="12.0" />
                </font>

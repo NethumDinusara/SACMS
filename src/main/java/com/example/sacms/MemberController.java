@@ -15,7 +15,6 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 
-import java.sql.SQLException;
 import java.sql.Date;
 import java.util.List;
 import java.util.Objects;
@@ -57,20 +56,21 @@ public class MemberController{
     private Label phoneNumber;
 
     @FXML
-    public TableView<event> eventTableID;
+    public TableView<Event> eventTableID;
     @FXML
-    public TableColumn<event, String> clubNameCol;
+    public TableColumn<Event, String> clubNameCol;
     @FXML
-    public TableColumn<event, String> eventNameCol;
+    public TableColumn<Event, String> eventNameCol;
     @FXML
-    public TableColumn<event, String> advisorNameCol;
+    public TableColumn<Event, String> advisorNameCol;
     @FXML
-    public TableColumn<event, String> eventVenueCol;
+    public TableColumn<Event, String> eventVenueCol;
     @FXML
-    public TableColumn<event, String> eventDateCol;
+    public TableColumn<Event, String> eventDateCol;
     @FXML
-    public TableColumn<event, String> eventTimeCol;
+    public TableColumn<Event, String> eventTimeCol;
 
+    @FXML
     private ListView<String> clubsList;
 
     @FXML

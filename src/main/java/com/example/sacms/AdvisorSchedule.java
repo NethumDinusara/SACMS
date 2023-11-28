@@ -119,7 +119,7 @@ public class AdvisorSchedule {
     private final Database database = new Database();
 
     public void createEvent(ActionEvent actionEvent) throws IOException, SQLException {
-        event obj = new event();
+        Event obj = new Event();
         obj.setcName(clubName.getText());
         if (obj.getcName().equals("")){
             clubNameError.setText("Must Fill All Fields!");
@@ -179,7 +179,7 @@ public class AdvisorSchedule {
 
 
         if (clubNameVar && eventNameVar && advNameVar && eventVenueVar && eventDateVar && eventTimeVar) {
-            event e1 = new event(
+            Event e1 = new Event(
                     clubName.getText(),
                     eventName.getText(),
                     advisorName.getText(),
@@ -262,7 +262,7 @@ public class AdvisorSchedule {
         }
 
         if (meetingTopicVar == true && meetingClubNameVar == true && meetingAdvisorVar == true && meetingDurationVar == true && meetingDateVar == true){
-            event e1 = new event(
+            Event e1 = new Event(
                     meetingTopic.getText(),
                     nameClub.getText(),
                     meetingAdvisor.getText(),
@@ -348,7 +348,7 @@ public class AdvisorSchedule {
         }
 
         if (activityNameVar == true && activityDateVar == true && activityVenueVar == true && clubNameActVar == true && activityDescriptionVar == true) {
-            event e1 = new event(
+            Event e1 = new Event(
                     activityName.getText(),
                     activityDate.getText(),
                     activityVenue.getText(),

@@ -1,75 +1,85 @@
 package com.example.sacms;
 
 public class Event {
-
-    private int eventID;
-
-    private String eventName;
-
-    private String advisorName;
-
-    private String dateofevent;
-
-    private String venue;
-
-    private String clubName;
+    // Attributes to store information about the event
+    String cName;     // Club Name
+    String eName;     // Event Name
+    String advName;   // Advisor Name
+    String Venue;     // Venue
+    String eDate;     // Event Date
+    String eTime;     // Event Time
 
 
-
-    public Event(int eventID, String eventName, String advisorName, String dateofevent, String venue, String clubName) {
-        this.eventID = eventID;
-        this.eventName = eventName;
-        this.advisorName = advisorName;
-        this.dateofevent = dateofevent;
-        this.venue = venue;
-        this.clubName = clubName;
+    // Constructor to initialize all attributes when both date and time are provided
+    public Event(String cName, String eName, String advName, String venue, String eDate, String eTime) {
+        this.cName = cName;
+        this.eName = eName;
+        this.advName = advName;
+        Venue = venue;
+        this.eDate = eDate;
+        this.eTime = eTime;
     }
 
-    public int getEventID() {
-        return eventID;
+    // Getter and setter for the event time
+    public String geteTime() {
+        return eTime;
     }
 
-    public void setEventID(int eventID) {
-        this.eventID = eventID;
+    public void seteTime(String eTime) {
+        this.eTime = eTime;
     }
 
-    public String getEventName() {
-        return eventName;
+    // Constructor to initialize attributes when only date is provided
+    public Event(String cName, String eName, String advName, String venue, String eDate) {
+        this.cName = cName;
+        this.eName = eName;
+        this.advName = advName;
+        Venue = venue;
+        this.eDate = eDate;
+    }
+    public Event(){   //// Default constructor
+
     }
 
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
+
+    // Additional getters and setters for other attributes
+    public String geteDate() {
+        return eDate;
     }
 
-    public String getAdvisorName() {
-        return advisorName;
+    public void seteDate(String eDate) {
+        this.eDate = eDate;
     }
 
-    public void setAdvisorName(String advisorName) {
-        this.advisorName = advisorName;
+    public String getcName() {
+        return cName;
     }
 
-    public String getDateofevent() {
-        return dateofevent;
+    public void setcName(String cName) {
+        this.cName = cName;
     }
 
-    public void setDateofevent(String dateofevent) {
-        this.dateofevent = dateofevent;
+    public String geteName() {
+        return eName;
+    }
+
+    public void seteName(String eName) {
+        this.eName = eName;
+    }
+
+    public String getAdvName() {
+        return advName;
+    }
+
+    public void setAdvName(String advName) {
+        this.advName = advName;
     }
 
     public String getVenue() {
-        return venue;
+        return Venue;
     }
 
     public void setVenue(String venue) {
-        this.venue = venue;
-    }
-
-    public String getClubName() {
-        return clubName;
-    }
-
-    public void setClubName(String clubName) {
-        this.clubName = clubName;
+        Venue = venue;
     }
 }
