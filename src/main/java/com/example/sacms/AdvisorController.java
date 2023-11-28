@@ -18,6 +18,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 
@@ -65,7 +66,6 @@ public class AdvisorController {
     }
 
     private void loadClubData() {
-        System.out.println("Loading club data...");
 
         // Retrieve club data from the database
         List<Club> clubs = database.getClubDataForAdvisor();
@@ -79,7 +79,6 @@ public class AdvisorController {
         // Set the items of the TableView
         clubTable.setItems(clubList);
 
-        System.out.println("Club data loaded successfully.");
     }
 
     @FXML
@@ -103,11 +102,6 @@ public class AdvisorController {
         }
     }
 
-
-
-
-
-
     @FXML
     public void goBack(ActionEvent actionEvent)throws Exception {
         Stage MainStage =(Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
@@ -117,7 +111,7 @@ public class AdvisorController {
     }
 
     @FXML
-    public void createClub(ActionEvent actionEvent) {
+    public void createClub(ActionEvent actionEvent) throws SQLException {
         // Get data from input fields
         String clubName = clubNameInput.getText();
         String clubDescription = clubDescriptionInput.getText();
@@ -126,6 +120,10 @@ public class AdvisorController {
         // Validate input
         if (clubName.isEmpty() || clubDescription.isEmpty() || advisorID.isEmpty()) {
             showAlert("Please fill in all fields.");
+            return;
+        }
+        if (!database.isAdvisorIdValid(advisorID)) {
+            showAlert("Advisor does not exist. Please enter a valid advisor ID.");
             return;
         }
 

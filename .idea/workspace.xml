@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e9966e8-8faa-46b3-b0c5-de77800c1479" name="Changes" comment="load clubs added to table view">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="2e9966e8-8faa-46b3-b0c5-de77800c1479" name="Changes" comment="Update and Delete Clubs&#10;Row Click">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sacms/AdvisorController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sacms/AdvisorController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/sacms/Database.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/sacms/Database.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/sacms/Advisor.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/sacms/Advisor.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -119,7 +117,21 @@
       <option name="project" value="LOCAL" />
       <updated>1701170086630</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Update and Delete Clubs&#10;Row Click">
+      <created>1701182009073</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1701182009073</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Update and Delete Clubs&#10;Row Click">
+      <created>1701182039451</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1701182039451</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -140,7 +152,8 @@
     <MESSAGE value="a few changes to club creation gui" />
     <MESSAGE value="Connected to Database&#10;Club initialize" />
     <MESSAGE value="Create club" />
-    <option name="LAST_COMMIT_MESSAGE" value="Create club" />
+    <MESSAGE value="Update and Delete Clubs&#10;Row Click" />
+    <option name="LAST_COMMIT_MESSAGE" value="Update and Delete Clubs&#10;Row Click" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/CACMS$SACMS.ic" NAME="SACMS Coverage Results" MODIFIED="1697389811940" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

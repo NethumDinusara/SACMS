@@ -373,6 +373,18 @@ public class Database {
             }
         }
     }
+    public boolean isAdvisorIdValid(String advisorID) throws SQLException {
+        String query = "SELECT COUNT(*) FROM advisor WHERE Username = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, advisorID);
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                resultSet.next();
+                int count = resultSet.getInt(1);
+                return count > 0;
+            }
+        }
+    }
 
     // Helper method to insert an advisor if not exists
     private void insertAdvisor(Connection connection, String advisorID) throws SQLException {
