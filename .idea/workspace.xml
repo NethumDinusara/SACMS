@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="2e9966e8-8faa-46b3-b0c5-de77800c1479" name="Changes" comment="a few changes to club creation gui">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="2e9966e8-8faa-46b3-b0c5-de77800c1479" name="Changes" comment="a few changes to club creation gui" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -128,6 +126,7 @@
       <workItem from="1700816847507" duration="4137000" />
       <workItem from="1700821587006" duration="614000" />
       <workItem from="1700855835648" duration="311000" />
+      <workItem from="1701161068519" duration="292000" />
     </task>
     <task id="LOCAL-00001" summary="first version">
       <option name="closed" value="true" />
@@ -184,8 +183,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/main/java/com/example/sacms/Database.java</url>
-          <line>124</line>
-          <properties class="com.example.sacms.Database">
+          <line>127</line>
+          <properties class="com.example.sacms.Database" method="getMemberData">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>

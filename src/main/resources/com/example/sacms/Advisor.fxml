@@ -190,27 +190,16 @@
                   <Font name="System Bold" size="19.5" />
                </font>
             </Label>
-            <Text fill="WHITE" layoutX="25.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Clubs :" wrappingWidth="71.99999999999989">
+            <Text fill="WHITE" layoutX="20.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Events:" wrappingWidth="71.99999999999989">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Text>
-            <TableView layoutX="22.0" layoutY="91.0" prefHeight="98.0" prefWidth="595.0" style="-fx-border-radius: 10;">
+            <TableView fx:id="eventsTable" layoutX="22.0" layoutY="121.0" prefHeight="262.0" prefWidth="595.0">
                <columns>
-                  <TableColumn prefWidth="306.0" text="CLUB ID" />
-                  <TableColumn minWidth="0.0" prefWidth="287.0" text="CLUB NAME" />
-               </columns>
-            </TableView>
-            <Text fill="WHITE" layoutX="25.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Events:" wrappingWidth="71.99999999999989">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Text>
-            <TableView layoutX="22.0" layoutY="252.0" prefHeight="131.0" prefWidth="595.0">
-               <columns>
-                  <TableColumn prefWidth="189.0" text="EVENT ID" />
-                  <TableColumn prefWidth="209.0" text="EVENT NAME" />
-                  <TableColumn prefWidth="196.0" text="CLUB NAME" />
+                  <TableColumn fx:id="eventIdColumn" prefWidth="189.0" text="EVENT ID" />
+                  <TableColumn fx:id="eventNameColumn" prefWidth="209.0" text="EVENT NAME" />
+                  <TableColumn fx:id="clubNameColumn1" prefWidth="196.0" text="CLUB NAME" />
                </columns>
             </TableView>
             <Text fill="WHITE" layoutX="20.0" layoutY="424.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-line-spacing: 4;" text="Event Attendance By Searching  EVENT ID : " wrappingWidth="281.9999999999999">
@@ -218,7 +207,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Text>
-            <TextField layoutX="124.0" layoutY="434.0" prefHeight="25.0" prefWidth="136.0" />
+            <TextField fx:id="eventIdTextField" layoutX="124.0" layoutY="434.0" prefHeight="25.0" prefWidth="136.0" />
          </children>
       </AnchorPane>
       <AnchorPane fx:id="attendanceTracking" layoutX="217.0" layoutY="54.0" minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="665.0" styleClass="pane" stylesheets="@../../../mainStyle.css" visible="false">
@@ -234,13 +223,13 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Text>
-            <TableView layoutX="22.0" layoutY="91.0" prefHeight="310.0" prefWidth="615.0" style="-fx-border-radius: 10;">
+            <TableView fx:id="ParticipantTable" layoutX="22.0" layoutY="91.0" prefHeight="310.0" prefWidth="615.0" style="-fx-border-radius: 10;">
                <columns>
-                  <TableColumn prefWidth="140.0" text="First Name" />
-                  <TableColumn minWidth="0.0" prefWidth="120.0" text="Last Name" />
-                  <TableColumn minWidth="0.0" prefWidth="113.0" text="Grade" />
-                  <TableColumn minWidth="0.0" prefWidth="131.0" text="Phone Number" />
-                  <TableColumn minWidth="0.0" prefWidth="110.0" text="Email" />
+                  <TableColumn fx:id="StudentIdColumn" minWidth="0.0" prefWidth="131.0" text="StudentID" />
+                  <TableColumn fx:id="StudentFirstNameColumn" prefWidth="140.0" text="First Name" />
+                  <TableColumn fx:id="StudentLastNameColumn" minWidth="0.0" prefWidth="120.0" text="Last Name" />
+                  <TableColumn fx:id="GradeColumn" minWidth="0.0" prefWidth="113.0" text="Grade" />
+                  <TableColumn fx:id="StatusCloumn" minWidth="0.0" prefWidth="110.0" text="Status" />
                </columns>
             </TableView>
          </children>

@@ -44,6 +44,8 @@ public class AdvisorLoginController {
                 advisorController.setUsername(username);
                 advisorController.setAdvisorData(advisor);
 
+
+
                 // Set the scene
                 Stage MainStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
                 MainStage.setScene(new Scene(root));
@@ -52,10 +54,10 @@ public class AdvisorLoginController {
                 showAlert("Failed to retrieve advisor data");
             }
 
-    } else {
-        showAlert("Invalid username or password");
+        } else {
+            showAlert("Invalid username or password");
+        }
     }
-}
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");

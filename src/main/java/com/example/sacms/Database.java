@@ -1,6 +1,8 @@
 package com.example.sacms;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Database {
     final String connectionUrl;
@@ -8,6 +10,7 @@ public class Database {
     public Database() {
         connectionUrl = "jdbc:mysql://localhost/sacms";
     }
+
     public Connection getConnection() {
         try {
             return DriverManager.getConnection(connectionUrl, "root", "");
@@ -44,9 +47,9 @@ public class Database {
 
 
     // Registration method for both members and advisors
-    public boolean registerUser(User user,String userType){
+    public boolean registerUser(User user, String userType) {
         String query = "";
-        if ("member".equals(userType)){
+        if ("member".equals(userType)) {
             query = "INSERT INTO member (`Username`, `FirstName`, `LastName`, `PhoneNumber`, `Email`, `Password`, `DateOfBirth`, `Gender`, `Grade`,`StudentID`)" +
                     "VALUES (?,?,?,?,?,?,?,?,?,?)";
         } else if ("advisor".equals(userType)) {
@@ -55,29 +58,29 @@ public class Database {
         }
 
         try (Connection connection = getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)){
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
 
             //Set common fields
-            preparedStatement.setString(1,user.getUsername());
-            preparedStatement.setString(2,user.getFirstName());
-            preparedStatement.setString(3,user.getLastName());
-            preparedStatement.setString(4,user.getPhoneNumber());
-            preparedStatement.setString(5,user.getEmail());
-            preparedStatement.setString(6,user.getPassword());
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getFirstName());
+            preparedStatement.setString(3, user.getLastName());
+            preparedStatement.setString(4, user.getPhoneNumber());
+            preparedStatement.setString(5, user.getEmail());
+            preparedStatement.setString(6, user.getPassword());
 
             //Set User-specific fields
-            if("member".equals(userType)){
+            if ("member".equals(userType)) {
 
                 Member member = (Member) user;
-                preparedStatement.setDate(7,member.getDateOfBirth());
-                preparedStatement.setString(8,member.getGender());
+                preparedStatement.setDate(7, member.getDateOfBirth());
+                preparedStatement.setString(8, member.getGender());
                 preparedStatement.setString(9, member.getGrade());
                 preparedStatement.setString(10, member.getStudentId());
 
             } else if ("advisor".equals(userType)) {
 
                 Advisor advisor = (Advisor) user;
-                preparedStatement.setString(7,advisor.getTeacherId());
+                preparedStatement.setString(7, advisor.getTeacherId());
 
             }
 
@@ -87,7 +90,7 @@ public class Database {
             // Return true if registration is successful (rowsAffected > 0)
             return rowsAffected > 0;
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("Error registering user");
             System.out.println(e.getMessage());
             return false;
@@ -96,9 +99,9 @@ public class Database {
     }
 
     //checking the already exists students
-    public boolean isUserIdExists(String UserID,String UserType) {
+    public boolean isUserIdExists(String UserID, String UserType) {
         String query = "";
-        if ("member".equals(UserType)){
+        if ("member".equals(UserType)) {
             query = "SELECT COUNT(*) FROM member WHERE StudentID = ?";
         } else if ("advisor".equals(UserType)) {
             query = "SELECT COUNT(*) FROM advisor WHERE TeacherID = ?";
@@ -154,7 +157,6 @@ public class Database {
     }
 
 
-
     // Get advisor details to the advisor controllers.
     public Advisor getAdvisorData(String username) {
         String query = "SELECT * FROM advisor WHERE username = ?";
@@ -173,7 +175,7 @@ public class Database {
 
                     // Creating object to store data
 
-                    Advisor advisor = new Advisor(firstName,lastName,null,username,null,null,teacherId);
+                    Advisor advisor = new Advisor(firstName, lastName, null, username, null, null, teacherId);
                     return advisor;
                 }
 
@@ -183,8 +185,63 @@ public class Database {
             System.out.println(e.getMessage());
         }
         return null;
-
     }
 
-}
+    // Get event data and advisor data from the database
 
+    public List<Event> getAdvisorEvents(String username) throws SQLException {
+        List<Event> events = new ArrayList<>();
+        String query = "SELECT * FROM event WHERE Username = ? ";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, username);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+
+                while (resultSet.next()) {
+                    int eventID = resultSet.getInt("EventID");
+                    String eventName = resultSet.getString("EventName");
+                    String dateOfEvent = resultSet.getString("DateOfEvent");
+                    String venue = resultSet.getString("Venue");
+                    String clubName = resultSet.getString("ClubName");
+
+
+                    Event event = new Event(eventID, eventName, "dateOfEvent", "venue", "", clubName);
+                    events.add(event);
+
+                    getAdvisorEventIDs(username);
+                }
+            }
+        }
+
+        return events;
+    }
+
+    // Get all the event ids to a one list
+    public List<Integer> getAdvisorEventIDs(String username) throws SQLException {
+        List<Integer> eventIdList = new ArrayList<>();
+        String query = "SELECT EventID FROM event WHERE Username = ?";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            preparedStatement.setString(1, username);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                while (resultSet.next()) {
+                    int eventID = resultSet.getInt("EventID");
+                    Integer eventIDAsString = Integer.valueOf(String.valueOf(eventID));
+                    eventIdList.add(eventIDAsString);
+                }
+            }
+
+        }
+
+        return eventIdList;
+    }
+
+
+
+}
