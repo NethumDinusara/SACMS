@@ -69,6 +69,14 @@ public class MemberLoginController {
         MainStage.setTitle("SACMS");
     }
 
+    @FXML
+    public void goRegister(ActionEvent actionEvent)throws Exception {
+        Stage MainStage =(Stage) ((Node)actionEvent.getSource()).getScene().getWindow();
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("MemberRegistration.fxml")));
+        MainStage.setScene(new Scene(root));
+        MainStage.setTitle("Member Registration");
+    }
+
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");

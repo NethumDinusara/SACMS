@@ -78,6 +78,7 @@
 .table-view {
     -fx-background-color:linear-gradient(to bottom, rgb(20, 36, 50) 11%, rgb(124, 143, 161) 85%);
     -fx-background-radius:15 15 15 15;
+    -fx-background-color:transparent;
 
     }
 .table-view .column-header-background{

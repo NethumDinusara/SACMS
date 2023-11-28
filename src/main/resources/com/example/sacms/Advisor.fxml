@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -16,14 +17,16 @@
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sacms.AdvisorController">
+
+<AnchorPane fx:id="advisorANC" prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sacms.AdvisorController">
     <children>
         <VBox layoutY="87.0" prefHeight="486.0" prefWidth="198.0" styleClass="navi" stylesheets="@../../../mainStyle.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0">
             <children>
                 <Pane prefHeight="413.0" prefWidth="198.0">
                     <children>
-                        <Button layoutX="11.0" layoutY="65.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="177.0" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Manage Clubs">
+                        <Button fx:id="btnManageClubs" layoutX="11.0" layoutY="65.0" mnemonicParsing="false" onAction="#switchingPages" prefHeight="47.0" prefWidth="177.0" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Manage Clubs">
                             <font>
                                 <Font name="Arial Rounded MT Bold" size="15.0" />
                             </font>
@@ -47,7 +50,7 @@
                                 </ImageView>
                             </graphic>
                         </Button>
-                        <Button layoutX="11.0" layoutY="193.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="177.0" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Attendance">
+                        <Button fx:id="btnAttendance" layoutX="11.0" layoutY="193.0" mnemonicParsing="false" onAction="#switchingPages" prefHeight="47.0" prefWidth="177.0" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Attendance">
                             <font>
                                 <Font name="Arial Rounded MT Bold" size="15.0" />
                             </font>
@@ -115,27 +118,22 @@
                 <Font name="Arial Rounded MT Bold" size="37.0" />
             </font>
         </Label>
-      <SplitPane dividerPositions="0.5827359617682197" layoutX="214.0" layoutY="14.0" prefHeight="523.0" prefWidth="671.0">
+      <SplitPane fx:id="manageClub" dividerPositions="0.5827359617682197" layoutX="214.0" layoutY="14.0" prefHeight="523.0" prefWidth="671.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="522.0" prefWidth="379.0" styleClass="pane" stylesheets="@../../../mainStyle.css">
                <children>
-                  <TextField fx:id="firstName" alignment="CENTER" layoutX="60.0" layoutY="113.0" prefHeight="36.0" prefWidth="267.0" promptText="Enter New Club Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                  <TextField fx:id="clubNameInput" alignment="CENTER" layoutX="59.0" layoutY="119.0" prefHeight="36.0" prefWidth="267.0" promptText="Enter New Club Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="14.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="nameInput" alignment="CENTER" layoutX="44.0" layoutY="162.0" prefHeight="98.0" prefWidth="300.0" promptText="Enter New Club Description" />
+                  <TextField fx:id="clubDescriptionInput" alignment="CENTER" layoutX="44.0" layoutY="192.0" prefHeight="98.0" prefWidth="300.0" promptText="Enter New Club Description" />
                   <Label alignment="TOP_RIGHT" layoutX="80.0" layoutY="33.0" opacity="0.75" text="MANAGE CLUBS" textFill="WHITE">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="31.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="firstName1" alignment="CENTER" layoutX="59.0" layoutY="274.0" prefHeight="36.0" prefWidth="267.0" promptText="Enter Club Advisor Name " styleClass="textField" stylesheets="@../../../mainStyle.css">
-                     <font>
-                        <Font name="Arial Rounded MT Bold" size="14.0" />
-                     </font>
-                  </TextField>
-                  <TextField fx:id="firstName11" alignment="CENTER" layoutX="59.0" layoutY="335.0" prefHeight="36.0" prefWidth="267.0" promptText="Enter Club President Name" styleClass="textField" stylesheets="@../../../mainStyle.css">
+                  <TextField fx:id="advisorIDInput" alignment="CENTER" layoutX="59.0" layoutY="327.0" prefHeight="36.0" prefWidth="267.0" promptText="Enter Club Advisor ID " styleClass="textField" stylesheets="@../../../mainStyle.css">
                      <font>
                         <Font name="Arial Rounded MT Bold" size="14.0" />
                      </font>
@@ -149,12 +147,26 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TableView fx:id="clubtable" layoutX="7.0" layoutY="59.0" onMouseClicked="#initialize" prefHeight="347.0" prefWidth="267.0">
-                    <columns>
-                      <TableColumn prefWidth="75.9998779296875" text="Club Name" />
-                      <TableColumn prefWidth="89.60009002685547" text="Advisor Name" />
-                        <TableColumn prefWidth="100.7999267578125" text="Presidents Name" />
-                    </columns>
+                  <TableView fx:id="clubTable" onMouseClicked="#onRowClicked" layoutX="7.0" layoutY="59.0" prefHeight="347.0" prefWidth="267.0">
+                      <TableColumn fx:id="clubNameColumn" prefWidth="75.9998779296875" text="Club Name">
+                          <cellValueFactory>
+                              <PropertyValueFactory property="clubName" />
+                          </cellValueFactory>
+                      </TableColumn>
+                      <TableColumn fx:id="advisorNameColumn" prefWidth="89.60009002685547" text="Advisor ID">
+                          <cellValueFactory>
+                              <PropertyValueFactory property="advisorID" />
+                          </cellValueFactory>
+                      </TableColumn>
+                      <TableColumn fx:id="clubDescriptionColumn" prefWidth="100.7999267578125" text="Club Description">
+                          <cellValueFactory>
+                              <PropertyValueFactory property="clubDescription" />
+                          </cellValueFactory>
+                      </TableColumn>
+                     <columns>
+                        <TableColumn fx:id="clubNameColumn" prefWidth="113.60009908676147" text="Club Name" />
+                        <TableColumn fx:id="clubDescriptionColumn" prefWidth="154.39989471435547" text="Club Description" />
+                     </columns>
                   </TableView>
                   <Button layoutX="62.0" layoutY="423.0" mnemonicParsing="false" onAction="#updateClub" opacity="0.5" prefHeight="30.0" prefWidth="150.0" style="-fx-background-radius: 30px; -fx-border-radius: 30px;" styleClass="pane" stylesheets="@../../../mainStyle.css" text="Update Club Records" textFill="WHITE">
                      <font>
@@ -172,5 +184,69 @@
             </AnchorPane>
         </items>
       </SplitPane>
+      <AnchorPane fx:id="clubAttendance" layoutX="217.0" layoutY="54.0" minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="665.0" styleClass="pane" stylesheets="@../../../mainStyle.css" visible="false">
+         <children>
+            <Button fx:id="btnSearch" layoutX="300.0" layoutY="431.0" mnemonicParsing="false" onAction="#switchingPages" prefHeight="31.0" prefWidth="119.0" style="-fx-border-radius: 5;" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Search">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="15.0" />
+               </font>
+            </Button>
+            <Text fill="WHITE" layoutX="25.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Advisor Name :" wrappingWidth="135.9999999999999">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Text>
+            <Label fx:id="advisorName" layoutX="161.0" layoutY="18.0" prefHeight="25.0" prefWidth="259.0" style="-fx-background-color: white; -fx-border-radius: 20;" text="Name">
+               <font>
+                  <Font name="System Bold" size="19.5" />
+               </font>
+            </Label>
+            <Text fill="WHITE" layoutX="20.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Events:" wrappingWidth="71.99999999999989">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Text>
+            <TableView fx:id="eventsTable" layoutX="22.0" layoutY="121.0" prefHeight="262.0" prefWidth="595.0">
+               <columns>
+                  <TableColumn fx:id="eventIdColumn" prefWidth="189.0" text="EVENT ID" />
+                  <TableColumn fx:id="eventNameColumn" prefWidth="209.0" text="EVENT NAME" />
+                  <TableColumn fx:id="clubNameColumn1" prefWidth="196.0" text="CLUB NAME" />
+               </columns>
+            </TableView>
+            <Text fill="WHITE" layoutX="20.0" layoutY="424.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-line-spacing: 4;" text="Event Attendance By Searching  EVENT ID : " wrappingWidth="281.9999999999999">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Text>
+            <TextField fx:id="eventIdTextField" layoutX="124.0" layoutY="434.0" prefHeight="25.0" prefWidth="136.0" />
+         </children>
+      </AnchorPane>
+      <AnchorPane fx:id="attendanceTracking" layoutX="217.0" layoutY="54.0" minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="665.0" styleClass="pane" stylesheets="@../../../mainStyle.css" visible="false">
+         <children>
+            <Text fill="WHITE" layoutX="25.0" layoutY="38.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Event Name :" wrappingWidth="135.9999999999999">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Text>
+            <Label fx:id="eventNameTF" layoutX="161.0" layoutY="18.0" prefHeight="25.0" prefWidth="198.0" style="-fx-background-color: white; -fx-border-radius: 20;" text="Event Name">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font></Label>
+            <Text fill="WHITE" layoutX="25.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mark Attendance For The Event: " wrappingWidth="371.9999999999999">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Text>
+            <TableView fx:id="ParticipantTable" layoutX="22.0" layoutY="91.0" prefHeight="310.0" prefWidth="615.0" style="-fx-border-radius: 10;">
+               <columns>
+                  <TableColumn fx:id="StudentIdColumn" minWidth="0.0" prefWidth="131.0" text="StudentID" />
+                  <TableColumn fx:id="StudentFirstNameColumn" prefWidth="140.0" text="First Name" />
+                  <TableColumn fx:id="StudentLastNameColumn" minWidth="0.0" prefWidth="120.0" text="Last Name" />
+                  <TableColumn fx:id="GradeColumn" minWidth="0.0" prefWidth="113.0" text="Grade" />
+                  <TableColumn fx:id="StatusCloumn" minWidth="0.0" prefWidth="110.0" text="Status" />
+               </columns>
+            </TableView>
+         </children>
+      </AnchorPane>
     </children>
 </AnchorPane>
