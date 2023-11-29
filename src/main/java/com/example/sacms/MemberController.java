@@ -16,6 +16,7 @@ import javafx.util.Callback;
 
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Objects;
 
@@ -111,6 +112,20 @@ public class MemberController{
             setMemberData(member);
             loadClubsData();
         }
+
+
+        clubNameCol.setCellValueFactory(new PropertyValueFactory<>("clubName"));
+        eventNameCol.setCellValueFactory(new PropertyValueFactory<>("eventName"));
+        eventVenueCol.setCellValueFactory(new PropertyValueFactory<>("venue"));
+        eventDateCol.setCellValueFactory(new PropertyValueFactory<>("dateofevent"));
+        eventTimeCol.setCellValueFactory(new PropertyValueFactory<>("eventTime"));
+
+        try {
+            loadEventsdata();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
 
     private Callback<TableColumn<Club, Button>, TableCell<Club, Button>> createQuitButtonCellFactory() {
@@ -160,7 +175,7 @@ public class MemberController{
         clubsList.setItems(availableClubsData);
     }
 
-    public void SwitchForm(ActionEvent event) {
+    public void SwitchForm(ActionEvent event) throws SQLException {
         if (event.getSource() == btnProfile) {
             yourProfile.setVisible(true);
             yourClubs.setVisible(false);
@@ -181,6 +196,7 @@ public class MemberController{
             yourClubs.setVisible(false);
             Events.setVisible(true);
 
+            loadEventsdata();
 
         }
     }
@@ -216,5 +232,12 @@ public class MemberController{
             // Refresh the clubs data
             loadClubsData();
         }
+    }
+
+    public void loadEventsdata() throws SQLException {
+        List<Event> events=database.getEventForMember();
+
+        ObservableList<Event> eventList = FXCollections.observableArrayList(events);
+        eventTableID.setItems(eventList);
     }
 }

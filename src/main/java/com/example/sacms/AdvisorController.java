@@ -1,6 +1,7 @@
 package com.example.sacms;
 
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -10,6 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -17,6 +19,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -92,10 +95,27 @@ public class AdvisorController {
 
     @FXML
     private Label eventNameTF;
-  
+
+    // FxIDs for member table in attendance tracking
+    @FXML
+    private TableView<Member> ParticipantTable;
+    @FXML
+    private  TableColumn<Member, Integer> StudentIdColumn;
+    @FXML
+    private TableColumn<Member, String> StudentFirstNameColumn;
+    @FXML
+    private TableColumn<Member, String> StudentLastNameColumn;
+    @FXML
+    private TableColumn<Member, String> GradeColumn;
+    @FXML
+    private TableColumn<Member, Boolean> StatusColumn;
+
+
+
 
     @FXML
     private void initialize() throws SQLException {
+
         // Initialize the TableView columns
         clubNameColumn.setCellValueFactory(new PropertyValueFactory<>("clubName"));
         clubDescriptionColumn.setCellValueFactory(new PropertyValueFactory<>("clubDescription"));
@@ -115,7 +135,40 @@ public class AdvisorController {
             setAdvisorData(advisor);
             loadEventsData();
         }
+
+        // populate participant table
+
+        StudentIdColumn.setCellValueFactory(new PropertyValueFactory<>("studentId"));
+        StudentFirstNameColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        StudentLastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        GradeColumn.setCellValueFactory(new PropertyValueFactory<>("grade"));
+
+        // Create the StatusColumn with checkboxes
+        StatusColumn.setCellValueFactory(cellData -> cellData.getValue().attendanceProperty());
+        StatusColumn.setCellFactory(CheckBoxTableCell.forTableColumn(StatusColumn));
+        StatusColumn.setEditable(true);
+
+        try {
+            loadEventData();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
     }
+
+    // load participant data
+    public void loadEventData() throws SQLException {
+        // Fetch event data and display in the table
+        List<Member> members = database.getMembers();
+        for(Member member : members){
+            member.setAttendanceStatus(false);
+        }
+
+        ObservableList<Member> memberData = FXCollections.observableArrayList(members);
+        ParticipantTable.setItems(memberData);
+    }
+
+
 
     private void loadClubData() {
         // Retrieve club data from the database
@@ -157,7 +210,6 @@ public class AdvisorController {
     public Button advScheduleEvent;
 
 
-
     public void loadEventsData() throws SQLException {
         List<Event> events = database.getAdvisorEvents(username);
         ObservableList<Event> eventData = FXCollections.observableArrayList(events);
@@ -166,6 +218,7 @@ public class AdvisorController {
     }
 
 
+    int currentEventID;
     public void switchingPages(ActionEvent event) throws SQLException {
 
         if(event.getSource() == btnManageClubs ){
@@ -179,27 +232,24 @@ public class AdvisorController {
             manageClub.setVisible(false);
             clubAttendance.setVisible(true);
             attendanceTracking.setVisible(false);
-
             loadEventsData();
 
 
-        } else if (event.getSource() == btnSearch) {
-
-            // Set the event id to a text field
+        }  else if (event.getSource() == btnSearch) {
             int eventID = Integer.parseInt(eventIdTextField.getText());
-            // Import event id list from Database class
             List<Integer> IdList = database.getAdvisorEventIDs(username);
-
             boolean found = false;
 
-            // Go through the event id list and check the event id is valid or not
             for (Integer evenIDinList : IdList) {
                 if (evenIDinList.equals(eventID)) {
+
                     manageClub.setVisible(false);
                     clubAttendance.setVisible(false);
                     attendanceTracking.setVisible(true);
+                    currentEventID = eventID; // Store the current event ID
+                    eventNameTF.setText(database.getAdvisorName(eventID, username));
+                    loadEventData();
 
-                    eventNameTF.setText(database.getAdvisorName(eventID,username));
                     found = true;
                     break;
                 }
@@ -209,7 +259,6 @@ public class AdvisorController {
             if (!found) {
                 showAlert("Please Enter An Event In The Table.");
             }
-
             // Clear text field after an execution
             eventIdTextField.setText("");
         }
@@ -234,6 +283,46 @@ public class AdvisorController {
         MainStage.setScene(new Scene(root));
         MainStage.setTitle("SACMS");
     }
+
+    public void onSubmitButtonClick(ActionEvent actionEvent) throws SQLException {
+        ObservableList<Member> participants = ParticipantTable.getItems();
+        List<AttendanceRecord> attendanceRecords = new ArrayList<>();
+
+        for (Member member : participants) {
+            BooleanProperty attendanceProperty = member.attendanceProperty();
+
+            if (attendanceProperty.get()) {
+                // If the checkbox is selected, store the attendance record
+                String status = "Present";
+
+                AttendanceRecord record = new AttendanceRecord(
+                        member.getStudentId(),
+                        member.getFirstName(), // Use the checked value of FirstName
+                        member.getLastName(),
+                        member.getGrade(),
+                        currentEventID,
+                        status
+                );
+                attendanceRecords.add(record);
+            }
+        }
+
+        manageClub.setVisible(false);
+        clubAttendance.setVisible(true);
+        attendanceTracking.setVisible(false);
+
+        submitAttendance(attendanceRecords);
+    }
+
+    private void submitAttendance(List<AttendanceRecord> attendanceRecords) throws SQLException {
+        // Insert attendance records into the memberattendance table
+        try {
+            database.insertAttendanceRecords(attendanceRecords);
+        } catch (SQLException e) {
+            showAlert("Failed to submit attendance. Please try again.");
+        }
+    }
+
 
     @FXML
     public void onScheduleBottonClick(ActionEvent actionEvent)throws Exception {

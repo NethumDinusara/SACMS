@@ -9,7 +9,7 @@ import java.sql.Date;
 
 public class Club {
 
-    private String clubName;
+    public String clubName;
 
     private String clubDescription;
 

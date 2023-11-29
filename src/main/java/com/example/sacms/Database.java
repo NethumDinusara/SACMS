@@ -287,12 +287,12 @@ public class Database {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             // Set common fields
-            preparedStatement.setString(1, e1.getcName());
-            preparedStatement.setString(2, e1.geteName());
-            preparedStatement.setString(3, e1.getAdvName());
+            preparedStatement.setString(1, e1.getClubName());
+            preparedStatement.setString(2, e1.getEventName());
+            preparedStatement.setString(3, e1.getAdvisorName());
             preparedStatement.setString(4, e1.getVenue());
-            preparedStatement.setString(5, e1.geteDate());
-            preparedStatement.setString(6, e1.geteTime());
+            preparedStatement.setString(5, e1.getDateofevent());
+            preparedStatement.setString(6, e1.getEventTime());
 
 
             // Execute the query
@@ -642,7 +642,7 @@ public class Database {
                     String clubName = resultSet.getString("ClubName");
 
 
-                    Event event = new Event(String.valueOf(eventID), eventName, "dateOfEvent", "venue", "", clubName);
+                    Event event = new Event(eventID, eventName, clubName);
                     events.add(event);
 
                     getAdvisorEventIDs(username);
@@ -654,6 +654,7 @@ public class Database {
 
         return events;
     }
+
 
     public String getAdvisorName(int eventID, String username) {
         String query = "SELECT EventName FROM event WHERE Username = ? AND EventID = ?";
@@ -698,6 +699,75 @@ public class Database {
         }
 
         return eventIdList;
+    }
+
+    // Get member detail from member table
+    public List<Member> getMembers() throws SQLException {
+        List<Member> members = new ArrayList<>();
+        String query = "SELECT StudentID, FirstName, LastName, Grade FROM member";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                String studentId = resultSet.getString("StudentID");
+                String firstName = resultSet.getString("FirstName");
+                String lastName = resultSet.getString("LastName");
+                String grade = resultSet.getString("Grade");
+
+                Member member = new Member(studentId, firstName, lastName, grade);
+                members.add(member);
+            }
+        }
+
+        return members;
+    }
+
+
+    public void insertAttendanceRecords(List<AttendanceRecord> records) throws SQLException {
+        String query = "INSERT INTO memberattendance (StudentID, FirstName, LastName, Grade, EventID) VALUES (?, ?, ?, ?, ?)";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+
+            for (AttendanceRecord record : records) {
+                preparedStatement.setInt(1, record.getStudentId());
+                preparedStatement.setString(2, record.getFirstName());
+                preparedStatement.setString(3, record.getLastName());
+                preparedStatement.setInt(4, record.getGrade());
+                preparedStatement.setInt(5, record.getEventID());
+                preparedStatement.addBatch();
+            }
+
+            preparedStatement.executeBatch();
+            System.out.println(preparedStatement);
+        }
+
+    }
+
+    public List<Event> getEventForMember() throws SQLException {
+        List<Event> events = new ArrayList<>();
+        String query = "SELECT ClubName, EventName, Venue,DateOfEvent,EventTime  FROM event";
+
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query);
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            while (resultSet.next()) {
+                String clubname = resultSet.getString("ClubName");
+                String eventname = resultSet.getString("EventName");
+                String venue = resultSet.getString("Venue");
+                String eventdate = resultSet.getString("DateOfEvent");
+                String eventtime = resultSet.getString("EventTime");
+
+
+                Event event = new Event(clubname, eventname,"", venue, eventdate,eventtime);
+                events.add(event);
+            }
+        }
+
+        return events;
     }
 
 

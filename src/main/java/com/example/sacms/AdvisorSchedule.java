@@ -120,8 +120,8 @@ public class AdvisorSchedule {
 
     public void createEvent(ActionEvent actionEvent) throws IOException, SQLException {
         Event obj = new Event();
-        obj.setcName(clubName.getText());
-        if (obj.getcName().equals("")){
+        obj.setClubName(clubName.getText());
+        if (obj.getClubName().equals("")){
             clubNameError.setText("Must Fill All Fields!");
             clubNameVar = false;
         } else {
@@ -135,16 +135,16 @@ public class AdvisorSchedule {
             clubNameVar = true;  // Only execute this line if the club name is valid
 
         }
-        obj.seteName(eventName.getText());
-        if(obj.geteName().equals("")){
+        obj.setEventName(eventName.getText());
+        if(obj.getEventName().equals("")){
             eventNameError.setText("Must Fill All Fields!");
             eventNameVar = false;
         }else {
             eventNameError.setText("");
             eventNameVar = true;
         }
-        obj.setAdvName(advisorName.getText());
-        if(obj.getAdvName().equals("")){
+        obj.setAdvisorName(advisorName.getText());
+        if(obj.getAdvisorName().equals("")){
             advNameError.setText("Must Fill All Fields!");
             advNameVar = false;
         } else {
@@ -159,16 +159,16 @@ public class AdvisorSchedule {
             venueError.setText("");
             eventVenueVar = true;
         }
-        obj.seteDate(eventDate.getText());
-        if(obj.geteDate().equals("")){
+        obj.setDateofevent(eventDate.getText());
+        if(obj.getDateofevent().equals("")){
             eDateError.setText("Must Fill All Fields!");
             eventDateVar = false;
         }else {
             eDateError.setText("");
             eventDateVar = true;
         }
-        obj.seteTime(eventTime.getText());
-        if(obj.geteTime().equals("")){
+        obj.setEventTime(eventTime.getText());
+        if(obj.getEventTime().equals("")){
             eventTimeError.setText("Must Fill All Fields!");
             eventTimeVar = false;
         } else {

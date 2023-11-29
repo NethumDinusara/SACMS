@@ -19,7 +19,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane fx:id="advisorANC" prefHeight="550.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.sacms.AdvisorController">
     <children>
         <VBox layoutY="87.0" prefHeight="486.0" prefWidth="198.0" styleClass="navi" stylesheets="@../../../mainStyle.css" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0">
@@ -147,7 +146,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <TableView fx:id="clubTable" onMouseClicked="#onRowClicked" layoutX="7.0" layoutY="59.0" prefHeight="347.0" prefWidth="267.0">
+                  <TableView fx:id="clubTable" layoutX="7.0" layoutY="59.0" onMouseClicked="#onRowClicked" prefHeight="347.0" prefWidth="267.0">
                       <TableColumn fx:id="clubNameColumn" prefWidth="75.9998779296875" text="Club Name">
                           <cellValueFactory>
                               <PropertyValueFactory property="clubName" />
@@ -158,13 +157,13 @@
                               <PropertyValueFactory property="advisorID" />
                           </cellValueFactory>
                       </TableColumn>
-                      <TableColumn fx:id="clubDescriptionColumn" prefWidth="100.7999267578125" text="Club Description">
+                      <TableColumn prefWidth="100.7999267578125" text="Club Description">
                           <cellValueFactory>
                               <PropertyValueFactory property="clubDescription" />
                           </cellValueFactory>
                       </TableColumn>
                      <columns>
-                        <TableColumn fx:id="clubNameColumn" prefWidth="113.60009908676147" text="Club Name" />
+                        <TableColumn prefWidth="113.60009908676147" text="Club Name" />
                         <TableColumn fx:id="clubDescriptionColumn" prefWidth="154.39989471435547" text="Club Description" />
                      </columns>
                   </TableView>
@@ -237,15 +236,20 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Text>
-            <TableView fx:id="ParticipantTable" layoutX="22.0" layoutY="91.0" prefHeight="310.0" prefWidth="615.0" style="-fx-border-radius: 10;">
+            <TableView fx:id="ParticipantTable" editable="true" layoutX="22.0" layoutY="91.0" prefHeight="310.0" prefWidth="615.0" style="-fx-border-radius: 10;">
                <columns>
                   <TableColumn fx:id="StudentIdColumn" minWidth="0.0" prefWidth="131.0" text="StudentID" />
                   <TableColumn fx:id="StudentFirstNameColumn" prefWidth="140.0" text="First Name" />
                   <TableColumn fx:id="StudentLastNameColumn" minWidth="0.0" prefWidth="120.0" text="Last Name" />
                   <TableColumn fx:id="GradeColumn" minWidth="0.0" prefWidth="113.0" text="Grade" />
-                  <TableColumn fx:id="StatusCloumn" minWidth="0.0" prefWidth="110.0" text="Status" />
+                  <TableColumn fx:id="StatusColumn" minWidth="0.0" prefWidth="110.0" text="Attendance" />
                </columns>
             </TableView>
+            <Button layoutX="480.0" layoutY="421.0" mnemonicParsing="false" onAction="#onSubmitButtonClick" prefHeight="31.0" prefWidth="119.0" style="-fx-border-radius: 5;" styleClass="NavButton" stylesheets="@../../../mainStyle.css" text="Submit">
+               <font>
+                  <Font name="Arial Rounded MT Bold" size="15.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
     </children>
